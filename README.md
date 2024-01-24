@@ -17,7 +17,7 @@ To run these projects locally, you need to have Node.js and npm installed on you
 
 2. Navigate to the project folder using `cd assignments`
 
-3. Choose the project you want to run using `cd project-name`
+3. Choose the project you want to run using `git checkout -b branch-name`
 
 4. Install the dependencies using `npm install`
 
