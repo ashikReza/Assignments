@@ -1,4 +1,4 @@
-# TWS Assignments: https://github.com/ashikReza/assignments
+# TWS Assignments: 
 
 This repository contains my assignments for the TWS course. The assignments are:
 
