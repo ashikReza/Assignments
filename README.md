@@ -23,7 +23,7 @@ To run these projects locally, you need to have Node.js and npm installed on you
 
 5. Start the development server using `npm run dev`
 
-6. Open your browser and go to `http://localhost:3000` to see the project in action.
+6. Open your browser and go to `http://localhost:5173/` to see the project in action.
 
 ## Contributing
 
