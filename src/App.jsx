@@ -1,16 +1,27 @@
-import Nav from "./components/nav";
-import Hero from "./components/hero";
-import StudentsTable from "./components/studentsTable";
-import Footer from "./components/footer";
+import Header from "./Header";
+import Hero from "./Hero";
+import TaskBoard from "./components/taskBoard";
+import Footer from "./Footer";
+
+import { TaskProvider } from "./context/context";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <div className="bg-[#172227] font-[Inter] text-white">
-      <Nav />
+    <>
+      <Header />
       <Hero />
-      <StudentsTable />
+
+      <TaskProvider>
+        <TaskBoard />
+      </TaskProvider>
+
       <Footer />
-    </div>
+
+      <ToastContainer position="top-right" autoClose={3000} />
+    </>
   );
 }
 

@@ -1,0 +1,123 @@
+import { FaStar } from "react-icons/fa";
+import { useTaskContext } from "../context/context";
+
+import { toast } from "react-toastify";
+
+export default function TaskList() {
+  const { state, dispatch } = useTaskContext();
+  const { tasks, searchQuery } = state;
+
+  const filteredTasks = tasks.filter((task) =>
+    task.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  function handleEditTask(task) {
+    dispatch({ type: "SHOW_TASK_MODAL", payload: task });
+  }
+
+  function handleFavoriteToggle(taskId) {
+    dispatch({ type: "TOGGLE_FAVORITE", payload: taskId });
+  }
+
+  function handleDeleteTask(taskId) {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this task?"
+    );
+
+    if (isConfirmed) {
+      dispatch({ type: "DELETE_TASK", payload: taskId });
+
+      toast.success("Task deleted successfully ");
+      return;
+    }
+  }
+
+  const tagColors = [
+    "bg-[#FE1A1AB5]",
+    "bg-[#1C92FFB0]",
+    "bg-[#00D991A1]",
+    "bg-[#8407E6A8]",
+    "bg-[#00B2D9CC]",
+    "bg-[#BD560BB2]",
+  ];
+
+  return (
+    <div className="overflow-auto">
+      <table className="table-fixed overflow-auto xl:w-full">
+        <thead>
+          <tr>
+            <th className="p-4 pb-8 text-sm font-semibold capitalize w-[48px]"></th>
+            <th className="p-4 pb-8 text-sm font-semibold capitalize w-[300px] ">
+              Title
+            </th>
+            <th className="p-4 pb-8 text-sm font-semibold capitalize w-full">
+              Description
+            </th>
+            <th className="p-4 pb-8 text-sm font-semibold capitalize md:w-[350px]">
+              Tags
+            </th>
+            <th className="p-4 pb-8 text-sm font-semibold capitalize md:w-[100px]">
+              Priority
+            </th>
+            <th className="p-4 pb-8 text-sm font-semibold capitalize md:w-[100px]">
+              Options
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {filteredTasks.map((task) => (
+            <tr
+              className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2"
+              key={task.id}
+            >
+              <td className="cursor-pointer">
+                <button onClick={() => handleFavoriteToggle(task.id)}>
+                  {task.isFavorited ? (
+                    <FaStar color="yellow" size={22} />
+                  ) : (
+                    <FaStar color="gray" size={22} />
+                  )}
+                </button>
+              </td>
+              <td className="flex">{task.title}</td>
+              <td>{task.description}</td>
+              <td>
+                <ul className="flex justify-center gap-1.5 flex-wrap">
+                  {task.tags.map((tag, index) => (
+                    <li key={tag}>
+                      <span
+                        className={`inline-block h-5 whitespace-nowrap rounded-[45px] px-2.5 text-sm capitalize text-[#F4F5F6] ${
+                          tagColors[index % tagColors.length]
+                        }`}
+                      >
+                        {tag}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </td>
+              <td className="text-center">{task.priority}</td>
+              <td>
+                <div className="flex items-center justify-center space-x-3">
+                  <button
+                    className="text-red-500"
+                    onClick={() => handleDeleteTask(task.id)}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className="text-blue-500"
+                    onClick={() => handleEditTask(task)}
+                  >
+                    Edit
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
