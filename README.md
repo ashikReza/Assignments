@@ -1,12 +1,12 @@
-# [TWS Assignments] (https://github.com/ashikReza/assignments)
+# TWS Assignments: https://github.com/ashikReza/assignments
 
 This repository contains my assignments for the TWS course. The assignments are:
 
-- 1/ [smart-grade-showcase] (https://github.com/ashikReza/assignments/tree/smart-grade-showcase)
+- 1/ smart-grade-showcase: https://github.com/ashikReza/assignments/tree/smart-grade-showcase
 
-- 2/ [Book-Finder] (https://github.com/ashikReza/assignments/tree/Book-Finder)
+- 2/ Book-Finder: https://github.com/ashikReza/assignments/tree/Book-Finder
 
-- 3/ [tasker] (https://github.com/ashikReza/assignments/tree/tasker)
+- 3/ tasker: https://github.com/ashikReza/assignments/tree/tasker
 
 
 ## Installation and Usage
