@@ -72,7 +72,7 @@ export default function TaskModal() {
 
   return (
     <div
-      className="backdrop-blur-md h-full w-full z-50 flex justify-center items-center absolute top-0 "
+      className="backdrop-blur-md h-full w-full z-50 flex justify-center items-center fixed top-0 "
       onClick={handleBackdropClick}
     >
       <form
