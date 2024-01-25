@@ -62,7 +62,7 @@ export default function TaskModal() {
     dispatch({ type: "CLOSE_TASK_MODAL" });
   }
 
-  const handleBackdropClick = (e) => {
+  const handleOutsideClick  = (e) => {
     const formElement = document.getElementById("taskForm");
 
     if (formElement && !formElement.contains(e.target)) {
@@ -73,7 +73,7 @@ export default function TaskModal() {
   return (
     <div
       className="backdrop-blur-md h-full w-full z-50 flex justify-center items-center fixed top-0 "
-      onClick={handleBackdropClick}
+      onClick={handleOutsideClick}
     >
       <form
         id="taskForm"
