@@ -8,7 +8,7 @@ const Popup = ({ message, onConfirm, onCancel }) => {
         <div className="flex justify-end mt-4">
           <button
             onClick={onCancel}
-            className="bg-gradient-to-r from-red-500 to-red-600 py-2 px-4 rounded text-white hover:text-gray-200 mr-2 cursor-pointer focus:outline-none"
+            className="bg-gradient-to-r from-blue-500 to-blue-600 py-2 px-4 rounded text-white hover:text-gray-200 mr-2 cursor-pointer focus:outline-none"
           >
             No
           </button>
