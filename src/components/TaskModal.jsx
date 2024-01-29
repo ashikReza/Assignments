@@ -51,23 +51,53 @@ export default function TaskModal() {
       return;
     }
 
+    // Check if the task is not updated
+    if (!isAdd && taskToUpdate && !isTaskUpdated(task, taskToUpdate)) {
+      toast.warn(`${task.title} task is not updated!`);
+      handleCloseClick();
+      return;
+    }
+
     dispatch({ type: isAdd ? "ADD_TASK" : "UPDATE_TASK", payload: task });
 
     toast.success(
-      isAdd ? "Task added successfully" : "Task edited successfully"
+      isAdd ? "Task added successfully" : `Task edited successfully`
     );
+
+    handleCloseClick();
   };
 
-  function handleCloseClick() {
+  const handleCloseClick = () => {
     dispatch({ type: "CLOSE_TASK_MODAL" });
-  }
+  };
 
-  const handleOutsideClick  = (e) => {
+  const handleOutsideClick = (e) => {
     const formElement = document.getElementById("taskForm");
 
     if (formElement && !formElement.contains(e.target)) {
       handleCloseClick();
     }
+  };
+
+  // Helper function to check if the task is updated
+  const isTaskUpdated = (newTask, oldTask) => {
+    return (
+      newTask.title !== oldTask.title ||
+      newTask.description !== oldTask.description ||
+      newTask.priority !== oldTask.priority ||
+      !tags(newTask.tags, oldTask.tags)
+    );
+  };
+
+  // Helper function to check if tags are equal
+  const tags = (arr1, arr2) => {
+    if (!arr1 && !arr2) return true;
+    if ((!arr1 && arr2) || (arr1 && !arr2)) return false;
+    if (arr1.length !== arr2.length) return false;
+    for (let i = 0; i < arr1.length; i++) {
+      if (arr1[i] !== arr2[i]) return false;
+    }
+    return true;
   };
 
   return (
