@@ -3,12 +3,12 @@
 const Popup = ({ message, onConfirm, onCancel }) => {
   return (
     <div className="fixed inset-0 z-10 flex items-center justify-center backdrop-filter backdrop-blur-md">
-      <div className="bg-white p-8 rounded-lg shadow-lg drop-animation">
-        <p className="text-gray-800">{message}</p>
+      <div className="bg-gray-500 p-8 rounded-lg shadow-lg drop-animation">
+        <p className="text-white">{message}</p>
         <div className="flex justify-end mt-4">
           <button
             onClick={onCancel}
-            className="text-red-500 hover:text-red-700 mr-2 cursor-pointer focus:outline-none"
+            className="text-white hover:text-gray-200 mr-2 cursor-pointer focus:outline-none"
           >
             No
           </button>
