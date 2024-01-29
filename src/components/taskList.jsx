@@ -1,11 +1,17 @@
+import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { useTaskContext } from "../context/context";
 
 import { toast } from "react-toastify";
 
+import Popup from "./Popup";
+
 export default function TaskList() {
   const { state, dispatch } = useTaskContext();
   const { tasks, searchQuery } = state;
+
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState(null);
 
   const filteredTasks = tasks.filter((task) =>
     task.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -19,18 +25,20 @@ export default function TaskList() {
     dispatch({ type: "TOGGLE_FAVORITE", payload: taskId });
   }
 
-  function handleDeleteTask(taskId) {
-    const isConfirmed = window.confirm(
-      "Are you sure you want to delete this task?"
-    );
+  const handleDeleteTask = (taskId) => {
+    setTaskToDelete(taskId);
+    setShowDeletePopup(true);
+  };
 
-    if (isConfirmed) {
-      dispatch({ type: "DELETE_TASK", payload: taskId });
+  const handleConfirmDeleteTask = () => {
+    dispatch({ type: "DELETE_TASK", payload: taskToDelete });
+    toast.success("Task deleted successfully ");
+    setShowDeletePopup(false);
+  };
 
-      toast.success("Task deleted successfully ");
-      return;
-    }
-  }
+  const handleCancelDeleteTask = () => {
+    setShowDeletePopup(false);
+  };
 
   const tagColors = [
     "bg-[#FE1A1AB5]",
@@ -118,6 +126,16 @@ export default function TaskList() {
           ))}
         </tbody>
       </table>
+
+      <div className="">
+        {showDeletePopup && (
+          <Popup
+            message="Are you sure you want to delete this task?"
+            onConfirm={handleConfirmDeleteTask}
+            onCancel={handleCancelDeleteTask}
+          />
+        )}
+      </div>
     </div>
   );
 }

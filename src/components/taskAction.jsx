@@ -1,30 +1,38 @@
+/* eslint-disable no-undef */
 /* eslint-disable react-hooks/rules-of-hooks */
 
+import { useState } from "react";
 import { useTaskContext } from "../context/context";
 
 import { toast } from "react-toastify";
+
+import Popup from "./Popup";
 
 export default function TaskAction() {
   const { state, dispatch } = useTaskContext();
 
   const { tasks } = state;
 
+  const [showPopup, setShowPopup] = useState(false);
+
   const handleAddClick = () => {
     dispatch({ type: "SHOW_TASK_MODAL" });
   };
 
   const handleDeleteAllClick = () => {
-    const isConfirmed = window.confirm(
-      "Are you sure you want to delete all tasks?"
-    );
-
-    if (isConfirmed) {
-      dispatch({ type: "DELETE_ALL_TASKS" });
-
-      toast.success("All tasks deleted successfully ");
-      return;
-    }
+    setShowPopup(true);
   };
+
+  const handleConfirmDeleteAll = () => {
+    dispatch({ type: "DELETE_ALL_TASKS" });
+    toast.success("All tasks deleted successfully ");
+    setShowPopup(false);
+  };
+
+  const handleCancelDeleteAll = () => {
+    setShowPopup(false);
+  };
+
   return (
     <>
       <button
@@ -40,6 +48,16 @@ export default function TaskAction() {
       >
         Delete All
       </button>
+
+      <div className="">
+        {showPopup && (
+          <Popup
+            message="Are you sure you want to delete all tasks?"
+            onConfirm={handleConfirmDeleteAll}
+            onCancel={handleCancelDeleteAll}
+          />
+        )}
+      </div>
     </>
   );
 }
