@@ -18,8 +18,8 @@ export default function TaskBoard() {
     >
       {showAddModal && <TaskModal />}
 
-      <div className="container">
-        <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
+      <div className="container my-2">
+        <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 mx-2 md:px-9 md:py-16">
           <TaskHeader />
           {tasks.length === 0 ? (
             <p className="text-white text-center font-bold text-xl sm:text-2xl">
