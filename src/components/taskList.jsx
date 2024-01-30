@@ -140,7 +140,7 @@ export default function TaskList() {
           </tbody>
         ) : (
           <p className="absolute left-1/2 transform -translate-x-1/2 text-white text-center font-bold text-lg sm:text-xl flex items-center gap-2">
-            <FaSearch color="white" /> No tasks found with the provided keyword <span className="font-bold text-green-400">{searchQuery}</span>
+            <FaSearch color="white" /> No tasks found with the provided <span className="font-bold text-green-400">{searchQuery} keyword</span>
           </p>
         )}
       </table>
