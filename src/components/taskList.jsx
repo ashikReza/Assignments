@@ -2,6 +2,8 @@ import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { useTaskContext } from "../context/context";
 
+import { FaSearch } from "react-icons/fa";
+
 import { toast } from "react-toastify";
 
 import Popup from "./Popup";
@@ -122,25 +124,26 @@ export default function TaskList() {
                     </button>
                   </div>
                 </td>
+
+                <div className="">
+                  {showDeletePopup && (
+                    <Popup
+                      message="Are you sure you want to delete "
+                      title={task.title}
+                      onConfirm={handleConfirmDeleteTask}
+                      onCancel={handleCancelDeleteTask}
+                    />
+                  )}
+                </div>
               </tr>
             ))}
           </tbody>
         ) : (
-          <p className="absolute left-1/2 transform -translate-x-1/2 text-white text-center font-bold text-lg sm:text-xl">
-            No task found
+          <p className="absolute left-1/2 transform -translate-x-1/2 text-white text-center font-bold text-lg sm:text-xl flex items-center gap-2">
+            <FaSearch color="white" /> No task found with this word <span className="font-bold text-green-400">{searchQuery}</span>
           </p>
         )}
       </table>
-
-      <div className="">
-        {showDeletePopup && (
-          <Popup
-            message="Are you sure you want to delete this task?"
-            onConfirm={handleConfirmDeleteTask}
-            onCancel={handleCancelDeleteTask}
-          />
-        )}
-      </div>
     </div>
   );
 }
