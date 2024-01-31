@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 
-import { useTaskContext } from "../context/context";
+import { useTaskContext } from "../contexts/utils/taskUtils";
 
 export default function SearchTask() {
   const { state, dispatch } = useTaskContext();

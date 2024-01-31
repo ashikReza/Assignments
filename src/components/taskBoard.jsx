@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
-import { useTaskContext } from "../context/context";
+import { useTaskContext } from "../contexts/utils/taskUtils";
 
 import TaskHeader from "./taskHeader";
 import TaskList from "./taskList";

@@ -3,7 +3,7 @@ import Hero from "./Hero";
 import TaskBoard from "./components/taskBoard";
 import Footer from "./Footer";
 
-import { TaskProvider } from "./context/context";
+import { TaskProvider } from "./contexts/TaskContext";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

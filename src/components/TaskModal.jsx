@@ -4,7 +4,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import { useState } from "react";
-import { useTaskContext } from "../context/context";
+import { useTaskContext } from "../contexts/utils/taskUtils";
 
 import { toast } from "react-toastify";
 
