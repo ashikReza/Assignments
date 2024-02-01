@@ -42,7 +42,9 @@ export default function TaskAction() {
         Add Task
       </button>
       <button
-        className="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold disabledBtn"
+        className={`rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold disabledBtn ${
+          tasks.length === 0 ? "opacity-60 cursor-not-allowed" : ""
+        }`}
         onClick={handleDeleteAllClick}
         disabled={tasks.length === 0}
       >
