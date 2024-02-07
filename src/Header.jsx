@@ -1,12 +1,56 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/no-unknown-property */
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from "react";
 import logo from "./assets/logo.png";
 import Search from "./components/Search.jsx";
+import { useNewsContext } from "./contexts/NewsContext.jsx";
+import useNewsQuery from "./hooks/useNewsQuery";
 
-export default function header() {
+const Header = () => {
+  const [currentTime, setCurrentTime] = useState("");
+
+  const [categoryLoading, setCategoryLoading] = useState(true);
+  const { categories, loading, error } = useNewsQuery();
+
+  const { handleCategorySelect } = useNewsContext();
+
+  useEffect(() => {
+    // Check if category data has been fetched
+    if (!loading) {
+      setCategoryLoading(false);
+    }
+
+    // Update the current time every second
+    const intervalId = setInterval(() => {
+      setCurrentTime(formatDate());
+    }, 1000);
+
+    // Cleanup function to clear the interval
+    return () => clearInterval(intervalId);
+  }, [loading]);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+
+
+  // Function to format the current date
+  const formatDate = () => {
+    const options = {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    };
+    const currentDate = new Date();
+    return currentDate.toLocaleDateString("en-US", options);
+  };
+
   return (
     <nav className="border-b border-black py-6 md:py-8 px-4">
       <div className="container mx-auto flex flex-wrap items-center justify-between gap-6">
-        {/* <!-- date --> */}
         <div className="flex items-center space-x-4">
           <svg
             width="16"
@@ -58,10 +102,8 @@ export default function header() {
               stroke-linejoin="round"
             />
           </svg>
-          <span>Thursday, February 25, 2021</span>
+          <span>{currentTime}</span>
         </div>
-        {/* <!-- Logo --> */}
-
         <a href="/">
           <img
             className="max-w-[100px] md:max-w-[165px]"
@@ -69,53 +111,32 @@ export default function header() {
             alt="Lws"
           />
         </a>
-
         <div className="w-full flex justify-center sm:flex-none sm:w-auto">
           <Search />
         </div>
       </div>
-
-      {/* <!-- categories --> */}
       <div className="container mx-auto mt-6">
-        <ul className="flex flex-wrap items-center justify-center gap-5 text-xs font-semibold lg:text-base">
-          <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#">EU Finance</a>
-          </li>
-          <li>
-            <a href="#">Capital Market</a>
-          </li>
-          <li>
-            <a href="#">World Economy</a>
-          </li>
-          <li>
-            <a href="#">Opinion</a>
-          </li>
-          <li>
-            <a href="#">Finance</a>
-          </li>
-          <li>
-            <a href="#">Companies</a>
-          </li>
-          <li>
-            <a href="#">Environment</a>
-          </li>
-          <li>
-            <a href="#">Sport Economy</a>
-          </li>
-          <li>
-            <a href="#">Blog</a>
-          </li>
-          <li>
-            <a href="#">Podcasts</a>
-          </li>
-          <li>
-            <a href="#">Video</a>
-          </li>
-        </ul>
+        {categoryLoading ? (
+          <div className="w-full flex justify-center">
+            Loading categories...
+          </div>
+        ) : (
+          <ul className="flex flex-wrap items-center justify-center gap-5 text-xs font-semibold lg:text-base">
+            {categories.map((category, index) => (
+              <li key={index}>
+                <a
+                  href="#"
+                  onClick={() => handleCategorySelect(category.toLowerCase())}
+                >
+                  {category}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </nav>
   );
-}
+};
+
+export default Header;
