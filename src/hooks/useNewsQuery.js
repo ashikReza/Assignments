@@ -22,7 +22,7 @@ const useNewsQuery = (category = "", searchQuery = "") => {
         const uniqueCategories = [...new Set(categoryNames)].filter(category => category !== null);
         setCategories(uniqueCategories);
 
-        let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${import.meta.env.VITE_NEWS_API_KEY}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=55dfb88cde644256aeac6e3bc0a1139c`;
 
         if (category) {
           url += `&category=${category}`;
