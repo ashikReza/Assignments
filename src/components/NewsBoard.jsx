@@ -5,7 +5,7 @@ import useNewsQuery from "../hooks/useNewsQuery.js";
 import { useNewsContext } from "../contexts/NewsContext.jsx";
 
 const NewsBoard = () => {
-  const { selectedCategory } = useNewsContext(); // Get selected category from context
+  const { selectedCategory, searchQuery } = useNewsContext(); // Get selected category and search query from context
 
   const { news, loading } = useNewsQuery(selectedCategory); // Pass selected category to useNewsQuery
 
@@ -55,9 +55,7 @@ const NewsBoard = () => {
                   }`}
                 >
                   <img
-                    className={`w-full ${
-                      index === 0 ? "hidden" : "w-full"
-                    }`}
+                    className={`w-full ${index === 0 ? "hidden" : "w-full"}`}
                     src={article.urlToImage}
                     alt=""
                   />

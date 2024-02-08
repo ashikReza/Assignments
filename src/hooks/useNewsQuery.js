@@ -1,7 +1,9 @@
 // hooks/useNewsQuery.js
 import { useState, useEffect } from "react";
+import { useNewsContext } from "../contexts/NewsContext.jsx"; // Import useNewsContext
 
-const useNewsQuery = (category = "", searchQuery = "") => {
+const useNewsQuery = () => {
+  const { selectedCategory, searchQuery } = useNewsContext(); // Get selected category and search query from context
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -34,8 +36,8 @@ const useNewsQuery = (category = "", searchQuery = "") => {
           import.meta.env.VITE_NEWS_API_KEY
         }`;
 
-        if (category) {
-          url += `&category=${category}`;
+        if (selectedCategory) {
+          url += `&category=${selectedCategory}`;
         }
         if (searchQuery) {
           url += `&q=${encodeURIComponent(searchQuery)}`;
@@ -58,7 +60,7 @@ const useNewsQuery = (category = "", searchQuery = "") => {
     };
 
     fetchData();
-  }, [category, searchQuery]);
+  }, [selectedCategory, searchQuery]); // Update dependency array with selectedCategory and searchQuery
 
   return { news, loading, error, categories };
 };

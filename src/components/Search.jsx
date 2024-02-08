@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useRef, useCallback } from "react";
 import { RiSearchLine, RiCloseCircleLine } from "react-icons/ri";
 import styles from "../styles/Search.module.css";
 import { useNewsContext } from "../contexts/NewsContext.jsx";
@@ -7,15 +8,21 @@ import debounce from "lodash.debounce";
 
 function Search() {
   const { searchQuery, setSearchQuery } = useNewsContext();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const inputRef = React.useRef(null);
 
   const toggleSearch = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleSearchChange = debounce((event) => {
-    setSearchQuery(event.target.value);
-  }, 300);
+  // Memoize the handleSearchChange function using useCallback
+  const handleSearchChange = useCallback(
+    debounce(() => {
+      // Use the inputRef to access the input value
+      setSearchQuery(inputRef.current.value);
+    }, 300),
+    []
+  );
 
   return (
     <div className={`${styles.inputBox} ${isOpen ? styles.open : ""} `}>
@@ -24,8 +31,11 @@ function Search() {
         placeholder="Search..."
         className={styles.input}
         onChange={handleSearchChange}
-        value={searchQuery}
+        // Use defaultValue instead of value
+        defaultValue={searchQuery}
+        ref={inputRef}
       />
+
       <span onClick={toggleSearch} className={styles.search}>
         <RiSearchLine className={styles.searchIcon} />
       </span>
