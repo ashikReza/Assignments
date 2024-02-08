@@ -4,13 +4,18 @@ import React from "react";
 import useNewsQuery from "../hooks/useNewsQuery.js";
 import { useNewsContext } from "../contexts/NewsContext.jsx";
 
+
 const NewsBoard = () => {
   const { selectedCategory } = useNewsContext(); // Get selected category from context
 
   const { news, loading } = useNewsQuery(selectedCategory); // Pass selected category to useNewsQuery
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className=" w-full h-screen flex justify-center mt-28 ">
+        <h1>Loading...</h1>
+      </div>
+    );
   }
 
   // Calculate the midpoint index of the news array
@@ -20,6 +25,12 @@ const NewsBoard = () => {
   const leftNews = news.slice(0, midpoint);
   const rightNews = news.slice(midpoint);
 
+  const formatDate = (dateString) => {
+    const options = { day: "numeric", month: "short", year: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+
   return (
     <main className="my-10 lg:my-14">
       <div className="container mx-auto grid grid-cols-12 gap-8">
@@ -27,28 +38,6 @@ const NewsBoard = () => {
         <div className="col-span-12 grid grid-cols-12 gap-6 self-start xl:col-span-8">
           {/* news items */}
           {leftNews.map((article, index) => (
-            // <div key={index} className="col-span-12">
-            //   {/* news item */}
-            //   <div className="col-span-12 grid grid-cols-12 gap-4">
-            //     {/* info */}
-            //     <div className="col-span-12 lg:col-span-4">
-            //       <a href={article.url}>
-            //         <h3 className="mb-2.5 text-xl font-bold lg:text-2xl">
-            //           {article.title}
-            //         </h3>
-            //       </a>
-            //       <p className="text-base text-[#292219]">{article.description}</p>
-            //       <p className="mt-5 text-base text-[#94908C]">Published: {new Date(article.publishedAt).toLocaleString()}</p>
-            //     </div>
-            //     {/* thumb */}
-            //     <div className="col-span-12 lg:col-span-8">
-            //       <img className="w-full" src={article.urlToImage} alt="" />
-            //       <p className="mt-5 text-base text-[#94908C]">Illustration: {article.author}</p>
-            //     </div>
-            //   </div>
-            //   {/* news item ends */}
-            // </div>
-
             <div
               key={index}
               className={`col-span-12 ${
@@ -58,7 +47,7 @@ const NewsBoard = () => {
               {/* news item */}
               <div
                 className={`col-span-12 grid grid-cols-12 gap-4  ${
-                  index === 0 ? "" : " object-cover"
+                  index === 0 ? "" : ""
                 }`}
               >
                 {/* thumb */}
@@ -68,7 +57,9 @@ const NewsBoard = () => {
                   }`}
                 >
                   <img
-                    className={`w-full ${index === 0 ? "" : ""}`}
+                    className={`w-full ${
+                      index === 0 ? "hidden" : "w-full object-contain"
+                    }`}
                     src={article.urlToImage}
                     alt=""
                   />
@@ -88,7 +79,7 @@ const NewsBoard = () => {
                     {article.description}
                   </p>
                   <p className="mt-5 text-base text-[#94908C]">
-                    Published: {new Date(article.publishedAt).toLocaleString()}
+                    Published: {formatDate(article.publishedAt)}
                   </p>
                 </div>
 
@@ -116,7 +107,7 @@ const NewsBoard = () => {
               <>
                 <div key={index} className="col-span-12 mb-6 md:col-span-8">
                   {" "}
-                  <hr className={` my-2 ${index === 0 ? "hidden" : ""}`} />
+                  <hr className={` my-3 ${index === 0 ? "hidden" : ""}`} />
                   <img
                     className="w-full"
                     src={article.urlToImage}
@@ -133,7 +124,7 @@ const NewsBoard = () => {
                     </p>
                     <p className="mt-5 text-base text-[#94908C]">
                       Published:{" "}
-                      {new Date(article.publishedAt).toLocaleString()}
+                      {formatDate(article.publishedAt)}
                     </p>
                   </div>
                 </div>
