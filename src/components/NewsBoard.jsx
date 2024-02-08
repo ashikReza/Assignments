@@ -43,7 +43,7 @@ const NewsBoard = () => {
   };
 
   return (
-    <main className="my-10 lg:my-14">
+    <main className="my-10 lg:my-14 mx-4 sm:mx-0">
       <div className="container mx-auto grid grid-cols-12 gap-8">
         {/* left */}
         <div className="col-span-12 grid grid-cols-12 gap-6 self-start xl:col-span-8">
