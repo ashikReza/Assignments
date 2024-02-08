@@ -4,7 +4,6 @@ import React from "react";
 import useNewsQuery from "../hooks/useNewsQuery.js";
 import { useNewsContext } from "../contexts/NewsContext.jsx";
 
-
 const NewsBoard = () => {
   const { selectedCategory } = useNewsContext(); // Get selected category from context
 
@@ -30,7 +29,6 @@ const NewsBoard = () => {
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-
   return (
     <main className="my-10 lg:my-14">
       <div className="container mx-auto grid grid-cols-12 gap-8">
@@ -53,12 +51,12 @@ const NewsBoard = () => {
                 {/* thumb */}
                 <div
                   className={`col-span-12 lg:col-span-8 ${
-                    index === 0 ? "hidden" : ""
+                    index === 0 ? "hidden" : "w-full flex justify-center "
                   }`}
                 >
                   <img
                     className={`w-full ${
-                      index === 0 ? "hidden" : "w-full object-contain"
+                      index === 0 ? "hidden" : "w-full"
                     }`}
                     src={article.urlToImage}
                     alt=""
@@ -123,8 +121,7 @@ const NewsBoard = () => {
                       {article.description}
                     </p>
                     <p className="mt-5 text-base text-[#94908C]">
-                      Published:{" "}
-                      {formatDate(article.publishedAt)}
+                      Published: {formatDate(article.publishedAt)}
                     </p>
                   </div>
                 </div>

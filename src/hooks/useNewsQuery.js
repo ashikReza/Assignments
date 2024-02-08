@@ -14,7 +14,7 @@ const useNewsQuery = (category = "", searchQuery = "") => {
 
       try {
         // Fetch categories
-        const categoryResponse = await fetch(`https://newsapi.org/v2/sources?apiKey=${import.meta.env.VITE_NEWS_API_KEY}`);
+        const categoryResponse = await fetch(`https://newsapi.org/v2/sources?apiKey=55dfb88cde644256aeac6e3bc0a1139c`);
         const categoryData = await categoryResponse.json();
         // Extract category names from the API response
         const categoryNames = categoryData.sources.map(source => source.category);
