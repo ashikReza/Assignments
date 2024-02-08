@@ -14,7 +14,7 @@ const useNewsQuery = (category = "", searchQuery = "") => {
 
       try {
         // Fetch categories
-        const categoryResponse = await fetch("https://newsapi.org/v2/sources?apiKey=370a39b908ee4f9296aebd69a056457f");
+        const categoryResponse = await fetch(`https://newsapi.org/v2/sources?apiKey=${import.meta.env.VITE_NEWS_API_KEY}`);
         const categoryData = await categoryResponse.json();
         // Extract category names from the API response
         const categoryNames = categoryData.sources.map(source => source.category);
@@ -22,7 +22,7 @@ const useNewsQuery = (category = "", searchQuery = "") => {
         const uniqueCategories = [...new Set(categoryNames)].filter(category => category !== null);
         setCategories(uniqueCategories);
 
-        let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=370a39b908ee4f9296aebd69a056457f`;
+        let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${import.meta.env.VITE_NEWS_API_KEY}`;
 
         if (category) {
           url += `&category=${category}`;

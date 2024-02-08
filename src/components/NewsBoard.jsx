@@ -27,23 +27,81 @@ const NewsBoard = () => {
         <div className="col-span-12 grid grid-cols-12 gap-6 self-start xl:col-span-8">
           {/* news items */}
           {leftNews.map((article, index) => (
-            <div key={index} className="col-span-12">
+            // <div key={index} className="col-span-12">
+            //   {/* news item */}
+            //   <div className="col-span-12 grid grid-cols-12 gap-4">
+            //     {/* info */}
+            //     <div className="col-span-12 lg:col-span-4">
+            //       <a href={article.url}>
+            //         <h3 className="mb-2.5 text-xl font-bold lg:text-2xl">
+            //           {article.title}
+            //         </h3>
+            //       </a>
+            //       <p className="text-base text-[#292219]">{article.description}</p>
+            //       <p className="mt-5 text-base text-[#94908C]">Published: {new Date(article.publishedAt).toLocaleString()}</p>
+            //     </div>
+            //     {/* thumb */}
+            //     <div className="col-span-12 lg:col-span-8">
+            //       <img className="w-full" src={article.urlToImage} alt="" />
+            //       <p className="mt-5 text-base text-[#94908C]">Illustration: {article.author}</p>
+            //     </div>
+            //   </div>
+            //   {/* news item ends */}
+            // </div>
+
+            <div
+              key={index}
+              className={`col-span-12 ${
+                index === 0 ? "lg:col-span-12" : "lg:col-span-4 md:col-span-6"
+              }`}
+            >
               {/* news item */}
-              <div className="col-span-12 grid grid-cols-12 gap-4">
+              <div
+                className={`col-span-12 grid grid-cols-12 gap-4  ${
+                  index === 0 ? "" : " object-cover"
+                }`}
+              >
+                {/* thumb */}
+                <div
+                  className={`col-span-12 lg:col-span-8 ${
+                    index === 0 ? "hidden" : ""
+                  }`}
+                >
+                  <img
+                    className={`w-full ${index === 0 ? "" : ""}`}
+                    src={article.urlToImage}
+                    alt=""
+                  />
+                </div>
                 {/* info */}
-                <div className="col-span-12 lg:col-span-4">
+                <div
+                  className={`col-span-12 lg:col-span-12  ${
+                    index === 0 ? "col-span-12 lg:col-span-4" : ""
+                  }`}
+                >
                   <a href={article.url}>
-                    <h3 className="mb-2.5 text-xl font-bold lg:text-2xl">
+                    <h3 className="mb-2.5 text-xl font-bold lg:text-2xl hover:text-green-400">
                       {article.title}
                     </h3>
                   </a>
-                  <p className="text-base text-[#292219]">{article.description}</p>
-                  <p className="mt-5 text-base text-[#94908C]">Published: {new Date(article.publishedAt).toLocaleString()}</p>
+                  <p className="text-base text-[#292219]">
+                    {article.description}
+                  </p>
+                  <p className="mt-5 text-base text-[#94908C]">
+                    Published: {new Date(article.publishedAt).toLocaleString()}
+                  </p>
                 </div>
+
                 {/* thumb */}
-                <div className="col-span-12 lg:col-span-8">
+                <div
+                  className={`col-span-12 lg:col-span-8 ${
+                    index === 0 ? "" : "hidden"
+                  }`}
+                >
                   <img className="w-full" src={article.urlToImage} alt="" />
-                  <p className="mt-5 text-base text-[#94908C]">Illustration: {article.author}</p>
+                  <p className="mt-5 text-base text-[#94908C]">
+                    Illustration: {article.author}
+                  </p>
                 </div>
               </div>
               {/* news item ends */}
@@ -55,18 +113,31 @@ const NewsBoard = () => {
           <div className="space-y-6 divide-y-2 divide-[#D5D1C9]">
             {/* additional news items */}
             {rightNews.map((article, index) => (
-              <div key={index} className="col-span-12 mb-6 md:col-span-8">
-                <img className="w-full" src={article.urlToImage} alt="thumb" />
-                <div className="col-span-12 mt-6 md:col-span-4">
-                  <a href="#">
-                    <h3 className="mb-2.5 text-xl font-bold lg:text-[20px]">
-                      {article.title}
-                    </h3>
-                  </a>
-                  <p className="text-base text-[#292219]">{article.description}</p>
-                  <p className="mt-5 text-base text-[#94908C]">Published: {new Date(article.publishedAt).toLocaleString()}</p>
+              <>
+                <div key={index} className="col-span-12 mb-6 md:col-span-8">
+                  {" "}
+                  <hr className={` my-2 ${index === 0 ? "hidden" : ""}`} />
+                  <img
+                    className="w-full"
+                    src={article.urlToImage}
+                    alt="thumb"
+                  />
+                  <div className="col-span-12 mt-6 md:col-span-4">
+                    <a href="#">
+                      <h3 className="mb-2.5 text-xl font-bold lg:text-[20px] hover:text-green-400">
+                        {article.title}
+                      </h3>
+                    </a>
+                    <p className="text-base text-[#292219]">
+                      {article.description}
+                    </p>
+                    <p className="mt-5 text-base text-[#94908C]">
+                      Published:{" "}
+                      {new Date(article.publishedAt).toLocaleString()}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </>
             ))}
           </div>
         </div>
