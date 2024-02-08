@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-// components/NewsBoard.jsx
 import React from "react";
 import useNewsQuery from "../hooks/useNewsQuery.js";
 import { useNewsContext } from "../contexts/NewsContext.jsx";
@@ -11,8 +10,17 @@ const NewsBoard = () => {
 
   if (loading) {
     return (
-      <div className=" w-full h-screen flex justify-center mt-28 ">
+      <div className="w-full h-screen flex justify-center mt-28 ">
         <h1>Loading...</h1>
+      </div>
+    );
+  }
+
+  // Check if no search results are found
+  if (!loading && news.length === 0 && searchQuery !== "") {
+    return (
+      <div className="w-full h-screen flex justify-center mt-28 ">
+        <h1>No results found for <span className="text-green-400">{searchQuery}</span></h1>
       </div>
     );
   }

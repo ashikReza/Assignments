@@ -24,6 +24,12 @@ function Search() {
     []
   );
 
+  // Function to clear the search query
+  const clearSearchQuery = () => {
+    setSearchQuery("");
+    inputRef.current.value = ""; // Clear input field text
+  };
+
   return (
     <div className={`${styles.inputBox} ${isOpen ? styles.open : ""} `}>
       <input
@@ -40,7 +46,9 @@ function Search() {
         <RiSearchLine className={styles.searchIcon} />
       </span>
       <span
-        onClick={toggleSearch}
+        onClick={() => {
+          clearSearchQuery();
+        }}
         className={`${styles.closeIcon} ${isOpen ? styles.open : ""}`}
       >
         <RiCloseCircleLine className={styles.closeIcon} />
