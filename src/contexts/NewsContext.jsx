@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
-// contexts/NewsContext.jsx
+
 import React, { createContext, useState, useContext } from "react";
 
 const NewsContext = createContext();
@@ -22,8 +22,8 @@ export const NewsProvider = ({ children }) => {
       value={{
         selectedCategory,
         handleCategorySelect,
-        searchQuery, // Include searchQuery in the context value
-        setSearchQuery, // Include setSearchQuery in the context value
+        searchQuery, 
+        setSearchQuery, 
       }}
     >
       {children}

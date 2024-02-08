@@ -27,7 +27,7 @@ function Search() {
   // Function to clear the search query
   const clearSearchQuery = () => {
     setSearchQuery("");
-    inputRef.current.value = ""; // Clear input field text
+    inputRef.current.value = "";
   };
 
   return (
@@ -37,7 +37,6 @@ function Search() {
         placeholder="Search..."
         className={styles.input}
         onChange={handleSearchChange}
-        // Use defaultValue instead of value
         defaultValue={searchQuery}
         ref={inputRef}
       />

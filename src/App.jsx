@@ -1,10 +1,8 @@
 /* eslint-disable no-unused-vars */
 
-// App.jsx
-
 import React from "react";
-import Header from "./Header.jsx";
-import Footer from "./Footer.jsx";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
 import NewsBoard from "./components/NewsBoard.jsx";
 import { NewsProvider } from "./contexts/NewsContext.jsx";
 

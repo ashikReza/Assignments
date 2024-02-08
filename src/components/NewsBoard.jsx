@@ -23,8 +23,8 @@ const NewsBoard = () => {
     return (
       <div className="w-full h-screen flex justify-center mt-28 ">
         <h1>
-          No results found for{" "}
-          <span className="text-green-400">{searchQuery}</span>
+          No results found for
+          <span className="text-green-400">{" " + searchQuery}</span>
         </h1>
       </div>
     );
@@ -33,7 +33,7 @@ const NewsBoard = () => {
   // Calculate the midpoint index of the news array
   const midpoint = Math.ceil(news.length / 2);
 
-  // Split the news array into left and right halves
+  // Split the news array into left and right
   const leftNews = news.slice(0, midpoint);
   const rightNews = news.slice(midpoint);
 
@@ -111,7 +111,6 @@ const NewsBoard = () => {
         {/* right */}
         <div className="col-span-12 self-start xl:col-span-4">
           <div className="space-y-6 divide-y-2 divide-[#D5D1C9]">
-            {/* additional news items */}
             {rightNews.map((article, index) => (
               <>
                 <div key={index} className="col-span-12 mb-6 md:col-span-8">

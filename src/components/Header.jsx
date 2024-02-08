@@ -1,11 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-unused-vars */
+
 import React, { useState, useEffect } from "react";
-import logo from "./assets/logo.png";
-import Search from "./components/Search.jsx";
-import { useNewsContext } from "./contexts/NewsContext.jsx";
-import useNewsQuery from "./hooks/useNewsQuery";
+import logo from "../assets/logo.png";
+import Search from "./Search.jsx";
+import { useNewsContext } from "../contexts/NewsContext.jsx";
+import useNewsQuery from "../hooks/useNewsQuery.js";
+
+import { TbWorld } from "react-icons/tb";
 
 const Header = () => {
   const [currentTime, setCurrentTime] = useState("");
@@ -13,7 +16,7 @@ const Header = () => {
   const [categoryLoading, setCategoryLoading] = useState(true);
   const { categories, loading, error } = useNewsQuery();
 
-  const { handleCategorySelect, selectedCategory } = useNewsContext(); // Get selected category from context
+  const { handleCategorySelect, selectedCategory } = useNewsContext();
 
   useEffect(() => {
     // Check if category data has been fetched
@@ -48,7 +51,7 @@ const Header = () => {
 
   const toTitleCase = (text) => {
     const words = text.split(" ");
-    // Map over each word and transform the first letter to upper case and the rest to lower case
+
     const titleCaseWords = words.map(
       (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
     );
@@ -60,6 +63,7 @@ const Header = () => {
     <nav className="border-b border-black py-6 md:py-8 px-4">
       <div className="container mx-auto flex flex-wrap items-center justify-between gap-6">
         <div className="flex items-center space-x-4">
+          <TbWorld color="green" className="size-6" />
           <span>{currentTime}</span>
         </div>
         <a href="/">

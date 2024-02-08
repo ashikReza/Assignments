@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/no-unescaped-entities */
-import logoLight from "./assets/logo_light.png";
+import logoLight from "../assets/logo_light.png";
 
 export default function footer() {
   return (
-    <footer className="bg-neutral-800 pb-8 pt-20 text-white sm:pt-24 px-4 sm:px-0">
+    <footer className="bg-neutral-800 pb-16 pt-20 text-white sm:pt-24 px-4 sm:px-0">
       <div className="container mx-auto">
         <div className="xl:grid xl:grid-cols-12 xl:gap-8">
           <div className="grid grid-cols-2 gap-8 md:grid md:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:col-span-7 xl:grid-cols-5">
