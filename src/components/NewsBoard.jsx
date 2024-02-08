@@ -3,6 +3,8 @@ import React from "react";
 import useNewsQuery from "../hooks/useNewsQuery.js";
 import { useNewsContext } from "../contexts/NewsContext.jsx";
 
+import Load from "../assets/load.gif";
+
 const NewsBoard = () => {
   const { selectedCategory, searchQuery } = useNewsContext(); // Get selected category and search query from context
 
@@ -10,8 +12,8 @@ const NewsBoard = () => {
 
   if (loading) {
     return (
-      <div className="w-full h-screen flex justify-center mt-28 ">
-        <h1>Loading...</h1>
+      <div className="w-full h-screen flex justify-center mt-28">
+        <img src={Load} alt="Loading..." className=" size-60" />
       </div>
     );
   }
@@ -20,7 +22,10 @@ const NewsBoard = () => {
   if (!loading && news.length === 0 && searchQuery !== "") {
     return (
       <div className="w-full h-screen flex justify-center mt-28 ">
-        <h1>No results found for <span className="text-green-400">{searchQuery}</span></h1>
+        <h1>
+          No results found for{" "}
+          <span className="text-green-400">{searchQuery}</span>
+        </h1>
       </div>
     );
   }
