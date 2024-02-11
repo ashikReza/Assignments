@@ -9,7 +9,7 @@ const NewsContext = createContext();
 export const useNewsContext = () => useContext(NewsContext);
 
 export const NewsProvider = ({ children }) => {
-  const [searchQuery, setSearchQuery] = useState(""); // Add searchQuery state
+  const [searchQuery, setSearchQuery] = useState(""); 
 
   const [selectedCategory, setSelectedCategory] = useState("");
 

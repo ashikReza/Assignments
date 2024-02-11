@@ -18,13 +18,13 @@ function Search() {
   // Memoize the handleSearchChange function using useCallback
   const handleSearchChange = useCallback(
     debounce(() => {
-      // Use the inputRef to access the input value
+     
       setSearchQuery(inputRef.current.value);
     }, 300),
     []
   );
 
-  // Function to clear the search query
+  
   const clearSearchQuery = () => {
     setSearchQuery("");
     inputRef.current.value = "";
