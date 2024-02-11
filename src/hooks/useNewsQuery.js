@@ -29,9 +29,9 @@ const useNewsQuery = () => {
         const newsData = await newsResponse.json();
 
         if (newsData.result) {
-          setNews(newsData.result); // Update to use "result" field
+          setNews(newsData.result);
         } else {
-          setNews(newsData.articles); // Fallback to "articles" field if "result" is not present
+          setNews(newsData.articles); 
         }
       } catch (err) {
         setError(err.message);
