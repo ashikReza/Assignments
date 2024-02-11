@@ -76,61 +76,47 @@
 
 // =================================
 
-// This custom hook fetches news articles based on selected categories and search queries,
-// providing loading states, error handling, and a list of available categories.
-
+// useNewsQuery.js
 import { useState, useEffect } from "react";
 import { useNewsContext } from "../contexts/NewsContext.jsx";
 
 const useNewsQuery = () => {
   const { selectedCategory, searchQuery } = useNewsContext();
-
-  // State variables for news data, loading status, error message, and available categories
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Effect to fetch news data based on selected category and search query
   useEffect(() => {
-    // Async function to fetch news data
     const fetchData = async () => {
-      setLoading(true); // Set loading state to true while fetching data
-      setError(null); // Reset error state on each fetch
+      setLoading(true);
+      setError(null);
 
       try {
-        // Constructing URL for fetching news articles based on selected category and search query
         let url;
         if (searchQuery) {
-          // If search query is provided, use the search endpoint
-          url = `http://localhost:8000/v2/search?q=${searchQuery}`;
+          url = `http://localhost:8000/v2/search?q=${encodeURIComponent(searchQuery)}`;
         } else {
-          // Otherwise, use the top headlines endpoint
           url = `http://localhost:8000/v2/top-headlines`;
           if (selectedCategory) {
-            // If selected category is provided, add it as a query parameter
             url += `?category=${selectedCategory}`;
           }
         }
 
-        // Fetching news articles from the server
         const newsResponse = await fetch(url);
         const newsData = await newsResponse.json();
 
-        // Setting news state with the server response
         setNews(newsData.articles);
       } catch (err) {
-        // Setting error state with the error message
         setError(err.message);
       }
-      setLoading(false); // Set loading state to false after fetching data
+      setLoading(false);
     };
 
-    // Calling the async function
     fetchData();
-  }, [selectedCategory, searchQuery]); // Re-run the effect when selected category or search query changes
+  }, [selectedCategory, searchQuery]);
 
-  // Returning the state variables
   return { news, loading, error };
 };
 
 export default useNewsQuery;
+
