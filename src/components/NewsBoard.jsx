@@ -18,8 +18,7 @@ const NewsBoard = () => {
     );
   }
 
-  // Check if no search results are found
-  if (!loading && news.length === 0 && searchQuery !== "") {
+  if (!news || (news.length === 0 && searchQuery !== "")) {
     return (
       <div className="w-full h-screen flex justify-center mt-28 ">
         <h1>
