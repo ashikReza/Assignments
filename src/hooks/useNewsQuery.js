@@ -94,7 +94,7 @@ const useNewsQuery = () => {
       try {
         let url;
         if (searchQuery) {
-          url = `http://localhost:8000/v2/search?q=${encodeURIComponent(searchQuery)}`;
+          url = `http://localhost:8000/v2/search?q=${searchQuery}`;
         } else {
           url = `http://localhost:8000/v2/top-headlines`;
           if (selectedCategory) {

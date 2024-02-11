@@ -6,9 +6,8 @@ import { useNewsContext } from "../contexts/NewsContext.jsx";
 import Load from "../assets/load.gif";
 
 const NewsBoard = () => {
-  const { selectedCategory, searchQuery } = useNewsContext(); // Get selected category and search query from context
-
-  const { news, loading } = useNewsQuery(selectedCategory); // Pass selected category to useNewsQuery
+  const { searchQuery } = useNewsContext();
+  const { news, loading } = useNewsQuery(searchQuery); // Update to pass searchQuery
 
   if (loading) {
     return (
