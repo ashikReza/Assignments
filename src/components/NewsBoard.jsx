@@ -7,8 +7,7 @@ import Load from "../assets/load.gif";
 
 const NewsBoard = () => {
   const { searchQuery } = useNewsContext();
-  const { news, loading } = useNewsQuery(searchQuery); // Update to pass searchQuery
-
+  const { news, loading } = useNewsQuery();
   if (loading) {
     return (
       <div className="w-full h-screen flex justify-center mt-28">
