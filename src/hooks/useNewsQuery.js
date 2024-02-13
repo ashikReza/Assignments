@@ -18,12 +18,12 @@ const useNewsQuery = () => {
         let url;
         if (searchQuery) {
           // Check if there is a search query
-          url = `http://localhost:8000/v2/search?q=${encodeURIComponent(
+          url = `${import.meta.env.VITE_REACT_APP_SEARCH_API_URL}?q=${encodeURIComponent(
             searchQuery
           )}`;
         } else {
           // If there is no search query
-          url = "http://localhost:8000/v2/top-headlines"; // Set URL for fetching top headlines
+          url = `${import.meta.env.VITE_REACT_APP_TOP_HEADLINES_API_URL}`; // Set URL for fetching top headlines
           if (selectedCategory) {
             // Check if a category is selected
             url += `?category=${selectedCategory}`;
