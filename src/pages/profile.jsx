@@ -42,7 +42,7 @@ export default function Profile() {
             </div>
             {/* <!-- Edit Bio button. The Above bio will be editable when clicking on the button --> */}
             <button className="flex-center h-7 w-7 rounded-full">
-              <img src="./assets/icons/edit.svg" alt="Edit" />
+              <MdOutlineEdit color="white" />
             </button>
           </div>
           <div className="w-3/4 border-b border-[#3F3F3F] py-6 lg:py-8"></div>
