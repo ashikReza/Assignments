@@ -1,59 +1,130 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useRef, useCallback } from "react";
-import { RiSearchLine, RiCloseCircleLine } from "react-icons/ri";
-import styles from "../styles/Search.module.css";
-import { useNewsContext } from "../contexts/NewsContext.jsx";
-import debounce from "lodash.debounce";
+/* eslint-disable react/no-unknown-property */
+import close from "../assets/icons/close.svg";
 
-function Search() {
-  const { searchQuery, setSearchQuery } = useNewsContext();
-  const [isOpen, setIsOpen] = React.useState(false);
-  const inputRef = React.useRef(null);
-
-  const toggleSearch = () => {
-    setIsOpen(!isOpen);
-  };
-
-  // Memoize the handleSearchChange function using useCallback
-  const handleSearchChange = useCallback(
-    debounce(() => {
-     
-      setSearchQuery(inputRef.current.value);
-    }, 300),
-    []
-  );
-
-  
-  const clearSearchQuery = () => {
-    setSearchQuery("");
-    inputRef.current.value = "";
-  };
-
+export default function Search() {
   return (
-    <div className={`${styles.inputBox} ${isOpen ? styles.open : ""} `}>
-      <input
-        type="text"
-        placeholder="Search..."
-        className={styles.input}
-        onChange={handleSearchChange}
-        defaultValue={searchQuery}
-        ref={inputRef}
-      />
+    <section className="fixed left-0 top-0 w-full h-full grid place-items-center bg-slate-800/50 backdrop-blur-sm z-50">
+      {/* <!-- Search Container --> */}
+      <div class="relative w-6/12 mx-auto bg-slate-900 p-4 border border-slate-600/50 rounded-lg shadow-lg shadow-slate-400/10">
+        {/* <!-- Search --> */}
+        <div>
+          <h3 class="font-bold text-xl pl-2 text-slate-400 my-2">
+            Search for Your Desire Blogs
+          </h3>
+          <input
+            type="text"
+            placeholder="Start Typing to Search"
+            class="w-full bg-transparent p-2 text-base text-white outline-none border-none rounded-lg focus:ring focus:ring-indigo-600"
+          />
+        </div>
 
-      <span onClick={toggleSearch} className={styles.search}>
-        <RiSearchLine className={styles.searchIcon} />
-      </span>
-      <span
-        onClick={() => {
-          clearSearchQuery();
-        }}
-        className={`${styles.closeIcon} ${isOpen ? styles.open : ""}`}
-      >
-        <RiCloseCircleLine className={styles.closeIcon} />
-      </span>
-    </div>
+        {/* <!-- Search Result --> */}
+        <div class="">
+          <h3 class="text-slate-400 font-bold mt-6">Search Results</h3>
+          <div class="my-4 divide-y-2 divide-slate-500/30 max-h-[440px] overflow-y-scroll overscroll-contain">
+            <div class="flex gap-6 py-2">
+              <img
+                class="h-28 object-contain"
+                src="./assets/blogs/taiulwind-cn-thumb.jpg"
+                alt=""
+              />
+              <div class="mt-2">
+                <h3 class="text-slate-300 text-xl font-bold">
+                  Style your components with TailwindCSS
+                </h3>
+                {/* <!-- Meta Informations --> */}
+                <p class="mb-6 text-sm text-slate-500 mt-1">
+                  Aenean eleifend ante maecenas pulvinar montes lorem et pede
+                  dis dolor pretium donec dictum. Vici consequat justo enim.
+                  Venenatis eget adipiscing luctus lorem.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-6 py-2">
+              <img
+                class="h-28 object-contain"
+                src="./assets/blogs/taiulwind-cn-thumb.jpg"
+                alt=""
+              />
+              <div class="mt-2">
+                <h3 class="text-slate-300 text-xl font-bold">
+                  Style your components with TailwindCSS
+                </h3>
+                {/* <!-- Meta Informations --> */}
+                <p class="mb-6 text-sm text-slate-500 mt-1">
+                  Aenean eleifend ante maecenas pulvinar montes lorem et pede
+                  dis dolor pretium donec dictum. Vici consequat justo enim.
+                  Venenatis eget adipiscing luctus lorem.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-6 py-2">
+              <img
+                class="h-28 object-contain"
+                src="./assets/blogs/taiulwind-cn-thumb.jpg"
+                alt=""
+              />
+              <div class="mt-2">
+                <h3 class="text-slate-300 text-xl font-bold">
+                  Style your components with TailwindCSS
+                </h3>
+                {/* <!-- Meta Informations --> */}
+                <p class="mb-6 text-sm text-slate-500 mt-1">
+                  Aenean eleifend ante maecenas pulvinar montes lorem et pede
+                  dis dolor pretium donec dictum. Vici consequat justo enim.
+                  Venenatis eget adipiscing luctus lorem.
+                </p>
+              </div>
+            </div>
+            <div class="flex gap-6 py-2">
+              <img
+                class="h-28 object-contain"
+                src="./assets/blogs/taiulwind-cn-thumb.jpg"
+                alt=""
+              />
+              <div class="mt-2">
+                <h3 class="text-slate-300 text-xl font-bold">
+                  Style your components with TailwindCSS
+                </h3>
+                {/* <!-- Meta Informations --> */}
+                <p class="mb-6 text-sm text-slate-500 mt-1">
+                  Aenean eleifend ante maecenas pulvinar montes lorem et pede
+                  dis dolor pretium donec dictum. Vici consequat justo enim.
+                  Venenatis eget adipiscing luctus lorem.
+                </p>
+              </div>
+            </div>
+            <div class="flex gap-6 py-2">
+              <img
+                class="h-28 object-contain"
+                src="./assets/blogs/taiulwind-cn-thumb.jpg"
+                alt=""
+              />
+              <div class="mt-2">
+                <h3 class="text-slate-300 text-xl font-bold">
+                  Style your components with TailwindCSS
+                </h3>
+                {/* <!-- Meta Informations --> */}
+                <p class="mb-6 text-sm text-slate-500 mt-1">
+                  Aenean eleifend ante maecenas pulvinar montes lorem et pede
+                  dis dolor pretium donec dictum. Vici consequat justo enim.
+                  Venenatis eget adipiscing luctus lorem.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <a href="">
+          <img
+            src={close}
+            alt="Close"
+            class="absolute right-2 top-2 cursor-pointer w-8 h-8"
+          />
+        </a>
+      </div>
+    </section>
   );
 }
-
-export default Search;

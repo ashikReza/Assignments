@@ -1,179 +1,123 @@
 /* eslint-disable react/no-unknown-property */
-/* eslint-disable react/no-unescaped-entities */
-import logoLight from "../assets/logo_light.png";
 
-export default function footer() {
+import logo from "../assets/logo.svg";
+
+export default function Footer() {
   return (
-    <footer className="bg-neutral-800 pb-16 pt-20 text-white sm:pt-24 px-4 sm:px-0">
-      <div className="container mx-auto">
-        <div className="xl:grid xl:grid-cols-12 xl:gap-8">
-          <div className="grid grid-cols-2 gap-8 md:grid md:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:col-span-7 xl:grid-cols-5">
-            <img className="max-md:col-span-2" src={logoLight} alt="lws" />
-            <ul role="list" className="space-y-4">
-              <li>
-                <a href="#" className="text-sm font-semibold">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm font-semibold">
-                  EU Finance
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm font-semibold">
-                  Capital Market
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm font-semibold">
-                  World Economy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm font-semibold">
-                  Opinion
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm font-semibold">
-                  Finance
-                </a>
-              </li>
-            </ul>
-            <ul role="list" className="space-y-4">
-              <li>
-                <a href="#" className="text-sm font-semibold">
-                  Business
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm font-semibold">
-                  Agriculture
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm font-semibold">
-                  Sport Economy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm font-semibold">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm font-semibold">
-                  Podcats
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm font-semibold">
-                  Video
-                </a>
-              </li>
-            </ul>
-            <ul role="list" className="space-y-4">
-              <li>
-                <a href="#" className="text-sm">
-                  Terms of Use
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm">
-                  Privacy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm">
-                  Cookies Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm">
-                  Manage Cookies
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm">
-                  Accessibility
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm">
-                  Contact Us
-                </a>
-              </li>
-            </ul>
-            <div className="flex space-x-6">
-              <a>
-                <svg
-                  className="h-6 w-6"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-              <a href="#">
-                <svg
-                  className="h-6 w-6"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-
-              <a href="#">
-                <svg
-                  className="h-6 w-6"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-            </div>
-          </div>
-          <div className="col-span-12 mt-10 flex items-start gap-4 xl:col-span-5 xl:mt-0">
-            <div className="flex-1">
-              <h3 className="text-2xl font-semibold">
-                Subscribe and be informed first hand about the actual economic
-                news.
-              </h3>
-              <p className="mt-2 text-sm leading-6">
-                All the day's headlines and highlights, direct to you every
-                morning..
-              </p>
-            </div>
-
-            {/* <!-- subscribe --> */}
-            <button className="rounded-full bg-[#00D991] px-7 py-2.5 text-xs font-medium text-[#F1EFEA] hover:opacity-80 lg:text-base">
-              Subscribe
-            </button>
-          </div>
-        </div>
-      </div>
-      <div className="container mt-6 lg:mt-12">
-        <p className="text-center absolute left-1/2 transform -translate-x-1/2">
-          Copyright &copy;2023 | All rights reserved by Learn with Sumit
-        </p>
+    <footer className="py-6 px-4 md:py-8 bg-[#030317]">
+      <div className="container mx-auto flex items-center justify-between">
+        <a href="/">
+          <img className="w-28" src={logo} alt="lws" />
+        </a>
+        <ul className="flex items-center space-x-5">
+          <li className="text-center">
+            <a
+              className="text-white/50 hover:text-white transition-all duration-200"
+              href="#"
+            >
+              <svg
+                height="24"
+                version="1.1"
+                viewBox="0 0 512 512"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:serif="http://www.serif.com/"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                fill="currentColor"
+              >
+                <path d="M512,257.555c0,-141.385 -114.615,-256 -256,-256c-141.385,0 -256,114.615 -256,256c0,127.777 93.616,233.685 216,252.89l0,-178.89l-65,0l0,-74l65,0l0,-56.4c0,-64.16 38.219,-99.6 96.695,-99.6c28.009,0 57.305,5 57.305,5l0,63l-32.281,0c-31.801,0 -41.719,19.733 -41.719,39.978l0,48.022l71,0l-11.35,74l-59.65,0l0,178.89c122.385,-19.205 216,-125.113 216,-252.89Z" />
+              </svg>
+            </a>
+          </li>
+          <li className="text-center">
+            <a
+              className="text-white/50 hover:text-white transition-all duration-200"
+              href="#"
+            >
+              <svg
+                width="24"
+                height="24"
+                fill="currentColor"
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 56.7 56.7"
+                xml:space="preserve"
+              >
+                <path d="M28.2,16.7c-7,0-12.8,5.7-12.8,12.8s5.7,12.8,12.8,12.8S41,36.5,41,29.5S35.2,16.7,28.2,16.7z M28.2,37.7 c-4.5,0-8.2-3.7-8.2-8.2s3.7-8.2,8.2-8.2s8.2,3.7,8.2,8.2S32.7,37.7,28.2,37.7z" />
+                <circle cx="41.5" cy="16.4" r="2.9" />
+                <path
+                  d="M49,8.9c-2.6-2.7-6.3-4.1-10.5-4.1H17.9c-8.7,0-14.5,5.8-14.5,14.5v20.5c0,4.3,1.4,8,4.2,10.7c2.7,2.6,6.3,3.9,10.4,3.9
+								h20.4c4.3,0,7.9-1.4,10.5-3.9c2.7-2.6,4.1-6.3,4.1-10.6V19.3C53,15.1,51.6,11.5,49,8.9z M48.6,39.9c0,3.1-1.1,5.6-2.9,7.3
+								s-4.3,2.6-7.3,2.6H18c-3,0-5.5-0.9-7.3-2.6C8.9,45.4,8,42.9,8,39.8V19.3c0-3,0.9-5.5,2.7-7.3c1.7-1.7,4.3-2.6,7.3-2.6h20.6
+								c3,0,5.5,0.9,7.3,2.7c1.7,1.8,2.7,4.3,2.7,7.2V39.9L48.6,39.9z"
+                />
+              </svg>
+            </a>
+          </li>
+          <li className="text-center">
+            <a
+              className="text-white/50 hover:text-white transition-all duration-200"
+              href="#"
+            >
+              <svg
+                height="24"
+                id="Layer_1"
+                version="1.1"
+                viewBox="0 0 56.693 56.693"
+                width="24"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                fill="currentColor"
+              >
+                <path d="M52.837,15.065c-1.811,0.805-3.76,1.348-5.805,1.591c2.088-1.25,3.689-3.23,4.444-5.592c-1.953,1.159-4.115,2-6.418,2.454  c-1.843-1.964-4.47-3.192-7.377-3.192c-5.581,0-10.106,4.525-10.106,10.107c0,0.791,0.089,1.562,0.262,2.303  c-8.4-0.422-15.848-4.445-20.833-10.56c-0.87,1.492-1.368,3.228-1.368,5.082c0,3.506,1.784,6.6,4.496,8.412  c-1.656-0.053-3.215-0.508-4.578-1.265c-0.001,0.042-0.001,0.085-0.001,0.128c0,4.896,3.484,8.98,8.108,9.91  c-0.848,0.23-1.741,0.354-2.663,0.354c-0.652,0-1.285-0.063-1.902-0.182c1.287,4.015,5.019,6.938,9.441,7.019  c-3.459,2.711-7.816,4.327-12.552,4.327c-0.815,0-1.62-0.048-2.411-0.142c4.474,2.869,9.786,4.541,15.493,4.541  c18.591,0,28.756-15.4,28.756-28.756c0-0.438-0.009-0.875-0.028-1.309C49.769,18.873,51.483,17.092,52.837,15.065z" />
+              </svg>
+            </a>
+          </li>
+          <li className="text-center">
+            <a
+              className="text-white/50 hover:text-white transition-all duration-200"
+              href="#"
+            >
+              <svg
+                height="24"
+                version="1.1"
+                viewBox="0 0 512 512"
+                width="100%"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:serif="http://www.serif.com/"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                fill="currentColor"
+              >
+                <path d="M255.998,0.001c-141.384,0 -255.998,114.617 -255.998,255.998c0,108.456 67.475,201.171 162.707,238.471c-2.24,-20.255 -4.261,-51.405 0.889,-73.518c4.65,-19.978 30.018,-127.248 30.018,-127.248c0,0 -7.659,-15.334 -7.659,-38.008c0,-35.596 20.632,-62.171 46.323,-62.171c21.839,0 32.391,16.399 32.391,36.061c0,21.966 -13.984,54.803 -21.203,85.235c-6.03,25.482 12.779,46.261 37.909,46.261c45.503,0 80.477,-47.976 80.477,-117.229c0,-61.293 -44.045,-104.149 -106.932,-104.149c-72.841,0 -115.597,54.634 -115.597,111.095c0,22.004 8.475,45.596 19.052,58.421c2.09,2.535 2.398,4.758 1.776,7.343c-1.945,8.087 -6.262,25.474 -7.111,29.032c-1.117,4.686 -3.711,5.681 -8.561,3.424c-31.974,-14.884 -51.963,-61.627 -51.963,-99.174c0,-80.755 58.672,-154.915 169.148,-154.915c88.806,0 157.821,63.279 157.821,147.85c0,88.229 -55.629,159.232 -132.842,159.232c-25.94,0 -50.328,-13.476 -58.674,-29.394c0,0 -12.838,48.878 -15.95,60.856c-5.782,22.237 -21.382,50.109 -31.818,67.11c23.955,7.417 49.409,11.416 75.797,11.416c141.389,0 256.003,-114.612 256.003,-256.001c0,-141.381 -114.614,-255.998 -256.003,-255.998Z" />
+              </svg>
+            </a>
+          </li>
+          <li className="text-center">
+            <a
+              className="text-white/50 hover:text-white transition-all duration-200"
+              href="#"
+            >
+              <svg
+                height="24"
+                id="Layer_1"
+                version="1.1"
+                viewBox="0 0 512 512"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                fill="currentColor"
+              >
+                <path d="M508.6,148.8c0-45-33.1-81.2-74-81.2C379.2,65,322.7,64,265,64c-3,0-6,0-9,0s-6,0-9,0c-57.6,0-114.2,1-169.6,3.6   c-40.8,0-73.9,36.4-73.9,81.4C1,184.6-0.1,220.2,0,255.8C-0.1,291.4,1,327,3.4,362.7c0,45,33.1,81.5,73.9,81.5   c58.2,2.7,117.9,3.9,178.6,3.8c60.8,0.2,120.3-1,178.6-3.8c40.9,0,74-36.5,74-81.5c2.4-35.7,3.5-71.3,3.4-107   C512.1,220.1,511,184.5,508.6,148.8z M207,353.9V157.4l145,98.2L207,353.9z" />
+              </svg>
+            </a>
+          </li>
+        </ul>
       </div>
     </footer>
   );
