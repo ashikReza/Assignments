@@ -2,7 +2,7 @@ import { useState } from "react";
 import logo from "../assets/logo.svg";
 import { FcSearch } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import CreateBlogModal from "./createBlogModal.jsx";
+import CreateBlogModal from "./CreateBlogModal.jsx";
 import SearchModal from "./SearchModal.jsx";
 
 export default function Header() {
