@@ -3,7 +3,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 
 export default function ActionMenusModal() {
   return (
-    <div className="action-modal-container">
+    <div className="action-modal-container popup-animation">
       <button className="action-menu-item hover:text-lwsGreen">
         <MdOutlineEdit />
         Edit

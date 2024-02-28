@@ -16,7 +16,7 @@ export default function Search({ onClose }) {
       className="fixed left-0 top-0 w-full h-full grid place-items-center bg-slate-800/50 backdrop-blur-sm z-50 Modal"
       onClick={handleModalClick}
     >
-      <div className="relative w-6/12 mx-auto bg-slate-900 p-4 border border-slate-600/50 rounded-lg shadow-lg shadow-slate-400/10">
+      <div className="relative w-6/12 mx-auto bg-slate-900 p-4 border border-slate-600/50 rounded-lg shadow-lg shadow-slate-400/10 popup-animation">
         <div>
           <h3 className="font-bold text-xl pl-2 text-slate-400 my-2">
             Search for Your Desire Blogs

@@ -16,7 +16,7 @@ export default function CreateBlog({ onClose }) {
       className="h-screen flex justify-center fixed top-0 left-0 w-full bg-slate-800/50 backdrop-blur-sm z-50 Modal"
       onClick={handleModalClick}
     >
-      <div className="container bg-black text-white rounded m-4 sm:top-32">
+      <div className="container bg-black text-white rounded m-4 sm:top-32 popup-animation">
         {/* <!-- Form Input field for creating Blog Post --> */}
         <form action="#" method="POST" className="createBlog">
           <button
