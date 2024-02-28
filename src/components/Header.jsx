@@ -14,7 +14,7 @@ export default function Header() {
   };
 
   const toggleSearchModal = () => {
-    setShowSearchModal((prevState) => !prevState);
+    setShowSearchModal(!showSearchModal);
   };
 
   return (
