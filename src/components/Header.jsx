@@ -75,8 +75,8 @@ export default function Header() {
         </div>
       </nav>
 
-      {showCreateBlogModal && <CreateBlogModal />}
-      {showSearchModal && <SearchModal />}
+      {showCreateBlogModal && <CreateBlogModal onClose={toggleCreateBlogModal} />}
+      {showSearchModal && <SearchModal onClose={toggleSearchModal} />}
     </header>
   );
 }
