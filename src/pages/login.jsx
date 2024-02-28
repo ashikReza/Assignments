@@ -92,17 +92,7 @@ export default function Login() {
                 {/* add a button element to the right of the input */}
                 <button
                   type="button" // Add type="button" to prevent default form submission behavior
-                  style={{
-                    position: "absolute",
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    width: "3rem",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  className=""
+                  className=" absolute right-0 top-0 bottom-0 w-12 flex justify-center items-center"
                   onClick={(e) => {
                     e.stopPropagation(); // Prevent the click event from propagating to the form
                     togglePassword();

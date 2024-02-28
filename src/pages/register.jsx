@@ -8,7 +8,7 @@ export default function Register() {
     register,
     handleSubmit,
     formState: { errors },
-    reset, 
+    reset,
   } = useForm();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -16,13 +16,13 @@ export default function Register() {
   const togglePassword = () => setShowPassword(!showPassword);
 
   const onSubmit = (data, e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     console.log(data);
-    // Handle form submission logic 
+    // Handle form submission logic
 
     // Reset the form after successful submission
-    reset(); 
+    reset();
   };
 
   return (
@@ -116,17 +116,7 @@ export default function Register() {
                 />
                 <button
                   type="button" // Add type="button" to prevent default form submission behavior
-                  style={{
-                    position: "absolute",
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    width: "3rem",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  className=""
+                  className=" absolute right-0 top-0 bottom-0 w-12 flex justify-center items-center"
                   onClick={(e) => {
                     e.stopPropagation(); // Prevent the click event from propagating to the form
                     togglePassword();
