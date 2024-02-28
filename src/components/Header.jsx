@@ -22,12 +22,9 @@ export default function Header() {
         <div>
           <ul className="flex items-center space-x-5">
             <li>
-              <Link
-                to="/createBlog"
-                className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
-              >
+              <button className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition-all duration-200">
                 Write
-              </Link>
+              </button>
             </li>
             <li>
               <button className="flex items-center gap-2 cursor-pointer">

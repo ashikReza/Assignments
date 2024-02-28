@@ -7,7 +7,7 @@ export default function Profile() {
     <div className="bg-black w-full py-10">
       <div className="container mx-auto ">
         {/* <!-- profile info --> */}
-        <div className="flex flex-col items-center py-8 text-center">
+        <div className="flex flex-col items-center py-8 px-4 text-center">
           {/* <!-- profile image --> */}
           <div className="relative mb-8 max-h-[180px] max-w-[180px] h-[120px] w-[120px] rounded-full lg:mb-11 lg:max-h-[218px] lg:max-w-[218px]">
             <div className="w-full h-full bg-orange-600 text-white grid place-items-center text-5xl rounded-full">

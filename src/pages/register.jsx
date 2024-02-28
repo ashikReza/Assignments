@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
+
 /* eslint-disable react/no-unknown-property */
 export default function Register() {
   return (
-    <div className="w-full bg-[#030317]">
+    <div className="w-full h-full bg-[#030317]">
       <section className="container mx-auto text-white py-10">
         <div className="w-full md:w-1/2 mx-auto bg-[#030317] p-8 rounded-md ">
           <h2 className="text-2xl font-bold mb-6">Register</h2>
@@ -60,19 +62,19 @@ export default function Register() {
             </div>
             <p className="text-center">
               Already have account?{" "}
-              <a
-                href="./login.html"
+              <Link
+                to="/login"
                 className="text-indigo-600 hover:underline"
               >
                 Login
-              </a>
+              </Link>
             </p>
           </form>
         </div>
       </section>
 
       {/* <!-- Footer --> */}
-      <footer className="mp-6 md:py-12 bg-[#030317]">
+      <footer className="pb-6 px-3 md:py-12 bg-[#030317]">
         <div className="container mx-auto pt-5 flex items-center justify-between">
           <ul className="flex items-center space-x-5">
             <li className="text-center">

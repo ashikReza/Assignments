@@ -5,7 +5,7 @@ import React from "react";
 import Header from "./components/Header.jsx";
 
 import Home from "./pages/home.jsx";
-import CreateBlog from "./pages/createBlog.jsx";
+
 import Login from "./pages/login.jsx";
 import Register from "./pages/register.jsx";
 import Profile from "./pages/profile.jsx";
@@ -20,7 +20,6 @@ function App() {
 
       <Routes>
         <Route element={<Home />} path="/" exact />
-        <Route element={<CreateBlog />} path="/createBlog" />
         <Route element={<Login />} path="/login" />
         <Route element={<Register />} path="/register" />
         <Route element={<Profile />} path="/profile" />

@@ -1,12 +1,10 @@
 import Footer from "../components/Footer";
 
-import { MdOutlineEdit } from "react-icons/md";
-import { RiDeleteBinLine } from "react-icons/ri";
-
 import { Link } from "react-router-dom";
 
 import bg from "../assets/blogs//React-Roadmap.jpg";
 import { HiDotsVertical } from "react-icons/hi";
+import ActionMenuModal from "../components/ActionMenuModal";
 
 export default function Home() {
   return (
@@ -60,16 +58,7 @@ export default function Home() {
                     </button>
 
                     {/* <!-- Action Menus Popup --> */}
-                    <div className="action-modal-container">
-                      <button className="action-menu-item hover:text-lwsGreen">
-                        <MdOutlineEdit />
-                        Edit
-                      </button>
-                      <button className="action-menu-item hover:text-red-500">
-                        <RiDeleteBinLine />
-                        Delete
-                      </button>
-                    </div>
+                    <ActionMenuModal />
                   </div>
                   {/* <!-- action dot ends --> */}
                 </div>

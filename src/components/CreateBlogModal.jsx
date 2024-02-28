@@ -1,14 +1,16 @@
 /* eslint-disable react/no-unknown-property */
-
-import Footer from "../components/Footer";
-
+import { IoIosCloseCircleOutline } from "react-icons/io";
 export default function createBlog() {
   return (
     <>
-      <section className=" w-full h-screen flex justify-center py-10 bg-[#030317] text-white  sm:px-32">
-        <div className="container px-10 sm:px-28">
+      <section className="h-screen flex justify-center fixed top-0 left-0 w-full bg-slate-800/50 backdrop-blur-sm z-50">
+        <div className="container bg-black text-white rounded m-4 sm:top-32">
           {/* <!-- Form Input field for creating Blog Post --> */}
           <form action="#" method="POST" className="createBlog">
+            <button className="fixed top-6 sm:top-10 right-6 sm:right-36 cursor-pointer">
+              <IoIosCloseCircleOutline className="size-10" />
+            </button>
+
             <div className="grid place-items-center bg-slate-600/20 h-[150px] rounded-md my-4">
               <div className="flex items-center gap-4 hover:scale-110 transition-all cursor-pointer">
                 <svg
@@ -64,8 +66,6 @@ export default function createBlog() {
           </form>
         </div>
       </section>
-
-      <Footer />
     </>
   );
 }
