@@ -1,9 +1,9 @@
 import { useState } from "react";
-import logo from "../assets/logo.svg";
+import logo from "../../assets/logo.svg";
 import { FcSearch } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import CreateBlogModal from "./CreateBlogModal.jsx";
-import SearchModal from "./SearchModal.jsx";
+import CreateBlogModal from "../CreateBlogModal.jsx";
+import SearchModal from "../SearchModal.jsx";
 
 export default function Header() {
   const [showCreateBlogModal, setShowCreateBlogModal] = useState(false);
@@ -75,7 +75,9 @@ export default function Header() {
         </div>
       </nav>
 
-      {showCreateBlogModal && <CreateBlogModal onClose={toggleCreateBlogModal} />}
+      {showCreateBlogModal && (
+        <CreateBlogModal onClose={toggleCreateBlogModal} />
+      )}
       {showSearchModal && <SearchModal onClose={toggleSearchModal} />}
     </header>
   );

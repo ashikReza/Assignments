@@ -3,7 +3,7 @@ import bg from "../assets/blogs/React-Roadmap.jpg";
 
 import Comments from "../components/Comments";
 import FloatingActions from "../components/FloatingActions";
-import Footer from "../components/Footer";
+import Footer from "../components/common/Footer";
 
 export default function SingleBlog() {
   return (

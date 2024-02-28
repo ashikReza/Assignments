@@ -5,8 +5,11 @@ import { useForm } from "react-hook-form";
 
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
-import Footer from "../components/Footer";
+import Footer from "../components/common/Footer";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import { useAuth } from "../hooks/useAuth";
 
 /* eslint-disable react/no-unknown-property */
 export default function Login() {
@@ -18,12 +21,20 @@ export default function Login() {
     reset, // Destructure the reset function from useForm
   } = useForm();
 
+  const navigate = useNavigate();
+
+  const { setAuth } = useAuth();
+
   // handle form submit
-  const onSubmit = (data, e) => {
+  const SubmitForm = (data, e) => {
     e.preventDefault(); // Prevent the default form submission behavior
 
-    // do something with the form data
     console.log(data);
+
+    const user = { ...data };
+    setAuth({ user });
+
+    navigate("/");
 
     // Reset the form after successful submission
     reset();
@@ -39,7 +50,7 @@ export default function Login() {
         {/* <!-- Login Form into a box center of the page --> */}
         <div className=" md:w-1/2 mx-auto bg-[#030317] text-white p-6 rounded-md mt-12">
           <h2 className="text-2xl font-bold mb-6">Login</h2>
-          <form onSubmit={(e) => handleSubmit(onSubmit)(e)}>
+          <form onSubmit={(e) => handleSubmit(SubmitForm)(e)}>
             <div className="mb-6">
               <label htmlFor="email" className="block mb-2">
                 Email

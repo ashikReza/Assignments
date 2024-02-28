@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import Footer from "../components/Footer";
+import Footer from "../components/common/Footer";
 
 import { Link } from "react-router-dom";
 
@@ -8,12 +8,17 @@ import bg from "../assets/blogs//React-Roadmap.jpg";
 import { HiDotsVertical } from "react-icons/hi";
 import ActionMenuModal from "../components/ActionMenuModal";
 
+import { useAuth } from "../hooks/useAuth";
+
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
 
   const toggleModal = () => {
     setModalOpen(!modalOpen); // Toggle the modalOpen state
   };
+
+   const {auth} = useAuth();
+   console.log(auth);
 
   return (
     <>
