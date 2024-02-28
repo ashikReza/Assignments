@@ -1,10 +1,22 @@
+import { useState } from "react";
 import logo from "../assets/logo.svg";
-
 import { FcSearch } from "react-icons/fc";
-
 import { Link } from "react-router-dom";
+import CreateBlogModal from "./createBlogModal.jsx";
+import SearchModal from "./SearchModal.jsx";
 
 export default function Header() {
+  const [showCreateBlogModal, setShowCreateBlogModal] = useState(false);
+  const [showSearchModal, setShowSearchModal] = useState(false);
+
+  const toggleCreateBlogModal = () => {
+    setShowCreateBlogModal(!showCreateBlogModal);
+  };
+
+  const toggleSearchModal = () => {
+    setShowSearchModal((prevState) => !prevState);
+  };
+
   return (
     <header className="w-full bg-black">
       <nav className="container mx-auto bg-black flex flex-col md:flex-row items-center justify-between px-1 py-5 ">
@@ -22,12 +34,18 @@ export default function Header() {
         <div>
           <ul className="flex items-center space-x-5">
             <li>
-              <button className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition-all duration-200">
+              <button
+                className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition-all duration-200"
+                onClick={toggleCreateBlogModal}
+              >
                 Write
               </button>
             </li>
             <li>
-              <button className="flex items-center gap-2 cursor-pointer">
+              <button
+                className="flex items-center gap-2 cursor-pointer"
+                onClick={toggleSearchModal}
+              >
                 <FcSearch size={30} />
                 <span className=" text-white">Search</span>
               </button>
@@ -56,6 +74,9 @@ export default function Header() {
           </ul>
         </div>
       </nav>
+
+      {showCreateBlogModal && <CreateBlogModal />}
+      {showSearchModal && <SearchModal />}
     </header>
   );
 }

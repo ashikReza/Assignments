@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Footer from "../components/Footer";
 
 import { Link } from "react-router-dom";
@@ -7,6 +9,12 @@ import { HiDotsVertical } from "react-icons/hi";
 import ActionMenuModal from "../components/ActionMenuModal";
 
 export default function Home() {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setModalOpen(!modalOpen); // Toggle the modalOpen state
+  };
+
   return (
     <>
       <section className="w-full bg-[#030317] px-4 pt-10">
@@ -53,13 +61,14 @@ export default function Home() {
 
                   {/* <!-- action dot --> */}
                   <div className="absolute right-0 top-0">
-                    <button>
+                    <button onClick={toggleModal}>
                       <HiDotsVertical color="white" />
                     </button>
 
                     {/* <!-- Action Menus Popup --> */}
-                    <ActionMenuModal />
+                    {modalOpen && <ActionMenuModal />}
                   </div>
+
                   {/* <!-- action dot ends --> */}
                 </div>
               </div>
