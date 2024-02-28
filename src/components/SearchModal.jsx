@@ -16,9 +16,9 @@ export default function Search({ onClose }) {
       className="fixed left-0 top-0 w-full h-full grid place-items-center bg-slate-800/50 backdrop-blur-sm z-50 Modal"
       onClick={handleModalClick}
     >
-      <div className="relative w-6/12 mx-auto bg-slate-900 p-4 border border-slate-600/50 rounded-lg shadow-lg shadow-slate-400/10 popup-animation">
+      <div className="relative w-[95%] sm:w-6/12 mx-auto bg-slate-900 p-4 border border-slate-600/50 rounded-lg shadow-lg shadow-slate-400/10 popup-animation">
         <div>
-          <h3 className="font-bold text-xl pl-2 text-slate-400 my-2">
+          <h3 className="font-bold text-xl pl-2 pt-6 text-slate-400 my-2">
             Search for Your Desire Blogs
           </h3>
           <input
@@ -28,11 +28,16 @@ export default function Search({ onClose }) {
           />
         </div>
 
-        <div>
+        <div className="h-full overflow-y-scroll overscroll-contain">
           <h3 className="text-slate-400 font-bold mt-6">Search Results</h3>
-          <div className="my-4 divide-y-2 divide-slate-500/30 max-h-[440px] overflow-y-scroll overscroll-contain">
-            <div className="flex gap-6 py-2">
-              <img className="h-28 object-contain" src={taiulwind} alt="" />
+
+          <div className="my-4 divide-slate-500/30 max-h-80 ">
+            <div className="flex gap-6 py-2 flex-col sm:flex-row">
+              <img
+                className="h-28 object-cover sm:object-contain"
+                src={taiulwind}
+                alt=""
+              />
               <div className="mt-2">
                 <h3 className="text-slate-300 text-xl font-bold">
                   Style your components with TailwindCSS
