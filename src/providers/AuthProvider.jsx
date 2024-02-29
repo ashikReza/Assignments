@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-import { AutoContext } from "../context/index.js";
+import { AuthContext } from "../context/index.js";
 
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(() => {
@@ -13,9 +13,9 @@ const AuthProvider = ({ children }) => {
   }, [auth]);
 
   return (
-    <AutoContext.Provider value={{ auth, setAuth }}>
+    <AuthContext.Provider value={{ auth, setAuth }}>
       {children}
-    </AutoContext.Provider>
+    </AuthContext.Provider>
   );
 };
 

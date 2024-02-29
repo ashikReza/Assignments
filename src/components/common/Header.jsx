@@ -5,13 +5,18 @@ import { Link } from "react-router-dom";
 import CreateBlogModal from "../CreateBlogModal.jsx";
 import SearchModal from "../SearchModal.jsx";
 import Logout from "../Logout.jsx";
+
 import { useAuth } from "../../hooks/useAuth.js";
+import { useProfile } from "../../hooks/useProfile.js";
 
 export default function Header() {
   const [showCreateBlogModal, setShowCreateBlogModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
 
   const { auth } = useAuth();
+  const { state } = useProfile();
+
+  const user = state?.user ?? auth?.user;
 
   const toggleCreateBlogModal = () => {
     setShowCreateBlogModal(!showCreateBlogModal);
@@ -52,15 +57,25 @@ export default function Header() {
               <Logout />
             </li>
             <li className="flex items-center">
-              <div className="avater-img bg-orange-600 text-white">
-                <span className="">
-                  {auth.user.firstName && auth.user.firstName[0]}
-                </span>
+              <div className=" ">
+                {user.avatar ? (
+                  <img
+                    className="avater-img"
+                    src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
+                      user.avatar
+                    }`}
+                    alt=""
+                  />
+                ) : (
+                  <span className="avater-img bg-orange-600 text-white">
+                    {user?.firstName ? user?.firstName[0] : ""}
+                  </span>
+                )}
               </div>
               <Link to="/profile">
                 <span className="text-white ml-2">
-                  {auth.user.firstName && auth.user.lastName
-                    ? `${auth.user.firstName} ${auth.user.lastName}`
+                  {user?.firstName && user?.lastName
+                    ? `${user?.firstName} ${user?.lastName}`
                     : ""}
                 </span>
               </Link>
