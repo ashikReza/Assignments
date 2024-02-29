@@ -58,16 +58,24 @@ export default function Profile() {
         <div className="flex flex-col items-center py-8 px-4 text-center">
           {/* <!-- profile image --> */}
           <div className="relative mb-8 max-h-[180px] max-w-[180px] h-[120px] w-[120px] rounded-full lg:mb-11 lg:max-h-[218px] lg:max-w-[218px]">
-            {/* <div className="w-full h-full bg-orange-600 text-white grid place-items-center text-5xl rounded-full">
-              <span className="">S</span>
-            </div> */}
-            <div className="w-full h-full text-white">
-              <img
-                src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
-                  user?.avatar
-                }`}
-                className="rounded-full"
-              />
+            <div className="relative mb-8 max-h-[180px] max-w-[180px] h-[120px] w-[120px] rounded-full lg:mb-11 lg:max-h-[218px] lg:max-w-[218px]">
+              {user?.avatar ? (
+                <img
+                  src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
+                    user.avatar
+                  }`}
+                  className="rounded-full"
+                />
+              ) : (
+                <div className="w-full h-full text-white bg-orange-600 flex items-center justify-center rounded-full">
+                  <span className="text-5xl">
+                    {user?.firstName ? user.firstName[0] : ""}
+                  </span>
+                </div>
+              )}
+              <button className="grid place-items-center absolute bottom-0 right-0 h-7 w-7 rounded-full bg-slate-700 hover:bg-slate-700/80">
+                <MdOutlineEdit color="white" />
+              </button>
             </div>
 
             <button className="grid place-items-center absolute bottom-0 right-0 h-7 w-7 rounded-full bg-slate-700 hover:bg-slate-700/80">
@@ -146,14 +154,22 @@ export default function Profile() {
                 {/* <!-- Meta Informations --> */}
                 <div className="flex justify-between items-center">
                   <div className="flex items-center capitalize space-x-2">
-                    <div className="avatar-img">
-                      <img
-                        src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
-                          blog.author.avatar
-                        }`}
-                        alt=""
-                        className="avater-img"
-                      />
+                    <div className="">
+                      {blog.author.avatar ? (
+                        <img
+                          src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
+                            blog.author.avatar
+                          }`}
+                          alt=""
+                          className="avater-img"
+                        />
+                      ) : (
+                        <div className="avater-img bg-blue-600 text-white">
+                          {blog.author.firstName
+                            ? blog.author.firstName[0].toUpperCase()
+                            : " "}
+                        </div>
+                      )}
                     </div>
                     <div>
                       <h5 className="text-slate-500 text-sm">{`${blog.author.firstName} ${blog.author.lastName}`}</h5>
