@@ -5,9 +5,15 @@ import { Link } from "react-router-dom";
 import CreateBlogModal from "../CreateBlogModal.jsx";
 import SearchModal from "../SearchModal.jsx";
 
+import { useAuth } from "../../hooks/useAuth.js";
+
+import Logout from "../Logout.jsx";
+
 export default function Header() {
   const [showCreateBlogModal, setShowCreateBlogModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
+
+  const { auth } = useAuth();
 
   const toggleCreateBlogModal = () => {
     setShowCreateBlogModal(!showCreateBlogModal);
@@ -33,44 +39,71 @@ export default function Header() {
         {/* <!-- For Not Logged in User - Login Menu --> */}
         <div>
           <ul className="flex items-center space-x-5">
-            <li>
-              <button
-                className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition-all duration-200"
-                onClick={toggleCreateBlogModal}
-              >
-                Write
-              </button>
-            </li>
-            <li>
-              <button
-                className="flex items-center gap-2 cursor-pointer"
-                onClick={toggleSearchModal}
-              >
-                <FcSearch size={30} />
-                <span className=" text-white">Search</span>
-              </button>
-            </li>
-            <li>
-              <Link
-                to="/login"
-                className="text-white/50 hover:text-white transition-all duration-200"
-              >
-                Login
-              </Link>
-            </li>
-            <li className="flex items-center">
-              {/* <!-- Circular Div with background color --> */}
-              <div className="avater-img bg-orange-600 text-white">
-                <span className="">S</span>
-                {/* <!-- User's first name initial --> */}
-              </div>
+            {auth.user && (
+              <>
+                <li>
+                  <button
+                    className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition-all duration-200"
+                    onClick={toggleCreateBlogModal}
+                  >
+                    Write
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className="flex items-center gap-2 cursor-pointer"
+                    onClick={toggleSearchModal}
+                  >
+                    <FcSearch size={30} />
+                    <span className=" text-white">Search</span>
+                  </button>
+                </li>
+              </>
+            )}
 
-              {/* <!-- Logged-in user's name --> */}
-              <Link to="/profile">
-                <span className="text-white ml-2">Saad Hasan</span>
-              </Link>
-              {/* <!-- Profile Image --> */}
+            <li>
+              {auth.user ? (
+                <>
+                  <Logout />{" "}
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="text-white/50 hover:text-white transition-all duration-200"
+                  >
+                    Login
+                  </Link>
+                </>
+              )}
             </li>
+
+            {auth.user ? (
+              <li className="flex items-center">
+                {/* <!-- Circular Div with background color --> */}
+                <div className="avater-img bg-orange-600 text-white">
+                  <span className="">S</span>
+                  {/* <!-- User's first name initial --> */}
+                </div>
+
+                {/* <!-- Logged-in user's name --> */}
+                <Link to="/profile">
+                  <span className="text-white ml-2">
+                    {auth?.user?.firstName + " " + auth?.user?.lastName}
+                  </span>
+                </Link>
+                {/* <!-- Profile Image --> */}
+              </li>
+            ) : (
+              <li>
+                <Link
+                  to="/register"
+                  className="text-white/50 hover:text-white transition-all duration-200"
+                >
+                  Register
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </nav>

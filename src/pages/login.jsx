@@ -11,6 +11,9 @@ import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../hooks/useAuth";
 
+import axios from "axios";
+import { toast } from "react-toastify";
+
 /* eslint-disable react/no-unknown-property */
 export default function Login() {
   // initialize the form with React Hook Form
@@ -19,6 +22,7 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
     reset, // Destructure the reset function from useForm
+    setError,
   } = useForm();
 
   const navigate = useNavigate();
@@ -26,18 +30,42 @@ export default function Login() {
   const { setAuth } = useAuth();
 
   // handle form submit
-  const SubmitForm = (data, e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+  const SubmitForm = async (fromdata, e) => {
+    try {
+      e.preventDefault();
 
-    console.log(data);
+      console.log(fromdata);
 
-    const user = { ...data };
-    setAuth({ user });
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_BASE_URL}/auth/login`,
+        fromdata
+      );
 
-    navigate("/");
+      if (response.status === 200) {
+        const { token, user } = response.data;
+        if (token) {
+          const authToken = token.accessToken;
+          const refreshToken = token.refreshToken;
 
-    // Reset the form after successful submission
-    reset();
+          console.log(`Login time auth: ${authToken}`);
+          // const user = { ...fromdata };
+          setAuth({ user, authToken, refreshToken });
+
+          navigate("/");
+
+          // Reset the form after successful submission
+          reset();
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      setError("root.random", {
+        type: "random",
+        message: `User with email ${fromdata.email} is not found`,
+      });
+
+      toast.error(`User with email ${fromdata.email} is not found`);
+    }
   };
 
   const [showPassword, setShowPassword] = useState(false);

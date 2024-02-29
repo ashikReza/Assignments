@@ -2,6 +2,9 @@
 
 import React from "react";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Header from "./components/common/Header.jsx";
 
 import Home from "./pages/home.jsx";
@@ -26,10 +29,12 @@ function App() {
           <Route element={<Profile />} path="/profile" />
           <Route element={<SingleBlog />} path="/singleBlog" />
         </Route>
-        
+
         <Route element={<Login />} path="/login" />
         <Route element={<Register />} path="/register" />
       </Routes>
+
+      <ToastContainer position="top-center" />
     </>
   );
 }
