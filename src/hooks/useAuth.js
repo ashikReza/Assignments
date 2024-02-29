@@ -7,6 +7,7 @@
 //   return { auth, setAuth }; // Return setAuth along with auth
 // };
 
+// useAuth.js
 import { useContext, useDebugValue } from "react";
 import { AutoContext } from "../context/index.js";
 
@@ -17,5 +18,10 @@ export const useAuth = () => {
     auth?.user ? "User Logged in" : "User not logged in"
   );
 
-  return { auth, setAuth };
+  // Logout function
+  const logout = () => {
+    setAuth(null); // Clear the authentication state
+  };
+
+  return { auth, setAuth, logout }; // Return the logout function
 };
