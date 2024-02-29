@@ -1,6 +1,8 @@
 import { useAuth } from "../hooks/useAuth";
 import { Navigate, Outlet } from "react-router-dom";
 
+import Header from "../components/common/Header";
+
 export default function PrivateRoutes() {
   const { auth } = useAuth();
 
@@ -9,6 +11,10 @@ export default function PrivateRoutes() {
     return <Navigate to="/login" />;
   }
 
-  return <Outlet />;
+  return (
+    <>
+      <Header />
+      <Outlet />
+    </>
+  );
 }
-

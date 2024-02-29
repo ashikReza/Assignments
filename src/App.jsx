@@ -21,8 +21,6 @@ import PrivateRoutes from "./routes/PrivateRoutes.jsx";
 function App() {
   return (
     <>
-      <Header />
-
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route element={<Home />} path="/" exact />

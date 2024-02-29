@@ -31,63 +31,40 @@ export default function Header() {
         </div>
         <div>
           <ul className="flex items-center space-x-5">
-            {auth && auth.user ? (
-              <>
-                <li>
-                  <button
-                    className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition-all duration-200"
-                    onClick={toggleCreateBlogModal}
-                  >
-                    Write
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="flex items-center gap-2 cursor-pointer"
-                    onClick={toggleSearchModal}
-                  >
-                    <FcSearch size={30} />
-                    <span className=" text-white">Search</span>
-                  </button>
-                </li>
-                <li>
-                  <Logout />
-                </li>
-                <li className="flex items-center">
-                  <div className="avater-img bg-orange-600 text-white">
-                    <span className="">
-                      {auth.user.firstName && auth.user.firstName[0]}
-                    </span>
-                  </div>
-                  <Link to="/profile">
-                    <span className="text-white ml-2">
-                      {auth.user.firstName && auth.user.lastName
-                        ? `${auth.user.firstName} ${auth.user.lastName}`
-                        : ""}
-                    </span>
-                  </Link>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <Link
-                    to="/login"
-                    className="text-white/50 hover:text-white transition-all duration-200"
-                  >
-                    Login
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/register"
-                    className="text-white/50 hover:text-white transition-all duration-200"
-                  >
-                    Register
-                  </Link>
-                </li>
-              </>
-            )}
+            <li>
+              <button
+                className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition-all duration-200"
+                onClick={toggleCreateBlogModal}
+              >
+                Write
+              </button>
+            </li>
+            <li>
+              <button
+                className="flex items-center gap-2 cursor-pointer"
+                onClick={toggleSearchModal}
+              >
+                <FcSearch size={30} />
+                <span className=" text-white">Search</span>
+              </button>
+            </li>
+            <li>
+              <Logout />
+            </li>
+            <li className="flex items-center">
+              <div className="avater-img bg-orange-600 text-white">
+                <span className="">
+                  {auth.user.firstName && auth.user.firstName[0]}
+                </span>
+              </div>
+              <Link to="/profile">
+                <span className="text-white ml-2">
+                  {auth.user.firstName && auth.user.lastName
+                    ? `${auth.user.firstName} ${auth.user.lastName}`
+                    : ""}
+                </span>
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>
