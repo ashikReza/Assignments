@@ -1,54 +1,47 @@
-/* eslint-disable no-unused-vars */
-import { useState, useEffect } from "react";
-
+import { useEffect } from "react";
 import { MdOutlineEdit } from "react-icons/md";
+import { useProfile } from "../hooks/useProfile.js";
+import { actions } from "../actions";
 
 import useToken from "../hooks/useToken";
 import { useAuth } from "../hooks/useAuth";
 
 export default function Profile() {
-  const [user, setUser] = useState(null);
-  const [blogs, setBlogs] = useState([]);
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { state, dispatch } = useProfile();
 
   const { api } = useToken();
   const { auth } = useAuth();
 
   useEffect(() => {
-    setLoading(true);
+    dispatch({ type: actions.profile.DATA_FETCHING });
     const fetchProfile = async () => {
       try {
         const profileResponse = await api.get(
           `${import.meta.env.VITE_SERVER_BASE_URL}/profile/${auth?.user?.id}`
         );
-        setUser(profileResponse?.data);
-        setBlogs(profileResponse?.data?.blogs);
+        dispatch({
+          type: actions.profile.PROFILE_DATA_FETCHED,
+          user: profileResponse?.data,
+          blogs: profileResponse?.data?.blogs,
+        });
       } catch (error) {
         console.error(error);
-        setError(error);
-      } finally {
-        setLoading(false);
+        dispatch({
+          type: actions.profile.PROFILE_DATA_FETCH_ERROR,
+          error: error.message,
+        });
       }
     };
 
     fetchProfile();
-  }, [api, auth?.user?.id]);
+  }, [api, auth?.user?.id, dispatch]);
 
   // Function to toggle blog content display
   const toggleContentDisplay = (blogId) => {
-    setBlogs(
-      blogs.map((blog) => {
-        if (blog.id === blogId) {
-          return {
-            ...blog,
-            showFullContent: !blog.showFullContent,
-          };
-        }
-        return blog;
-      })
-    );
+    dispatch({
+      type: actions.profile.TOGGLE_BLOG_CONTENT_DISPLAY,
+      blogId: blogId,
+    });
   };
 
   return (
@@ -59,17 +52,17 @@ export default function Profile() {
           {/* <!-- profile image --> */}
           <div className="relative mb-8 max-h-[180px] max-w-[180px] h-[120px] w-[120px] rounded-full lg:mb-11 lg:max-h-[218px] lg:max-w-[218px]">
             <div className="relative mb-8 max-h-[180px] max-w-[180px] h-[120px] w-[120px] rounded-full lg:mb-11 lg:max-h-[218px] lg:max-w-[218px]">
-              {user?.avatar ? (
+              {state.user?.avatar ? (
                 <img
                   src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
-                    user.avatar
+                    state.user.avatar
                   }`}
                   className="rounded-full"
                 />
               ) : (
                 <div className="w-full h-full text-white bg-orange-600 flex items-center justify-center rounded-full">
                   <span className="text-5xl">
-                    {user?.firstName ? user.firstName[0] : ""}
+                    {state.user?.firstName ? state.user.firstName[0] : ""}
                   </span>
                 </div>
               )}
@@ -85,10 +78,10 @@ export default function Profile() {
           {/* <!-- name , email --> */}
           <div>
             <h3 className="text-2xl font-semibold text-white lg:text-[28px]">
-              {user?.firstName} {user?.lastName}
+              {state.user?.firstName} {state.user?.lastName}
             </h3>
             <p className="leading-[231%] lg:text-lg text-white">
-              {user?.email}
+              {state.user?.email}
             </p>
           </div>
 
@@ -96,7 +89,7 @@ export default function Profile() {
           <div className="mt-4 flex items-start gap-2 lg:mt-6">
             <div className="flex-1">
               <p className="leading-[188%] text-gray-400 lg:text-lg">
-                {user?.bio}
+                {state.user?.bio}
               </p>
             </div>
             {/* <!-- Edit Bio button. The Above bio will be editable when clicking on the button --> */}
@@ -111,7 +104,7 @@ export default function Profile() {
         <h4 className="mt-6 text-xl lg:mt-8 lg:text-2xl">Your Blogs</h4>
         <div className="my-6 space-y-4">
           {/* <!-- Blog Card Start --> */}
-          {blogs.map((blog) => (
+          {state.blogs.map((blog) => (
             <div key={blog.id} className="blog-card">
               <img
                 className="blog-thumb"

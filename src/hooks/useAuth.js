@@ -9,10 +9,10 @@
 
 // useAuth.js
 import { useContext, useDebugValue } from "react";
-import { AutoContext } from "../context/index.js";
+import { AuthContext } from "../context/index.js";
 
 export const useAuth = () => {
-  const { auth, setAuth } = useContext(AutoContext);
+  const { auth, setAuth } = useContext(AuthContext);
 
   useDebugValue(auth, (auth) =>
     auth?.user ? "User Logged in" : "User not logged in"
