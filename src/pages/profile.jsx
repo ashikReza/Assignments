@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import { MdOutlineEdit } from "react-icons/md";
 
-import useAxios from "../hooks/useAxios";
+import useToken from "../hooks/useToken";
 import { useAuth } from "../hooks/useAuth";
 
 export default function Profile() {
@@ -13,7 +13,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const { api } = useAxios();
+  const { api } = useToken();
   const { auth } = useAuth();
 
   useEffect(() => {
