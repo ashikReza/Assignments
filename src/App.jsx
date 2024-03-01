@@ -13,6 +13,7 @@ import Login from "./pages/login.jsx";
 import Register from "./pages/register.jsx";
 import Profile from "./pages/profile.jsx";
 import SingleBlog from "./pages/single-blog.jsx";
+import PageNotFound from "./pages/PageNotFound.jsx";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -30,6 +31,7 @@ function App() {
 
         <Route element={<Login />} path="/login" />
         <Route element={<Register />} path="/register" />
+        <Route element={<PageNotFound />} path="*" />
       </Routes>
 
       <ToastContainer position="top-center" />
