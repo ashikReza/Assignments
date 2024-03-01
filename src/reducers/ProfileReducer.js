@@ -33,14 +33,36 @@ const profileReducer = (state = initialState, action) => {
       };
     }
 
+    case actions.profile.PROFILE_BIO_EDITED:
+      // Update only the bio in the user object
+      return {
+        ...state,
+        loading: false,
+        user: {
+          ...state.user,
+          bio: action.user.bio,
+        },
+      };
+
+    case actions.profile.IMAGE_UPDATED: {
+      return {
+        ...state,
+        loading: false,
+        user: {
+          ...state.user,
+          avatar: action.data.avatar,
+        },
+      };
+    }
+
     case actions.profile.TOGGLE_BLOG_CONTENT_DISPLAY: {
       return {
         ...state,
-        blogs: state.blogs.map(blog =>
+        blogs: state.blogs.map((blog) =>
           blog.id === action.blogId
             ? { ...blog, showFullContent: !blog.showFullContent }
             : blog
-        )
+        ),
       };
     }
 
