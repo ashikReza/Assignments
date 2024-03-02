@@ -1,5 +1,9 @@
+import { useState } from "react";
 import { useProfile } from "../../hooks/useProfile";
 import { actions } from "../../actions/index.js";
+
+import { HiDotsVertical } from "react-icons/hi";
+import ActionMenuModal from "../../components/ActionMenuModal";
 
 export default function ProfileBlogs() {
   const { state, dispatch } = useProfile();
@@ -12,6 +16,12 @@ export default function ProfileBlogs() {
     });
   };
 
+  const [openBlogId, setOpenBlogId] = useState(null);
+
+  const toggleModal = (blogId) => {
+    setOpenBlogId(blogId === openBlogId ? null : blogId);
+  };
+
   return (
     <div className="my-6 space-y-4">
       {state.blogs.map((blog) => (
@@ -22,7 +32,24 @@ export default function ProfileBlogs() {
             alt=""
           />
           <div className="mt-2">
-            <h3 className="text-slate-300 text-xl lg:text-2xl">{blog.title}</h3>
+            <div className="flex justify-between">
+              <h3 className="text-slate-300 text-xl lg:text-2xl">
+                {blog.title}
+              </h3>
+
+              {/* <!-- action dot --> */}
+              <div className=" relative right-0">
+                <button onClick={() => toggleModal(blog.id)}>
+                  <HiDotsVertical color="white" />
+                </button>
+
+                {/* <!-- Action Menus Popup --> */}
+                {openBlogId === blog.id && <ActionMenuModal />}
+              </div>
+
+              {/* <!-- action dot ends --> */}
+            </div>
+
             {/* Conditional rendering for content */}
             {blog.showFullContent ? (
               <p className="mb-6 text-base text-slate-500 mt-1">
