@@ -47,10 +47,11 @@ export default function Login() {
           const authToken = token.accessToken;
           const refreshToken = token.refreshToken;
 
-          console.log(`Login time auth: ${authToken}`);
-          // const user = { ...fromdata };
+          // console.log(`Login time auth: ${authToken}`);
+
           setAuth({ user, authToken, refreshToken });
 
+          toast.success("Login successful.");
           navigate("/");
 
           // Reset the form after successful submission
