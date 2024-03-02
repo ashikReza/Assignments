@@ -1,4 +1,3 @@
 # Live preview
 
-https://news-feeder.netlify.app
-
+https://reactive-blogify.netlify.app/
