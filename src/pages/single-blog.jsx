@@ -16,12 +16,8 @@ export default function SingleBlog() {
       exit={{ opacity: 0, y: -50 }}
       transition={{ duration: 0.5 }}
     >
-      <section className="bg-[#030317] text-white px-4">
-        <SingleBlogsContent />
-      </section>
+      <SingleBlogsContent />
 
-      <FloatingActions />
-      <Comments />
       <Footer />
     </motion.div>
   );
