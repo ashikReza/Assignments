@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
 
 import Footer from "../components/common/Footer";
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 import { useAuth } from "../hooks/useAuth";
 
@@ -11,7 +10,7 @@ import BlogsContent from "../components/blogs/BlogsContent";
 
 export default function Home() {
   const { auth } = useAuth();
-  console.log(auth);
+  // console.log(auth);
 
   return (
     <>
