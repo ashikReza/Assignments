@@ -1,7 +1,3 @@
-/* eslint-disable no-unused-vars */
-
-import Comments from "../components/single blog/Comments.jsx";
-import FloatingActions from "../components/single blog/FloatingActions.jsx";
 import Footer from "../components/common/Footer";
 
 import { motion } from "framer-motion";
