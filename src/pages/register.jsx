@@ -1,29 +1,43 @@
 /* eslint-disable react/no-unknown-property */
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import axios from "axios";
+// eslint-disable-next-line no-unused-vars
+import { toast } from "react-toastify";
 
 export default function Register() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
-
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePassword = () => setShowPassword(!showPassword);
 
-  const SubmitForm = (data, e) => {
-    e.preventDefault();
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm();
 
-    console.log(data);
-    // Handle form submission logic
+  const submitForm = async (formData) => {
+    try {
+      let response = await axios.post(
+        `${import.meta.env.VITE_SERVER_BASE_URL}/auth/register`,
+        formData
+      );
 
-    // Reset the form after successful submission
-    reset();
+      if (response.status === 201) {
+        toast.success("Registration successful.");
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error(error);
+      setError("root.random", {
+        type: "random",
+        message: `Something went wrong: ${error.message}`,
+      });
+    }
   };
 
   return (
@@ -32,7 +46,7 @@ export default function Register() {
         <section className="container mx-auto bg-[#030317] flex justify-center ">
           <div className=" md:w-1/2 mx-auto bg-[#030317] text-white p-6 rounded-md mt-12">
             <h2 className="text-2xl font-bold mb-6">Register</h2>
-            <form onSubmit={(e) => handleSubmit(SubmitForm)(e)}>
+            <form onSubmit={handleSubmit(submitForm)}>
               <div className="mb-6">
                 <label htmlFor="firstName" className="block mb-2">
                   First Name
@@ -152,6 +166,7 @@ export default function Register() {
             </form>
           </div>
         </section>
+
         <footer className="px-4 py-6 md:py-12 bg-[#030317]">
           <div className="container mx-auto pt-5 flex items-center justify-between">
             <ul className="flex items-center space-x-5">
