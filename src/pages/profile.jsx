@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import useToken from "../hooks/useToken";
 import { useAuth } from "../hooks/useAuth";
 
-import Load from "../assets/load.gif";
+import Load from "../assets/load-loading.gif";
 
 import ProfileImg from "../components/profile/ProfileImg.jsx";
 import ProfileBio from "../components/profile/ProfileBio.jsx";
@@ -45,8 +45,8 @@ export default function Profile() {
 
   if (state?.loading) {
     return (
-      <div className="w-full h-screen flex justify-center mt-28">
-        <img src={Load} alt="Loading..." className=" size-60" />
+      <div className="w-full h-screen flex justify-center ">
+        <img src={Load} alt="Loading..." className="" />
       </div>
     );
   }

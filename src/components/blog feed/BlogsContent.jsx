@@ -49,7 +49,7 @@ export default function BlogsContent() {
   }, [api, dispatch]);
 
   if (state.loading) {
-    return <p>Loading...</p>;
+    return <p className="text-white">Loading...</p>;
   }
 
   if (state.error) {
