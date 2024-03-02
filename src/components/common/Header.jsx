@@ -7,16 +7,14 @@ import SearchModal from "../SearchModal.jsx";
 import Logout from "../Logout.jsx";
 
 import { useAuth } from "../../hooks/useAuth.js";
-import { useProfile } from "../../hooks/useProfile.js";
 
 export default function Header() {
   const [showCreateBlogModal, setShowCreateBlogModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
 
   const { auth } = useAuth();
-  const { state } = useProfile();
 
-  const user = state?.user ?? auth?.user;
+  const user = auth?.user;
 
   const toggleCreateBlogModal = () => {
     setShowCreateBlogModal(!showCreateBlogModal);
