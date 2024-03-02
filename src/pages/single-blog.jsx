@@ -9,6 +9,8 @@ import Footer from "../components/common/Footer";
 
 import useToken from "../hooks/useToken.js";
 
+import { motion } from "framer-motion";
+
 export default function SingleBlog() {
   const { id } = useParams();
   const { api } = useToken();
@@ -25,6 +27,7 @@ export default function SingleBlog() {
           const data = response.data;
 
           setBlogData(data);
+          // console.log(blogData);
           setLoading(false);
         } else {
           throw new Error(`Request failed with status ${response.status}`);
@@ -55,8 +58,15 @@ export default function SingleBlog() {
     return <p>No data available for this blog</p>;
   }
 
+  const tagsArray = blogData.tags.split(",").map((tag) => tag.trim());
+
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -50 }}
+      transition={{ duration: 0.5 }}
+    >
       <section className="bg-[#030317] text-white px-4">
         <div className="w-full flex flex-col justify-center text-center py-8">
           <h1 className="font-bold text-3xl md:text-5xl">{blogData.title}</h1>
@@ -104,8 +114,11 @@ export default function SingleBlog() {
           />
 
           {/* <!-- Tags --> */}
-          {Array.isArray(blogData.tags) &&
-            blogData.tags.map((tag, index) => <li key={index}>{tag}</li>)}
+          <ul className="tags">
+            {tagsArray.map((tag, index) => (
+              <li key={index}>{tag}</li>
+            ))}
+          </ul>
 
           {/* <!-- Content --> */}
           <div className="mx-auto w-full md:w-10/12 text-slate-300 text-base md:text-lg leading-8 py-2 !text-left">
@@ -115,10 +128,8 @@ export default function SingleBlog() {
       </section>
 
       <FloatingActions />
-
       <Comments />
-
       <Footer />
-    </>
+    </motion.div>
   );
 }

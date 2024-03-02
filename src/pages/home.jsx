@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { motion } from "framer-motion";
 
 import Footer from "../components/common/Footer";
 
@@ -14,7 +15,11 @@ export default function Home() {
   // console.log(auth);
 
   return (
-    <>
+    <motion.div 
+    initial={{ opacity: 0, y: -50 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -50 }}
+    transition={{ duration: 0.5 }}>
       <section className="w-full bg-[#030317] px-4 pt-10">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
@@ -27,6 +32,6 @@ export default function Home() {
         </div>
       </section>
       <Footer />
-    </>
+    </motion.div>
   );
 }
