@@ -35,14 +35,18 @@ export default function ProfileImg() {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${auth?.authToken}`, // Include authorization header
+            Authorization: `Bearer ${auth?.authToken}`,
             "Content-Type": "multipart/form-data",
           },
         }
       );
+
       if (response.status === 200) {
-        // Save the updated avatar URL to local storage
-        localStorage.setItem("avatar", response.data.user.avatar);
+        // Update the avatar URL in the local storage
+        const updatedAvatarUrl = response.data.user.avatar;
+        const authData = JSON.parse(localStorage.getItem("auth"));
+        authData.user.avatar = updatedAvatarUrl;
+        localStorage.setItem("auth", JSON.stringify(authData));
 
         dispatch({
           type: actions.profile.IMAGE_UPDATED,
