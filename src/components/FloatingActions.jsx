@@ -10,7 +10,6 @@ import { FaRegHeart } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa6";
 
 import { FaRegMessage } from "react-icons/fa6";
-import { FaMessage } from "react-icons/fa6";
 
 export default function FloatingActions() {
   return (
@@ -19,7 +18,7 @@ export default function FloatingActions() {
         <li>
           <AiOutlineLike size={20} color="white" />
           <AiFillLike size={20} color="white" />
-          <span>10</span>
+          <span className="text-white">10</span>
         </li>
 
         <li>
@@ -30,8 +29,8 @@ export default function FloatingActions() {
         <a href="#comments">
           <li>
             <FaRegMessage size={20} color="white" />
-            <FaMessage size={20} color="white" />
-            <span>3</span>
+
+            <span className="text-white">3</span>
           </li>
         </a>
       </ul>
