@@ -4,6 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import Header from "../components/common/Header";
 
 import ProfileProvider from "../providers/ProfileProvider";
+import BlogsProvider from "../providers/BlogsProvider";
 
 export default function PrivateRoutes() {
   const { auth } = useAuth();
@@ -15,8 +16,10 @@ export default function PrivateRoutes() {
 
   return (
     <ProfileProvider>
-      <Header />
-      <Outlet />
+      <BlogsProvider>
+        <Header />
+        <Outlet />
+      </BlogsProvider>
     </ProfileProvider>
   );
 }

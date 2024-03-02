@@ -1,24 +1,17 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 
 import Footer from "../components/common/Footer";
 
 import { Link } from "react-router-dom";
 
-import bg from "../assets/blogs//React-Roadmap.jpg";
-import { HiDotsVertical } from "react-icons/hi";
-import ActionMenuModal from "../components/ActionMenuModal";
-
 import { useAuth } from "../hooks/useAuth";
 
+import BlogsContent from "../components/blogs/BlogsContent";
+
 export default function Home() {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const toggleModal = () => {
-    setModalOpen(!modalOpen); // Toggle the modalOpen state
-  };
-
-   const {auth} = useAuth();
-   console.log(auth);
+  const { auth } = useAuth();
+  console.log(auth);
 
   return (
     <>
@@ -26,59 +19,7 @@ export default function Home() {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
             {/* <!-- Blog Contents --> */}
-            <div className="space-y-3 md:col-span-5">
-              {/* <!-- Blog Card Start --> */}
-              <div className="blog-card">
-                <img className="blog-thumb" src={bg} alt="" />
-                <div className="mt-2 relative">
-                  <Link to="/singleBlog">
-                    <h3 className="text-slate-300 text-xl lg:text-2xl">
-                      <Link to="/singleBlog">React Roadmap in 2024</Link>
-                    </h3>
-                  </Link>
-                  <p className="mb-6 text-base text-slate-500 mt-1">
-                    Aenean eleifend ante maecenas pulvinar montes lorem et pede
-                    dis dolor pretium donec dictum. Vici consequat justo enim.
-                    Venenatis eget adipiscing luctus lorem.
-                  </p>
-
-                  {/* <!-- Meta Informations --> */}
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center capitalize space-x-2">
-                      <div className="avater-img bg-indigo-600 text-white">
-                        <span className="">S</span>
-                      </div>
-
-                      <div>
-                        <h5 className="text-slate-500 text-sm">
-                          <Link to="/singleBlog">Saad Hasan</Link>
-                        </h5>
-                        <div className="flex items-center text-xs text-slate-700">
-                          <span>June 28, 2018</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="text-sm px-2 py-1 text-slate-700">
-                      <span>100 Likes</span>
-                    </div>
-                  </div>
-
-                  {/* <!-- action dot --> */}
-                  <div className="absolute right-0 top-0">
-                    <button onClick={toggleModal}>
-                      <HiDotsVertical color="white" />
-                    </button>
-
-                    {/* <!-- Action Menus Popup --> */}
-                    {modalOpen && <ActionMenuModal />}
-                  </div>
-
-                  {/* <!-- action dot ends --> */}
-                </div>
-              </div>
-              {/* <!-- Blog Card End --> */}
-            </div>
+            <BlogsContent />
 
             {/* <!-- Sidebar --> */}
             <div className="md:col-span-2 h-full w-full space-y-5">

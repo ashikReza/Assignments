@@ -41,6 +41,9 @@ export default function ProfileImg() {
         }
       );
       if (response.status === 200) {
+        // Save the updated avatar URL to local storage
+        localStorage.setItem("avatar", response.data.user.avatar);
+
         dispatch({
           type: actions.profile.IMAGE_UPDATED,
           data: response.data.user,

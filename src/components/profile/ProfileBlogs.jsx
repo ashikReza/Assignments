@@ -57,7 +57,7 @@ export default function ProfileBlogs() {
                   {blog.author.avatar ? (
                     <img
                       src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
-                        blog.author.avatar
+                        state.user.avatar
                       }`}
                       alt=""
                       className="avater-img"

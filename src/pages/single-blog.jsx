@@ -1,75 +1,115 @@
-/* eslint-disable react/no-unescaped-entities */
-import bg from "../assets/blogs/React-Roadmap.jpg";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
+import Load from "../assets/load.gif";
 
 import Comments from "../components/Comments";
 import FloatingActions from "../components/FloatingActions";
 import Footer from "../components/common/Footer";
 
+import useToken from "../hooks/useToken.js";
+
 export default function SingleBlog() {
+  const { id } = useParams();
+  const { api } = useToken();
+
+  const [blogData, setBlogData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchBlogData = async () => {
+      try {
+        const response = await api.get(`http://localhost:3000/blogs/${id}`);
+        if (response.status === 200) {
+          const data = response.data;
+
+          setBlogData(data);
+          setLoading(false);
+        } else {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+      } catch (error) {
+        console.error(error);
+        setError("Failed to fetch blog data");
+        setLoading(false);
+      }
+    };
+
+    fetchBlogData();
+  }, [api, id]);
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen flex justify-center mt-28">
+        <img src={Load} alt="Loading..." className=" size-60" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!blogData) {
+    return <p>No data available for this blog</p>;
+  }
+
   return (
     <>
       <section className="bg-[#030317] text-white px-4">
         <div className="w-full flex flex-col justify-center text-center py-8">
-          <h1 className="font-bold text-3xl md:text-5xl">
-            Integer Maecenas Eget Viverra
-          </h1>
+          <h1 className="font-bold text-3xl md:text-5xl">{blogData.title}</h1>
           <div className="flex justify-center items-center my-4 gap-4">
             <div className="flex items-center capitalize space-x-2">
-              <div className="avater-img bg-indigo-600 text-white">
-                <span className="">S</span>
-              </div>
-              <h5 className="text-slate-500 text-sm">Saad Hasan</h5>
+              {blogData.author.avatar ? (
+                <>
+                  <div className="avater-img bg-indigo-600 text-white">
+                    <img
+                      src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
+                        blogData.author.avatar
+                      }`}
+                      alt=""
+                      className=" rounded-full"
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="avater-img bg-indigo-600 text-white">
+                    <span className="">
+                      {blogData.author.firstName[0].toUpperCase()}
+                    </span>
+                  </div>
+                </>
+              )}
+
+              <h5 className="text-slate-500 text-sm">
+                {blogData.author.firstName} {blogData.author.lastName}
+              </h5>
             </div>
-            <span className="text-sm text-slate-700 dot">June 28, 2018</span>
-            <span className="text-sm text-slate-700 dot">100 Likes</span>
+            <span className="text-sm text-slate-700 dot">
+              {new Date(blogData.createdAt).toLocaleDateString()}
+            </span>
+            <span className="text-sm text-slate-700 dot">
+              {blogData.likes.length} Likes
+            </span>
           </div>
           <img
-            className="mx-auto w-full md:w-8/12 object-cover h-80 md:h-96"
-            src={bg}
+            className="mx-auto w-full md:w-8/12 object-cover h-80 md:h-96 rounded"
+            src={`${import.meta.env.VITE_SERVER_BLOG_URL}/${
+              blogData.thumbnail
+            }`}
             alt=""
           />
 
           {/* <!-- Tags --> */}
-          <ul className="tags">
-            <li>JavaScript</li>
-            <li>Node</li>
-            <li>React</li>
-            <li>Next</li>
-          </ul>
+          {Array.isArray(blogData.tags) &&
+            blogData.tags.map((tag, index) => <li key={index}>{tag}</li>)}
 
           {/* <!-- Content --> */}
           <div className="mx-auto w-full md:w-10/12 text-slate-300 text-base md:text-lg leading-8 py-2 !text-left">
-            Today I was mob programming with Square's Mobile & Performance
-            Reliability team and we toyed with an interesting idea. Our codebase
-            has classes that represent screens a user can navigate to. These
-            classes are defined in modules, and these modules have an owner team
-            defined. When navigating to a screen, we wanted to have the owner
-            team information available, at runtime. We created a build tool that
-            looks at about 1000 Screen classes, determines the owner team, and
-            generates a className to do the lookup at runtime. The generated
-            code looked like this:
-            <br />
-            mapOf(vararg pairs: Pair) is a nice utility to create a map (more
-            specifically, a LinkedHashMap) but using that syntax leads to the
-            creation of a temporary vararg array of size 1000, as well as 1000
-            temporary Pair instances. Memory hoarding Let's look at the retained
-            size of the map we just created: ~30 characters per className name *
-            2 bytes per character = 60 bytes per entry Each entry is stored as a
-            LinkedHashMapEntry which adds 2 references to HashMap.Node which
-            itself holds 3 references and 1 int. On a 64bit VM that's 5
-            references * 8 bytes, plus 4 bytes for the int: 44 bytes per entry.
-            So for the entries alone we're at (60 + 44) * 1000 = 104 KB. The
-            default load factor is 75%, which means the size of the array
-            backing the hashmap must always be at least 25% greater than the
-            number of entries. And the array size has to be a factor of 2. So,
-            for 1000 entries, that's an object array of size 2048: 2048 * 8 =
-            16,314 bytes. The total retained size of the map is ~120 KB. Can we
-            do better? Could we make it... 0?
-            <h2 className="font-bold text-3xl mt-4">100% code-based map</h2>
-            What if we generate code that returns the right team for a given
-            screen, instead of creating a map? Since we know the full list of
-            screen classes, we can check ahead of time whether there's any
-            hashcode conflict, and if not, we can generate code that directly
+            {blogData.content}
           </div>
         </div>
       </section>

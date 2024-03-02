@@ -24,7 +24,7 @@ function App() {
         <Route element={<PrivateRoutes />}>
           <Route element={<Home />} path="/" exact />
           <Route element={<Profile />} path="/profile" />
-          <Route element={<SingleBlog />} path="/singleBlog" />
+          <Route element={<SingleBlog />} path="/singleBlog/:id" />
         </Route>
 
         <Route element={<Login />} path="/login" />
