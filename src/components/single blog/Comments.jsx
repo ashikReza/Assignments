@@ -5,7 +5,7 @@
 import { useAuth } from "../../hooks/useAuth.js";
 
 import { useState } from "react";
-import useToken from "../../hooks/useToken.js";// Import Axios
+import useToken from "../../hooks/useToken.js";
 
 export default function Comments({ blogData }) {
   // Extract comments from blogData
@@ -16,8 +16,8 @@ export default function Comments({ blogData }) {
 
   const myAvatar = auth.user.avatar;
 
-  const [commentContent, setCommentContent] = useState(""); 
-  const [commentsState, setComments] = useState(comments); 
+  const [commentContent, setCommentContent] = useState("");
+  const [commentsState, setComments] = useState(comments);
 
   const handleAddComment = async () => {
     try {
@@ -28,13 +28,12 @@ export default function Comments({ blogData }) {
         },
         {
           headers: {
-            Authorization: `Bearer ${auth.accessToken}`, 
+            Authorization: `Bearer ${auth.accessToken}`,
             "Content-Type": "application/json",
           },
         }
       );
 
-      // Assuming the response contains the updated comments array
       // Update the comments state with the new array of comments
       setComments(response.data.comments);
 
@@ -72,7 +71,7 @@ export default function Comments({ blogData }) {
             <div className="flex justify-end mt-4">
               <button
                 className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
-                onClick={handleAddComment} // Call the handleAddComment function when the button is clicked
+                onClick={handleAddComment}
               >
                 Comment
               </button>
