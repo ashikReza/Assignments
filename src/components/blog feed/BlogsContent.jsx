@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { HiDotsVertical } from "react-icons/hi";
-import ActionMenuModal from "../../components/ActionMenuModal";
+import ActionMenuModal from "./ActionMenuModal.jsx";
 
 import { useAuth } from "../../hooks/useAuth.js";
 import useToken from "../../hooks/useToken.js";

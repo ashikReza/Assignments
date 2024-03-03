@@ -3,7 +3,7 @@ import { useProfile } from "../../hooks/useProfile";
 import { actions } from "../../actions/index.js";
 
 import { HiDotsVertical } from "react-icons/hi";
-import ActionMenuModal from "../../components/ActionMenuModal";
+import ActionMenuModal from "../blog feed/ActionMenuModal.jsx";
 
 import { Link } from "react-router-dom";
 
