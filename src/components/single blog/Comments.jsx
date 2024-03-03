@@ -4,13 +4,46 @@
 
 import { useAuth } from "../../hooks/useAuth.js";
 
+import { useState } from "react";
+import useToken from "../../hooks/useToken.js";// Import Axios
+
 export default function Comments({ blogData }) {
   // Extract comments from blogData
   const { comments } = blogData;
 
   const { auth } = useAuth();
+  const { api } = useToken();
 
   const myAvatar = auth.user.avatar;
+
+  const [commentContent, setCommentContent] = useState(""); 
+  const [commentsState, setComments] = useState(comments); 
+
+  const handleAddComment = async () => {
+    try {
+      const response = await api.post(
+        `http://localhost:3000/blogs/${blogData.id}/comment`,
+        {
+          content: commentContent, // Pass the content of the new comment in the request body
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${auth.accessToken}`, 
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // Assuming the response contains the updated comments array
+      // Update the comments state with the new array of comments
+      setComments(response.data.comments);
+
+      // Clear the comment input after adding the comment
+      setCommentContent("");
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    }
+  };
 
   return (
     <section id="comments" className="bg-[#030317] text-white py-1">
@@ -33,9 +66,14 @@ export default function Comments({ blogData }) {
             <textarea
               className="w-full bg-[#030317] border border-slate-500 text-slate-300 p-4 rounded-md focus:outline-none"
               placeholder="Write a comment"
+              value={commentContent}
+              onChange={(e) => setCommentContent(e.target.value)} // Update the comment content state
             ></textarea>
             <div className="flex justify-end mt-4">
-              <button className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200">
+              <button
+                className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
+                onClick={handleAddComment} // Call the handleAddComment function when the button is clicked
+              >
                 Comment
               </button>
             </div>
@@ -43,7 +81,7 @@ export default function Comments({ blogData }) {
         </div>
 
         {/* <!-- Comment --> */}
-        {comments.map((comment) => (
+        {commentsState.map((comment) => (
           <div key={comment.id} className="flex items-start space-x-4 my-8 ">
             {comment.author.avatar ? (
               <img
