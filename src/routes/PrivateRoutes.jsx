@@ -15,11 +15,11 @@ export default function PrivateRoutes() {
   }
 
   return (
-    <ProfileProvider>
-      <BlogsProvider>
+    <BlogsProvider>
+      <ProfileProvider>
         <Header />
         <Outlet />
-      </BlogsProvider>
-    </ProfileProvider>
+      </ProfileProvider>
+    </BlogsProvider>
   );
 }
