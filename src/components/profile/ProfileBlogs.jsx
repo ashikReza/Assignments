@@ -5,6 +5,8 @@ import { actions } from "../../actions/index.js";
 import { HiDotsVertical } from "react-icons/hi";
 import ActionMenuModal from "../../components/ActionMenuModal";
 
+import { Link } from "react-router-dom";
+
 export default function ProfileBlogs() {
   const { state, dispatch } = useProfile();
 
@@ -33,10 +35,11 @@ export default function ProfileBlogs() {
           />
           <div className="mt-2">
             <div className="flex justify-between">
-              <h3 className="text-slate-300 text-xl lg:text-2xl">
-                {blog.title}
-              </h3>
-
+              <Link to={`/singleBlog/${blog.id}`}>
+                <h3 className="text-slate-300 text-xl lg:text-2xl">
+                  {blog.title}
+                </h3>
+              </Link>
               {/* <!-- action dot --> */}
               <div className=" relative right-0">
                 <button onClick={() => toggleModal(blog.id)}>
