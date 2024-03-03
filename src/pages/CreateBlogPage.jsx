@@ -2,20 +2,25 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
 import { useState, useRef } from "react";
-import { IoIosCloseCircleOutline } from "react-icons/io";
-import { useAuth } from "../hooks/useAuth";
+
+import { useAuth } from "../hooks/useAuth.js";
 import { useBlogs } from "../hooks/useBlogs.js";
-import { useProfile } from "../hooks/useProfile";
+import { useProfile } from "../hooks/useProfile.js";
 import useToken from "../hooks/useToken.js";
 import { actions } from "../actions/index.js";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-export default function CreateBlog({ onClose }) {
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
+export default function CreateBlog() {
   const { auth } = useAuth();
   const { dispatch } = useBlogs();
   const { api } = useToken();
   const { state: profile } = useProfile();
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -28,12 +33,6 @@ export default function CreateBlog({ onClose }) {
   const fileInputRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUploaded, setImageUploaded] = useState(false);
-
-  const handleModalClick = (e) => {
-    if (e.target.classList.contains("Modal")) {
-      onClose();
-    }
-  };
 
   const handleImageUpload = () => {
     fileInputRef.current.click();
@@ -72,7 +71,7 @@ export default function CreateBlog({ onClose }) {
 
         toast.success("Blog created successfully");
 
-        onClose();
+        navigate("/");
       } else {
         dispatch({
           type: actions.blogs.FETCH_BLOGS_FAILURE,
@@ -89,19 +88,15 @@ export default function CreateBlog({ onClose }) {
   };
 
   return (
-    <section
-      className="h-screen flex justify-center fixed top-0 left-0 w-full bg-slate-800/50 backdrop-blur-sm z-50 Modal"
-      onClick={handleModalClick}
+    <motion.section
+      className="h-full w-full flex justify-center absolute top-0 left-0 bg-slate-800/50 backdrop-blur-sm z-50 mt-32 sm:mt-24"
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.5 }}
+      transition={{ type: "spring", stiffness: 260, damping: 30 }}
     >
-      <div className="container bg-black text-white rounded m-4 sm:top-32 popup-animation">
+      <div className="w-screen bg-black text-white rounded ">
         <form className="createBlog" onSubmit={handleSubmit(handlePostSubmit)}>
-          <button
-            className="fixed top-6 sm:top-10 right-6 sm:right-36 cursor-pointer"
-            onClick={onClose}
-          >
-            <IoIosCloseCircleOutline className="size-10" />
-          </button>
-
           <div className="grid place-items-center bg-slate-600/20 h-[150px] rounded-md my-4">
             <div className="flex items-center gap-4 hover:scale-110 transition-all cursor-pointer">
               <label htmlFor="imageInput">
@@ -176,6 +171,6 @@ export default function CreateBlog({ onClose }) {
           </button>
         </form>
       </div>
-    </section>
+    </motion.section>
   );
 }

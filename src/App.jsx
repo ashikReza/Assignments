@@ -13,6 +13,8 @@ import Profile from "./pages/profile.jsx";
 import SingleBlog from "./pages/single-blog.jsx";
 import PageNotFound from "./pages/PageNotFound.jsx";
 
+import CreateBlog from "./pages/CreateBlogPage.jsx";
+
 import { Routes, Route } from "react-router-dom";
 
 import PrivateRoutes from "./routes/PrivateRoutes.jsx";
@@ -25,6 +27,8 @@ function App() {
           <Route element={<Home />} path="/" exact />
           <Route element={<Profile />} path="/profile" />
           <Route element={<SingleBlog />} path="/singleBlog/:id" />
+          <Route element={<CreateBlog />} path="/createBlog" />
+
         </Route>
 
         <Route element={<Login />} path="/login" />
