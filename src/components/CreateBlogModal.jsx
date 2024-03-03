@@ -1,24 +1,81 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
 
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { useAuth } from "../hooks/useAuth";
+import { useBlogs } from "../hooks/useBlogs.js";
+import { useProfile } from "../hooks/useProfile";
+import useToken from "../hooks/useToken.js";
+import { actions } from "../actions/index.js";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function CreateBlog({ onClose }) {
+  const { auth } = useAuth();
+  const { dispatch } = useBlogs();
+  const { api } = useToken();
+  const { state: profile } = useProfile();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    setError,
+  } = useForm();
+
   const handleModalClick = (e) => {
-    // Check if the click occurred outside of the content area
     if (e.target.classList.contains("Modal")) {
       onClose();
     }
   };
 
+  const handlePostSubmit = async (formData) => {
+    dispatch({ type: actions.blogs.FETCH_BLOGS_REQUEST });
+
+    try {
+      const response = await api.post(
+        `${import.meta.env.VITE_SERVER_BASE_URL}/blogs`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${auth.accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        dispatch({
+          type: actions.blogs.DATA_CREATED,
+          data: response.data.blog,
+        });
+
+        toast.success("Blog created successfully");
+
+        onClose();
+      } else {
+        dispatch({
+          type: actions.blogs.FETCH_BLOGS_FAILURE,
+          error: "Unexpected response status",
+        });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      dispatch({
+        type: actions.blogs.FETCH_BLOGS_FAILURE,
+        error: error.message,
+      });
+    }
+  };
   return (
     <section
       className="h-screen flex justify-center fixed top-0 left-0 w-full bg-slate-800/50 backdrop-blur-sm z-50 Modal"
       onClick={handleModalClick}
     >
       <div className="container bg-black text-white rounded m-4 sm:top-32 popup-animation">
-        {/* <!-- Form Input field for creating Blog Post --> */}
-        <form action="#" method="POST" className="createBlog">
+        <form className="createBlog" onSubmit={handleSubmit(handlePostSubmit)}>
           <button
             className="fixed top-6 sm:top-10 right-6 sm:right-36 cursor-pointer"
             onClick={onClose}
@@ -51,7 +108,9 @@ export default function CreateBlog({ onClose }) {
               id="title"
               name="title"
               placeholder="Enter your blog title"
+              {...register("title", { required: true })}
             />
+            {errors.title && <span>This field is required</span>}
           </div>
 
           <div className="mb-6">
@@ -60,24 +119,27 @@ export default function CreateBlog({ onClose }) {
               id="tags"
               name="tags"
               placeholder="Your Comma Separated Tags Ex. JavaScript, React, Node, Express,"
+              {...register("tags")}
             />
           </div>
 
           <div className="mb-6">
             <textarea
+              {...register("content", { required: true })}
               id="content"
               name="content"
               placeholder="Write your blog content"
               rows="8"
             ></textarea>
+            {errors.content && <span>This field is required</span>}
           </div>
 
-          <a
-            href="./createBlog.html"
+          <button
+            type="submit"
             className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
           >
             Create Blog
-          </a>
+          </button>
         </form>
       </div>
     </section>

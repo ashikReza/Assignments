@@ -81,6 +81,10 @@ export default function Comments({ blogData }) {
     }
   };
 
+  const isCommentOwner = (comment) => {
+    return comment.author.id === auth.user.id;
+  };
+
   return (
     <section id="comments" className="bg-[#030317] text-white py-1">
       <div className="mx-auto w-full md:w-10/12 container px-4">
@@ -141,14 +145,16 @@ export default function Comments({ blogData }) {
               <p className="text-slate-300">{comment.content}</p>
             </div>
 
-            <div className=" relative top-1 sm:top-3">
-              <button
-                className="text-white hover:text-red-500"
-                onClick={() => handleDeleteComment(comment.id)}
-              >
-                <RiDeleteBinLine size={22} />
-              </button>
-            </div>
+            {isCommentOwner(comment) && (
+              <div className=" relative top-1 sm:top-3">
+                <button
+                  className="text-white hover:text-red-500"
+                  onClick={() => handleDeleteComment(comment.id)}
+                >
+                  <RiDeleteBinLine size={22} />
+                </button>
+              </div>
+            )}
           </div>
         ))}
 
