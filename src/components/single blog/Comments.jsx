@@ -2,6 +2,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
 
+import { RiDeleteBinLine } from "react-icons/ri";
+
 import { useAuth } from "../../hooks/useAuth.js";
 
 import { useState } from "react";
@@ -19,6 +21,9 @@ export default function Comments({ blogData }) {
   const [commentContent, setCommentContent] = useState("");
   const [commentsState, setComments] = useState(comments);
 
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [commentIdToDelete, setCommentIdToDelete] = useState(null);
+
   const handleAddComment = async () => {
     try {
       const response = await api.post(
@@ -34,13 +39,45 @@ export default function Comments({ blogData }) {
         }
       );
 
-      // Update the comments state with the new array of comments
       setComments(response.data.comments);
 
-      // Clear the comment input after adding the comment
       setCommentContent("");
     } catch (error) {
       console.error("Error adding comment:", error);
+    }
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    setCommentIdToDelete(commentId);
+    setShowConfirmation(true);
+  };
+
+  const confirmDeleteComment = async () => {
+    try {
+      const response = await api.delete(
+        `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/${
+          blogData.id
+        }/comment/${commentIdToDelete}`,
+        {
+          headers: {
+            Authorization: `Bearer ${auth.accessToken}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const updatedComments = commentsState.filter(
+          (comment) => comment.id !== commentIdToDelete
+        );
+
+        setComments(updatedComments);
+      }
+
+      // Reset confirmation state
+      setShowConfirmation(false);
+      setCommentIdToDelete(null);
+    } catch (error) {
+      console.error("Error deleting comment:", error);
     }
   };
 
@@ -81,7 +118,10 @@ export default function Comments({ blogData }) {
 
         {/* <!-- Comment --> */}
         {commentsState.map((comment) => (
-          <div key={comment.id} className="flex items-start space-x-4 my-8 ">
+          <div
+            key={comment.id}
+            className="flex justify-between space-x-4 my-8 "
+          >
             {comment.author.avatar ? (
               <img
                 className="avater-img"
@@ -100,8 +140,42 @@ export default function Comments({ blogData }) {
               <h5 className="text-slate-500 font-bold">{`${comment.author.firstName} ${comment.author.lastName}`}</h5>
               <p className="text-slate-300">{comment.content}</p>
             </div>
+
+            <div className=" relative top-1 sm:top-3">
+              <button
+                className="text-white hover:text-red-500"
+                onClick={() => handleDeleteComment(comment.id)}
+              >
+                <RiDeleteBinLine size={22} />
+              </button>
+            </div>
           </div>
         ))}
+
+        {/* Confirmation Popup */}
+        {showConfirmation && (
+          <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center">
+            <div className=" bg-slate-300 p-8 rounded-lg shadow-lg text-center popup-animation">
+              <p className="text-black">
+                Are you sure you want to delete this comment?
+              </p>
+              <div className="mt-4">
+                <button
+                  className="bg-red-500 text-white px-4 py-2 rounded-md mr-4"
+                  onClick={confirmDeleteComment}
+                >
+                  Yes, Delete
+                </button>
+                <button
+                  className="bg-gray-500 text-white px-4 py-2 rounded-md"
+                  onClick={() => setShowConfirmation(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
