@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Comments from "../single blog/Comments.jsx";
 import FloatingActions from "../single blog/FloatingActions.jsx";
 
@@ -32,7 +33,8 @@ export default function SingleBlogsContent() {
 
           setBlogData(data);
 
-          // console.log(blogData);
+          console.log(blogData);
+          console.log(blogData.comments);
 
           setLoading(false);
         } else {
@@ -130,7 +132,8 @@ export default function SingleBlogsContent() {
       </section>
 
       <FloatingActions blogData={blogData} />
-      <Comments />
+
+      <Comments blogData={blogData} />
     </>
   );
 }

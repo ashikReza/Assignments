@@ -1,13 +1,34 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
-export default function Comments() {
+
+import { useAuth } from "../../hooks/useAuth.js";
+
+export default function Comments({ blogData }) {
+  // Extract comments from blogData
+  const { comments } = blogData;
+
+  const { auth } = useAuth();
+
+  const myAvatar = auth.user.avatar;
+
   return (
     <section id="comments" className="bg-[#030317] text-white py-1">
-      <div className="mx-auto w-full md:w-10/12 container ">
-        <h2 className="text-3xl font-bold my-8">Comments (3)</h2>
+      <div className="mx-auto w-full md:w-10/12 container px-4">
+        <h2 className="text-3xl font-bold my-8">Comments {comments.length}</h2>
         <div className="flex items -center space-x-4">
-          <div className="avater-img bg-indigo-600 text-white">
-            <span className="">S</span>
-          </div>
+          {myAvatar ? (
+            <img
+              className="avater-img"
+              src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${myAvatar}`}
+              alt=""
+            />
+          ) : (
+            <div className="avater-img bg-indigo-600 text-white">
+              <span className="">S</span>
+            </div>
+          )}
+
           <div className="w-full">
             <textarea
               className="w-full bg-[#030317] border border-slate-500 text-slate-300 p-4 rounded-md focus:outline-none"
@@ -21,68 +42,29 @@ export default function Comments() {
           </div>
         </div>
 
-        {/* <!-- Comment One --> */}
-        <div className="flex items-start space-x-4 my-8">
-          <div className="avater-img bg-orange-600 text-white">
-            <span className="">S</span>
-          </div>
-          <div className="w-full">
-            <h5 className="text-slate -500 font-bold">Saad Hasan</h5>
-            <p className="text-slate-300">
-              Today I was mob programming with Square's Mobile & Performance
-              Reliability team and we toyed with an interesting idea. Our
-              codebase has classes that represent screens a user can navigate
-              to. These classes are defined in modules, and these modules have
-              an owner team defined. When navigating to a screen, we wanted to
-              have the owner team information available, at runtime. We created
-              a build tool that looks at about 1000 Screen classes, determines
-              the owner team, and generates a className to do the lookup at
-              runtime. The generated code looked like this:
-            </p>
-          </div>
-        </div>
+        {/* <!-- Comment --> */}
+        {comments.map((comment) => (
+          <div key={comment.id} className="flex items-start space-x-4 my-8 ">
+            {comment.author.avatar ? (
+              <img
+                className="avater-img"
+                src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
+                  comment.author.avatar
+                }`}
+                alt=""
+              />
+            ) : (
+              <div className="avater-img bg-orange-600 text-white">
+                <span>{comment.author.firstName.charAt(0)}</span>
+              </div>
+            )}
 
-        {/* <!-- Comment Two --> */}
-        <div className="flex items-start space-x-4 my-8">
-          <div className="avater-img bg-green-600 text-white">
-            <span className="">S</span>
+            <div className="w-full">
+              <h5 className="text-slate-500 font-bold">{`${comment.author.firstName} ${comment.author.lastName}`}</h5>
+              <p className="text-slate-300">{comment.content}</p>
+            </div>
           </div>
-          <div className="w-full">
-            <h5 className="text-slate -500 font-bold">Saad Hasan</h5>
-            <p className="text-slate-300">
-              Today I was mob programming with Square's Mobile & Performance
-              Reliability team and we toyed with an interesting idea. Our
-              codebase has classes that represent screens a user can navigate
-              to. These classes are defined in modules, and these modules have
-              an owner team defined. When navigating to a screen, we wanted to
-              have the owner team information available, at runtime. We created
-              a build tool that looks at about 1000 Screen classes, determines
-              the owner team, and generates a className to do the lookup at
-              runtime. The generated code looked like this:
-            </p>
-          </div>
-        </div>
-
-        {/* <!-- Comment Three --> */}
-        <div className="flex items-start space-x-4 my-8">
-          <div className="avater-img bg-indigo-600 text-white">
-            <span className="">S</span>
-          </div>
-          <div className="w-full">
-            <h5 className="text-slate -500 font-bold">Saad Hasan</h5>
-            <p className="text-slate-300">
-              Today I was mob programming with Square's Mobile & Performance
-              Reliability team and we toyed with an interesting idea. Our
-              codebase has classes that represent screens a user can navigate
-              to. These classes are defined in modules, and these modules have
-              an owner team defined. When navigating to a screen, we wanted to
-              have the owner team information available, at runtime. We created
-              a build tool that looks at about 1000 Screen classes, determines
-              the owner team, and generates a className to do the lookup at
-              runtime. The generated code looked like this:
-            </p>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );

@@ -7,13 +7,11 @@ import useToken from "../../hooks/useToken";
 
 export default function FloatingActions({ blogData }) {
   const { auth } = useAuth();
-
   const { api } = useToken();
 
   const [liked, setLiked] = useState(
     blogData?.likes?.some((like) => like.id === auth?.user?.id)
   );
-
   const [likesCount, setLikesCount] = useState(blogData?.likes?.length || 0);
 
   const handleLike = async () => {
@@ -56,7 +54,9 @@ export default function FloatingActions({ blogData }) {
         <a href="#comments">
           <li>
             <FaRegMessage size={20} color="white" />
-            <span className="text-white">3</span>
+            <span className="text-white">
+              {blogData.comments.length === 0 ? "" : blogData.comments.length}
+            </span>
           </li>
         </a>
       </ul>
