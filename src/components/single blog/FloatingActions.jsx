@@ -1,35 +1,61 @@
-/* eslint-disable react/no-unknown-property */
-// import likeIcon from "../assets/icons/like.svg";
-// import heartIcon from "../assets/icons/heart.svg";
-// import commentIcon from "../assets/icons/comment.svg";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+import { AiOutlineLike, AiFillLike } from "react-icons/ai";
+import { FaRegHeart, FaHeart, FaRegMessage } from "react-icons/fa6";
+import { useAuth } from "../../hooks/useAuth";
+import useToken from "../../hooks/useToken";
 
-import { AiOutlineLike } from "react-icons/ai";
-import { AiFillLike } from "react-icons/ai";
+export default function FloatingActions({ blogData }) {
+  const { auth } = useAuth();
 
-import { FaRegHeart } from "react-icons/fa6";
-import { FaHeart } from "react-icons/fa6";
+  const { api } = useToken();
 
-import { FaRegMessage } from "react-icons/fa6";
+  const [liked, setLiked] = useState(
+    blogData?.likes?.some((like) => like.id === auth?.user?.id)
+  );
 
-export default function FloatingActions() {
+  const [likesCount, setLikesCount] = useState(blogData?.likes?.length || 0);
+
+  const handleLike = async () => {
+    try {
+      const response = await api.post(
+        `http://localhost:3000/blogs/${blogData.id}/like`
+      );
+
+      if (response.status === 200) {
+        if (response.data.isLiked === true) {
+          setLiked(true);
+          setLikesCount(response.data.likes.length);
+        } else {
+          setLiked(false);
+          setLikesCount(response.data.likes.length);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <div class="floating-action">
-      <ul class="floating-action-menus">
-        <li>
-          <AiOutlineLike size={20} color="white" />
-          <AiFillLike size={20} color="white" />
-          <span className="text-white">10</span>
+    <div className="floating-action">
+      <ul className="floating-action-menus">
+        <li onClick={handleLike}>
+          {liked ? (
+            <AiFillLike size={20} color="white" />
+          ) : (
+            <AiOutlineLike size={20} color="white" />
+          )}
+          <span className="text-white">{likesCount}</span>
         </li>
 
         <li>
-          {/* <!-- There is heart-filled.svg in the icons folder --> */}
           <FaRegHeart size={20} color="white" />
           <FaHeart size={20} color="red" />
         </li>
+
         <a href="#comments">
           <li>
             <FaRegMessage size={20} color="white" />
-
             <span className="text-white">3</span>
           </li>
         </a>

@@ -7,9 +7,13 @@ import useToken from "../../hooks/useToken.js";
 
 import Load from "../../assets/load-loading.gif";
 
+import { useAuth } from "../../hooks/useAuth";
+
 export default function SingleBlogsContent() {
   const { id } = useParams();
   const { api } = useToken();
+
+  const { auth } = useAuth();
 
   const [blogData, setBlogData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,12 +22,18 @@ export default function SingleBlogsContent() {
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const response = await api.get(`http://localhost:3000/blogs/${id}`);
+        const response = await api.get(`http://localhost:3000/blogs/${id}`, {
+          headers: {
+            Authorization: `Bearer ${auth?.authToken}`,
+          },
+        });
         if (response.status === 200) {
           const data = response.data;
 
           setBlogData(data);
+
           // console.log(blogData);
+
           setLoading(false);
         } else {
           throw new Error(`Request failed with status ${response.status}`);
@@ -119,7 +129,7 @@ export default function SingleBlogsContent() {
         </div>
       </section>
 
-      <FloatingActions />
+      <FloatingActions blogData={blogData} />
       <Comments />
     </>
   );
