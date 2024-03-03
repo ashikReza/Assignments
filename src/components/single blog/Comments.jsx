@@ -22,7 +22,7 @@ export default function Comments({ blogData }) {
   const handleAddComment = async () => {
     try {
       const response = await api.post(
-        `http://localhost:3000/blogs/${blogData.id}/comment`,
+        `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/${blogData.id}/comment`,
         {
           content: commentContent, // Pass the content of the new comment in the request body
         },

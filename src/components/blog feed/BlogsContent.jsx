@@ -29,7 +29,7 @@ export default function BlogsContent() {
     const fetchBlogs = async () => {
       try {
         const response = await api.get(
-          "http://localhost:3000/blogs?page=1&limit=5"
+          `${import.meta.env.VITE_SERVER_BASE_URL}/blogs?page=1&limit=10`
         );
         if (response.status === 200) {
           dispatch({
