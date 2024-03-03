@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
@@ -13,6 +14,10 @@ export default function FloatingActions({ blogData }) {
     blogData?.likes?.some((like) => like.id === auth?.user?.id)
   );
   const [likesCount, setLikesCount] = useState(blogData?.likes?.length || 0);
+
+  const [isFavorited, setIsFavorited] = useState(
+    blogData?.isFavourite || false
+  );
 
   const handleLike = async () => {
     try {
@@ -34,6 +39,26 @@ export default function FloatingActions({ blogData }) {
     }
   };
 
+  const handleFavorite = async () => {
+    try {
+      const response = await api.patch(
+        `http://localhost:3000/blogs/${blogData.id}/favourite`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${auth?.authToken}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setIsFavorited(!isFavorited);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="floating-action">
       <ul className="floating-action-menus">
@@ -46,9 +71,12 @@ export default function FloatingActions({ blogData }) {
           <span className="text-white">{likesCount}</span>
         </li>
 
-        <li>
-          <FaRegHeart size={20} color="white" />
-          <FaHeart size={20} color="red" />
+        <li onClick={handleFavorite}>
+          {isFavorited ? (
+            <FaHeart size={20} color="red" />
+          ) : (
+            <FaRegHeart size={20} color="white" />
+          )}
         </li>
 
         <a href="#comments">
