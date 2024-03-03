@@ -22,14 +22,14 @@ export default function BlogsContent() {
   const { api } = useToken();
   const { auth } = useAuth();
 
-  const { state, dispatch } = useBlogs(); // Using useBlogs hook
+  const { state, dispatch } = useBlogs(); 
 
   useEffect(() => {
-    dispatch({ type: actions.blogs.FETCH_BLOGS_REQUEST }); // Dispatching action to fetch blogs
+    dispatch({ type: actions.blogs.FETCH_BLOGS_REQUEST }); 
     const fetchBlogs = async () => {
       try {
         const response = await api.get(
-          `${import.meta.env.VITE_SERVER_BASE_URL}/blogs?page=2&limit=10`
+          `${import.meta.env.VITE_SERVER_BASE_URL}/blogs?page=1&limit=10`
         );
         if (response.status === 200) {
           dispatch({
@@ -118,7 +118,9 @@ export default function BlogsContent() {
                   </button>
 
                   {/* <!-- Action Menus Popup --> */}
-                  {openBlogId === blog.id && <ActionMenuModal />}
+                  {openBlogId === blog.id && (
+                    <ActionMenuModal blogId={blog.id} />
+                  )}
                 </div>
 
                 {/* <!-- action dot ends --> */}
