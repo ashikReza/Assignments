@@ -14,7 +14,9 @@ export default function PopularBlogs() {
   useEffect(() => {
     const fetchPopularBlogs = async () => {
       try {
-        const response = await api.get("http://localhost:3000/blogs/popular");
+        const response = await api.get(
+          `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/popular`
+        );
 
         setPopularBlogs(response.data.blogs);
         setLoading(false);
