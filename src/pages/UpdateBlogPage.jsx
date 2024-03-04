@@ -64,7 +64,12 @@ export default function UpdateBlog() {
     dispatch({ type: actions.blogs.FETCH_BLOGS_REQUEST });
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append("thumbnail", selectedImage);
+
+      if (selectedImage) {
+        formDataToSend.append("thumbnail", selectedImage);
+      } else {
+        formDataToSend.append("thumbnail", blogData.thumbnail);
+      }
       formDataToSend.append("title", formData.title);
       formDataToSend.append("content", formData.content);
       formDataToSend.append("tags", formData.tags);
@@ -82,7 +87,6 @@ export default function UpdateBlog() {
           type: actions.blogs.DATA_EDITED,
           data: response.data.blog,
         });
-
         toast.success("Blog updated successfully");
         navigate("/");
       } else {
@@ -139,7 +143,7 @@ export default function UpdateBlog() {
                 type="file"
                 accept="image/*"
                 onChange={handleFileInputChange}
-                className="hidden" 
+                className="hidden"
               />
             </div>
           </div>
