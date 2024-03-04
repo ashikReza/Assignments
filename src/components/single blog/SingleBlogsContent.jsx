@@ -30,7 +30,7 @@ export default function SingleBlogsContent() {
     return <p>No data available for this blog</p>;
   }
 
-  const tagsArray = blogData.tags.split(",").map((tag) => tag.trim());
+  const tagsArray = blogData.tags?.split(",").map((tag) => tag.trim()) || [];
 
   return (
     <>
@@ -82,11 +82,13 @@ export default function SingleBlogsContent() {
           />
 
           {/* <!-- Tags --> */}
-          <ul className="tags">
-            {tagsArray.map((tag, index) => (
-              <li key={index}>{tag}</li>
-            ))}
-          </ul>
+          {tagsArray && (
+            <ul className="tags">
+              {tagsArray.map((tag, index) => (
+                <li key={index}>{tag}</li>
+              ))}
+            </ul>
+          )}
 
           {/* <!-- Content --> */}
           <div className="mx-auto w-full md:w-10/12 text-slate-300 text-base md:text-lg leading-8 py-2 !text-left">

@@ -19,7 +19,7 @@ export default function Comments({ blogData }) {
   const myAvatar = auth.user.avatar;
 
   const [commentContent, setCommentContent] = useState("");
-  const [commentsState, setComments] = useState(comments);
+  const [commentsState, setComments] = useState(comments || []);
 
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [commentIdToDelete, setCommentIdToDelete] = useState(null);
@@ -88,7 +88,10 @@ export default function Comments({ blogData }) {
   return (
     <section id="comments" className="bg-[#030317] text-white py-1">
       <div className="mx-auto w-full md:w-10/12 container px-4">
-        <h2 className="text-3xl font-bold my-8">Comments {comments.length}</h2>
+        <h2 className="text-3xl font-bold my-8">
+          Comments {comments && comments.length}
+        </h2>
+
         <div className="flex items -center space-x-4">
           {myAvatar ? (
             <img

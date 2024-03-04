@@ -83,7 +83,9 @@ export default function FloatingActions({ blogData }) {
           <li>
             <FaRegMessage size={20} color="white" />
             <span className="text-white">
-              {blogData.comments.length === 0 ? "" : blogData.comments.length}
+              {blogData.comments && blogData.comments.length > 0
+                ? blogData.comments.length
+                : ""}
             </span>
           </li>
         </a>
