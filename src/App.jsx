@@ -14,6 +14,7 @@ import SingleBlog from "./pages/single-blog.jsx";
 import PageNotFound from "./pages/PageNotFound.jsx";
 
 import CreateBlog from "./pages/CreateBlogPage.jsx";
+import UpdateBlog from "./pages/UpdateBlogPage.jsx";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -27,8 +28,8 @@ function App() {
           <Route element={<Home />} path="/" exact />
           <Route element={<Profile />} path="/profile" />
           <Route element={<SingleBlog />} path="/singleBlog/:id" />
-          <Route element={<CreateBlog />} path="/createBlog" />
-
+          <Route element={<CreateBlog />} path="/createBlog/" />
+          <Route element={<UpdateBlog />} path="/updateBlog/:id" />
         </Route>
 
         <Route element={<Login />} path="/login" />

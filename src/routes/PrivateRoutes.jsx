@@ -6,6 +6,8 @@ import Header from "../components/common/Header";
 import ProfileProvider from "../providers/ProfileProvider";
 import BlogsProvider from "../providers/BlogsProvider";
 
+import { SingleBlogProvider } from "../context/SingleBlogContext.jsx";
+
 export default function PrivateRoutes() {
   const { auth } = useAuth();
 
@@ -18,7 +20,9 @@ export default function PrivateRoutes() {
     <BlogsProvider>
       <ProfileProvider>
         <Header />
-        <Outlet />
+        <SingleBlogProvider>
+          <Outlet />
+        </SingleBlogProvider>
       </ProfileProvider>
     </BlogsProvider>
   );

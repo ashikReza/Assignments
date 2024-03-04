@@ -1,54 +1,18 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import Comments from "../single blog/Comments.jsx";
 import FloatingActions from "../single blog/FloatingActions.jsx";
 
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import useToken from "../../hooks/useToken.js";
 
 import Load from "../../assets/load-loading.gif";
 
-import { useAuth } from "../../hooks/useAuth";
+import useBlogData from "../../hooks/useBlogData";
 
 export default function SingleBlogsContent() {
   const { id } = useParams();
-  const { api } = useToken();
 
-  const { auth } = useAuth();
-
-  const [blogData, setBlogData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchBlogData = async () => {
-      try {
-        const response = await api.get(`http://localhost:3000/blogs/${id}`, {
-          headers: {
-            Authorization: `Bearer ${auth?.authToken}`,
-          },
-        });
-        if (response.status === 200) {
-          const data = response.data;
-
-          setBlogData(data);
-
-          console.log(blogData);
-          console.log(blogData.comments);
-
-          setLoading(false);
-        } else {
-          throw new Error(`Request failed with status ${response.status}`);
-        }
-      } catch (error) {
-        console.error(error);
-        setError("Failed to fetch blog data");
-        setLoading(false);
-      }
-    };
-
-    fetchBlogData();
-  }, [api, id]);
+  const { blogData, loading, error } = useBlogData(id);
 
   if (loading) {
     return (

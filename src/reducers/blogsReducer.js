@@ -45,18 +45,19 @@ const blogsReducer = (state = initialState, action) => {
     }
 
     case actions.blogs.DATA_EDITED: {
-      // This case should handle editing a blog post, not updating user data
-      // You need to find the blog post in state and update its data accordingly
-      // You may need to map through the blogs array and update the specific blog post
+      if (!action.data || !action.data.id) {
+        return state;
+      }
+
       return {
         ...state,
         loading: false,
-        // Update the specific blog post in state
         blogs: state.blogs.map((blog) =>
           blog.id === action.data.id ? action.data : blog
         ),
       };
     }
+
     default:
       return state;
   }

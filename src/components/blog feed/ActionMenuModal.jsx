@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+
 import { MdOutlineEdit } from "react-icons/md";
+import { Link } from "react-router-dom";
+
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useBlogs } from "../../hooks/useBlogs.js";
 import useToken from "../../hooks/useToken.js";
@@ -56,12 +59,14 @@ export default function ActionMenusModal({ blogId }) {
 
   return (
     <>
-      {" "}
       <div className="action-modal-container popup-animation">
-        <button className="action-menu-item hover:text-lwsGreen">
-          <MdOutlineEdit />
-          Edit
-        </button>
+        <Link to={`/updateBlog/${blogId}`}>
+          <button className="action-menu-item hover:text-lwsGreen">
+            <MdOutlineEdit />
+            Edit
+          </button>
+        </Link>
+
         <button
           className="action-menu-item hover:text-red-500"
           onClick={confirmDeleteBlog}
