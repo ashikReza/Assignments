@@ -3,7 +3,7 @@ import { useProfile } from "../../hooks/useProfile";
 import { actions } from "../../actions/index.js";
 
 import { HiDotsVertical } from "react-icons/hi";
-import ActionMenuModal from "../blog feed/ActionMenuModal.jsx";
+import MenuModal from "./MenuModal.jsx";
 
 import { Link } from "react-router-dom";
 
@@ -47,7 +47,7 @@ export default function ProfileBlogs() {
                 </button>
 
                 {/* <!-- Action Menus Popup --> */}
-                {openBlogId === blog.id && <ActionMenuModal />}
+                {openBlogId === blog.id && <MenuModal blogId={blog.id} />}
               </div>
 
               {/* <!-- action dot ends --> */}
