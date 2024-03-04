@@ -21,7 +21,7 @@ export default function Login() {
     register,
     handleSubmit,
     formState: { errors },
-    reset, // Destructure the reset function from useForm
+    reset, 
     setError,
   } = useForm();
 
@@ -54,7 +54,7 @@ export default function Login() {
           toast.success("Login successful.");
           navigate("/");
 
-          // Reset the form after successful submission
+          
           reset();
         }
       }
@@ -88,7 +88,7 @@ export default function Login() {
                 type="email"
                 id="email"
                 name="email"
-                // register the input with React Hook Form and use the required and pattern rules
+              
                 {...register("email", {
                   required: "Email is required",
                   pattern: {
@@ -97,7 +97,7 @@ export default function Login() {
                   },
                 })}
                 className={`w-full p-3 bg-[#030317] border ${
-                  // change the border color to red if there is an error
+                  
                   errors.email ? "border-red-500" : "border-white/20"
                 } rounded-md focus:outline-none focus:border-indigo-500`}
               />
@@ -112,11 +112,11 @@ export default function Login() {
               </label>
               <div className="relative">
                 <input
-                  // use the showPassword state variable to change the type prop
+                 
                   type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
-                  // register the input with React Hook Form and use the required and minLength rules
+                 
                   {...register("password", {
                     required: "Password is required",
                     minLength: {
@@ -125,16 +125,16 @@ export default function Login() {
                     },
                   })}
                   className={`w-full p-3 bg-[#030317] border ${
-                    // change the border color to red if there is an error
+                   
                     errors.password ? "border-red-500" : "border-white/20"
                   } rounded-md focus:outline-none focus:border-indigo-500`}
                 />
                 {/* add a button element to the right of the input */}
                 <button
-                  type="button" // Add type="button" to prevent default form submission behavior
+                  type="button" 
                   className=" absolute right-0 top-0 bottom-0 w-12 flex justify-center items-center"
                   onClick={(e) => {
-                    e.stopPropagation(); // Prevent the click event from propagating to the form
+                    e.stopPropagation(); 
                     togglePassword();
                   }}
                 >

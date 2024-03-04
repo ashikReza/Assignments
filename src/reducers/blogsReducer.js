@@ -27,7 +27,7 @@ const blogsReducer = (state = initialState, action) => {
         loading: false,
         error: action.error,
       };
-    // Handle other actions
+    
     case actions.blogs.DATA_CREATED: {
       return {
         ...state,
@@ -40,7 +40,7 @@ const blogsReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        blogs: state.blogs.filter((item) => item.id !== action.data), // Changed from posts to blogs
+        blogs: state.blogs.filter((item) => item.id !== action.data), 
       };
     }
 

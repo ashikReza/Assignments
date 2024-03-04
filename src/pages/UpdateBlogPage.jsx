@@ -139,7 +139,7 @@ export default function UpdateBlog() {
                 type="file"
                 accept="image/*"
                 onChange={handleFileInputChange}
-                className="hidden" // Hide the file input
+                className="hidden" 
               />
             </div>
           </div>
