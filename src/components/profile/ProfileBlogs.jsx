@@ -103,7 +103,13 @@ export default function ProfileBlogs() {
                 <div>
                   <h5 className="text-slate-500 text-sm">{`${blog.author.firstName} ${blog.author.lastName}`}</h5>
                   <div className="flex items-center text-xs text-slate-700">
-                    <span>{new Date(blog.createdAt).toLocaleDateString()}</span>
+                    <span>
+                      {new Date(blog.createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </span>
                   </div>
                 </div>
               </div>
