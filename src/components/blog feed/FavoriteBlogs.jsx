@@ -56,10 +56,11 @@ export default function FavoriteBlogs() {
                 </h3>
               </Link>
               <p className="text-slate-600 text-sm">
-                {blog.tags
-                  .split(", ")
-                  .map((tag) => `#${tag}`)
-                  .join(", ")}
+                {blog.tags &&
+                  blog.tags
+                    .split(", ")
+                    .map((tag) => `#${tag}`)
+                    .join(", ")}
               </p>
             </li>
           ))}
