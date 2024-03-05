@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 export default function LogoutTimeHeader() {
   return (
-    <header className="w-full bg-black">
-      <nav className="container mx-auto bg-black flex flex-col md:flex-row items-center justify-between px-1 py-5 ">
+    <header className="w-full bg-black px-5">
+      <nav className="container mx-auto bg-black flex flex-row items-center justify-between py-5 ">
         <div>
           <Link to="/">
             <img className="w-32" src={logo} alt="lws" />
