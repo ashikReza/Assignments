@@ -67,7 +67,7 @@ export default function Header() {
                   />
                 ) : (
                   <span className="avater-img bg-orange-600 text-white">
-                    {user?.firstName ? user?.firstName[0] : ""}
+                    {user?.firstName ? user?.firstName[0].toUpperCase() : ""}
                   </span>
                 )}
               </div>

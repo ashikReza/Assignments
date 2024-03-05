@@ -74,7 +74,9 @@ export default function ProfileImg() {
         ) : (
           <div className="w-full h-full text-white bg-orange-600 flex items-center justify-center rounded-full">
             <span className="text-5xl">
-              {state.user?.firstName ? state.user.firstName[0] : ""}
+              {state.user?.firstName
+                ? state.user.firstName[0].toUpperCase()
+                : ""}
             </span>
           </div>
         )}
