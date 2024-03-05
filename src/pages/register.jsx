@@ -6,6 +6,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import axios from "axios";
 // eslint-disable-next-line no-unused-vars
 import { toast } from "react-toastify";
+import LogoutTimeHeader from "../components/LogoutTimeHeader";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -42,6 +43,8 @@ export default function Register() {
 
   return (
     <>
+      <LogoutTimeHeader />
+
       <div className="w-full h-screen bg-[#030317] flex flex-col justify-center">
         <section className="container mx-auto bg-[#030317] flex justify-center ">
           <div className=" md:w-1/2 mx-auto bg-[#030317] text-white p-6 rounded-md mt-12">
