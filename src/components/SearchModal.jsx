@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
 import useToken from "../hooks/useToken";
@@ -14,14 +14,24 @@ export default function Search({ onClose }) {
   const [searchResults, setSearchResults] = useState([]);
   const [query, setQuery] = useState("");
 
-  let debounceTimer;
+  const debounceTimer = useRef(null);
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
 
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(handleSearch, 300);
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
+    debounceTimer.current = setTimeout(handleSearch, 300);
   };
+
+  useEffect(() => {
+    return () => {
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+      }
+    };
+  }, []);
 
   const handleSearch = async () => {
     if (!query.trim()) {
