@@ -35,7 +35,6 @@ export default function SingleBlogsContent() {
   return (
     <>
       <section className="bg-[#030317] text-white px-4">
-        {" "}
         <div className="w-full flex flex-col justify-center text-center py-8">
           <h1 className="font-bold text-3xl md:text-5xl">{blogData.title}</h1>
           <div className="flex justify-center items-center my-4 gap-4">
@@ -48,7 +47,7 @@ export default function SingleBlogsContent() {
                         blogData.author.avatar
                       }`}
                       alt=""
-                      className=" rounded-full"
+                      className="rounded-full"
                     />
                   </div>
                 </>
@@ -81,7 +80,7 @@ export default function SingleBlogsContent() {
             alt=""
           />
 
-          {/* <!-- Tags --> */}
+          {/* Tags */}
           {tagsArray && (
             <ul className="tags">
               {tagsArray.map((tag, index) => (
@@ -90,10 +89,11 @@ export default function SingleBlogsContent() {
             </ul>
           )}
 
-          {/* <!-- Content --> */}
-          <div className="mx-auto w-full md:w-10/12 text-slate-300 text-base md:text-lg leading-8 py-2 !text-left">
-            {blogData.content}
-          </div>
+          {/* Content */}
+          <div
+            className="mx-auto w-full md:w-10/12 text-slate-300 text-base md:text-lg leading-8 py-2 !text-left"
+            dangerouslySetInnerHTML={{ __html: blogData.content }}
+          />
         </div>
       </section>
 
