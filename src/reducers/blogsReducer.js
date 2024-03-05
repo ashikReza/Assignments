@@ -4,6 +4,7 @@ const initialState = {
   blogs: [],
   loading: false,
   error: null,
+  page: 1,
 };
 
 const blogsReducer = (state = initialState, action) => {
@@ -18,7 +19,9 @@ const blogsReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        blogs: action.blogs,
+        blogs:
+          action.page === 1 ? action.blogs : [...state.blogs, ...action.blogs], // Append blogs for subsequent pages
+        page: action.page, // Update current page
         error: null,
       };
     case actions.blogs.FETCH_BLOGS_FAILURE:
@@ -27,7 +30,7 @@ const blogsReducer = (state = initialState, action) => {
         loading: false,
         error: action.error,
       };
-    
+
     case actions.blogs.DATA_CREATED: {
       return {
         ...state,
@@ -40,7 +43,7 @@ const blogsReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        blogs: state.blogs.filter((item) => item.id !== action.data), 
+        blogs: state.blogs.filter((item) => item.id !== action.data),
       };
     }
 
