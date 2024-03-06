@@ -88,7 +88,7 @@ export default function UpdateBlog() {
           data: response.data.blog,
         });
         toast.success("Blog updated successfully");
-        navigate("/");
+        navigate(`/singleBlog/${id}`);
       } else {
         dispatch({
           type: actions.blogs.FETCH_BLOGS_FAILURE,

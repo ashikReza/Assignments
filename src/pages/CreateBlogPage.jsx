@@ -71,7 +71,7 @@ export default function CreateBlog() {
 
         toast.success("Blog created successfully");
 
-        navigate("/");
+        navigate(`/singleBlog/${response.data.blog.id}`);
       } else {
         dispatch({
           type: actions.blogs.FETCH_BLOGS_FAILURE,

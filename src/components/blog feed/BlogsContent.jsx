@@ -90,6 +90,7 @@ export default function BlogsContent() {
 
               <div className="flex justify-between items-center">
                 <div className="flex items-center capitalize space-x-2">
+                  
                   {blog.author.avatar ? (
                     <img
                       src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
@@ -108,7 +109,7 @@ export default function BlogsContent() {
 
                   <div>
                     <h5 className="text-slate-500 text-sm">
-                      <Link to={`/author/${blog.author.id}`}>
+                      <Link to={`/singleBlog/${blog.id}`}>
                         {blog.author.firstName} {blog.author.lastName}
                       </Link>
                     </h5>
