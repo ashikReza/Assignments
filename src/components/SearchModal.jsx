@@ -90,31 +90,31 @@ export default function Search({ onClose }) {
             searchResults.map((result) => (
               <div
                 key={result.id}
-                className="my-4 divide-slate-500/30 max-h-80 "
+                className="my-4 divide-slate-500/30 max-h-80  "
               >
-                <div className="flex gap-6 py-2 flex-col sm:flex-row">
-                  <img
-                    className="h-28 object-cover sm:object-contain"
-                    src={`${import.meta.env.VITE_SERVER_BLOG_URL}/${
-                      result.thumbnail
-                    }`}
-                    alt=""
-                  />
-                  <div className="mt-2">
-                    <Link to={`/singleBlog/${result.id}`}>
-                      <h3
-                        className="text-slate-300 text-xl font-bold"
-                        onClick={onClose}
-                      >
+                <Link to={`/singleBlog/${result.id}`}>
+                  <div
+                    className="flex gap-6 py-2 flex-col sm:flex-row"
+                    onClick={onClose}
+                  >
+                    <img
+                      className="h-28 object-cover sm:object-contain"
+                      src={`${import.meta.env.VITE_SERVER_BLOG_URL}/${
+                        result.thumbnail
+                      }`}
+                      alt=""
+                    />
+                    <div className="mt-2">
+                      <h3 className="text-slate-300 text-xl font-bold">
                         {result.title}
                       </h3>
-                    </Link>
 
-                    <p className="mb-6 text-sm text-slate-500 mt-1 line-clamp-3">
-                      {result.content}
-                    </p>
+                      <p className="mb-6 text-sm text-slate-500 mt-1 line-clamp-3">
+                        {result.content}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </div>
             ))
           ) : (
