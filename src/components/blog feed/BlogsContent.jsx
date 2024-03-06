@@ -91,55 +91,96 @@ export default function BlogsContent() {
     <div className="space-y-3 md:col-span-5">
       {state.blogs.map((blog) => (
         <div key={blog.id} className="blog-card">
-          <img
-            className="blog-thumb"
-            src={`${import.meta.env.VITE_SERVER_BLOG_URL}/${blog.thumbnail}`}
-            alt=""
-          />
+          <Link to={`/singleBlog/${blog.id}`}>
+            <img
+              className="blog-thumb"
+              src={`${import.meta.env.VITE_SERVER_BLOG_URL}/${blog.thumbnail}`}
+              alt=""
+            />
+          </Link>
           <div className="mt-2 relative">
             <Link to={`/singleBlog/${blog.id}`}>
               <h3 className="text-slate-300 text-xl lg:text-2xl">
                 {blog.title}
               </h3>
+
+              <p className="mb-6 text-base text-slate-500 mt-1">
+                {blog.content}
+              </p>
             </Link>
-
-            <p className="mb-6 text-base text-slate-500 mt-1">{blog.content}</p>
-
             <div className="flex justify-between items-center">
-              <div className="flex items-center capitalize space-x-2">
-                {blog.author.avatar ? (
-                  <img
-                    src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
-                      blog.author.avatar
-                    }`}
-                    alt=""
-                    className="avater-img"
-                  />
-                ) : (
-                  <div className="avater-img bg-blue-600 text-white">
-                    {blog.author.firstName
-                      ? blog.author.firstName[0].toUpperCase()
-                      : " "}
-                  </div>
-                )}
+              {auth.user.id === blog.author.id ? (
+                <Link to={`/profile`}>
+                  <div className="flex items-center capitalize space-x-2">
+                    {blog.author.avatar ? (
+                      <img
+                        src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
+                          blog.author.avatar
+                        }`}
+                        alt=""
+                        className="avater-img"
+                      />
+                    ) : (
+                      <div className="avater-img bg-blue-600 text-white">
+                        {blog.author.firstName
+                          ? blog.author.firstName[0].toUpperCase()
+                          : " "}
+                      </div>
+                    )}
 
-                <div>
-                  <h5 className="text-slate-500 text-sm">
-                    <Link to={`/singleBlog/${blog.id}`}>
+                    <div>
+                      <h5 className="text-slate-500 text-sm">
+                        {blog.author.firstName} {blog.author.lastName}
+                      </h5>
+                      <div className="flex items-center text-xs text-slate-700">
+                        <span>
+                          {new Date(blog.createdAt).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            }
+                          )}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ) : (
+                <div className="flex items-center capitalize space-x-2">
+                  {blog.author.avatar ? (
+                    <img
+                      src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
+                        blog.author.avatar
+                      }`}
+                      alt=""
+                      className="avater-img"
+                    />
+                  ) : (
+                    <div className="avater-img bg-blue-600 text-white">
+                      {blog.author.firstName
+                        ? blog.author.firstName[0].toUpperCase()
+                        : " "}
+                    </div>
+                  )}
+
+                  <div>
+                    <h5 className="text-slate-500 text-sm">
                       {blog.author.firstName} {blog.author.lastName}
-                    </Link>
-                  </h5>
-                  <div className="flex items-center text-xs text-slate-700">
-                    <span>
-                      {new Date(blog.createdAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </span>
+                    </h5>
+                    <div className="flex items-center text-xs text-slate-700">
+                      <span>
+                        {new Date(blog.createdAt).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               <div className="text-sm px-2 py-1 text-slate-700">
                 <span>{blog.likes.length} Likes</span>
