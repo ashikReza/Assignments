@@ -87,6 +87,24 @@ export default function BlogsContent() {
     };
   }, [hasMore, page]);
 
+  // Define custom loader component
+  const CustomLoader = () => {
+    return (
+      <div className="blog-card animate-pulse p-4 py-16 border border-gray-300 rounded-lg">
+        <div className="flex space-x-4">
+          <div className="flex-1 space-y-2 py-1">
+            <div className="h-4 bg-gray-200 rounded"></div>
+            <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+          </div>
+        </div>
+        <div className="flex justify-between items-center mt-4">
+          <div className="h-4 bg-gray-200 rounded w-1/3"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-3 md:col-span-5">
       {state.blogs.map((blog) => (
@@ -210,7 +228,7 @@ export default function BlogsContent() {
         </div>
       ))}
       <div ref={sentinelRef}></div>
-      {hasMore && <p className="text-white">Blogs Loading...</p>}
+      {hasMore && <CustomLoader />}
     </div>
   );
 }
