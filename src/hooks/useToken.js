@@ -38,8 +38,6 @@ const useToken = () => {
             );
             const { token } = response.data;
 
-            console.log(`new token: ${token}`);
-
             setAuth({ ...auth, authToken: token });
 
             // Modify the original request headers
@@ -49,6 +47,7 @@ const useToken = () => {
             return axios(originalRequest);
           } catch (error) {
             console.error("Error refreshing token:", error);
+            // Handle error gracefully
             throw error;
           }
         }

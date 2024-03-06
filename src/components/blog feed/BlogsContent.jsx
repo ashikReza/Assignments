@@ -210,7 +210,7 @@ export default function BlogsContent() {
         </div>
       ))}
       <div ref={sentinelRef}></div>
-      {hasMore && <p>Blogs Loading...</p>}
+      {hasMore && <p className="text-white">Blogs Loading...</p>}
     </div>
   );
 }
