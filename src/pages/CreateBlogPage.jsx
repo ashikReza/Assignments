@@ -33,6 +33,7 @@ export default function CreateBlog() {
   const fileInputRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUploaded, setImageUploaded] = useState(false);
+  const [imageRequired, setImageRequired] = useState(false);
 
   const handleImageUpload = () => {
     fileInputRef.current.click();
@@ -41,10 +42,16 @@ export default function CreateBlog() {
   const handleFileInputChange = (event) => {
     setSelectedImage(event.target.files[0]);
     setImageUploaded(true);
+    setImageRequired(false);
   };
 
   const handlePostSubmit = async (formData) => {
     dispatch({ type: actions.blogs.FETCH_BLOGS_REQUEST });
+
+    if (!selectedImage) {
+      setImageRequired(true);
+      return;
+    }
 
     try {
       const formDataToSend = new FormData();
@@ -130,6 +137,10 @@ export default function CreateBlog() {
               />
             </div>
           </div>
+          {imageRequired && (
+            <span className="text-red-500">An image is required for the blog</span>
+          )}
+          {/* Step 3 */}
           <div className="mb-6">
             <input
               type="text"
@@ -138,7 +149,9 @@ export default function CreateBlog() {
               placeholder="Enter your blog title"
               {...register("title", { required: true })}
             />
-            {errors.title && <span>This field is required</span>}
+            {errors.title && (
+              <span className="text-red-500">Title is required for the blog</span>
+            )}
           </div>
 
           <div className="mb-6">
@@ -149,7 +162,9 @@ export default function CreateBlog() {
               placeholder="Your Comma Separated Tags Ex. JavaScript, React, Node, Express,"
               {...register("tags", { required: true })}
             />
-            {errors.tags && <span>This field is required</span>}
+            {errors.tags && (
+              <span className="text-red-500">Tags are required for the blog</span>
+            )}
           </div>
 
           <div className="mb-6">
@@ -160,7 +175,9 @@ export default function CreateBlog() {
               placeholder="Write your blog content"
               rows="8"
             ></textarea>
-            {errors.content && <span>This field is required</span>}
+            {errors.content && (
+              <span className="text-red-500">Content is required for the blog</span>
+            )}
           </div>
 
           <button
