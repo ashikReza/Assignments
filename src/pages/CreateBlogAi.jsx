@@ -15,7 +15,7 @@ const BlogPostGenerator = ({ onClose, onTitleChange, onContentChange }) => {
   };
 
   const generateBlogPost = async () => {
-    const promptMessage = `Craft an insightful blog post about the topic "${userInput}". Title (maximum ten words). Begin your post with an engaging introduction that captures the essence of the subject. Explore various aspects related to ${userInput} in a detailed and informative manner, showcasing your expertise and providing valuable insights. Avoid starting the blog post with the keyword itself; instead, seamlessly integrate it into the content to maintain flow and readability. Aim to deliver a compelling narrative that captivates readers and leaves them informed and intrigued.`;
+    const promptMessage = `Craft an insightful blog post about the topic "${userInput}". Title (maximum ten words). Begin your post with an engaging introduction that captures the essence of the subject. Explore various aspects related to ${userInput} in a detailed and informative manner, and providing valuable insights. Avoid starting the blog post with the keyword itself; instead, seamlessly integrate it into the content to maintain flow and readability. Aim to deliver a compelling narrative that captivates readers and leaves them informed and intrigued.`;
 
     try {
       setLoading(true);
@@ -84,7 +84,7 @@ const BlogPostGenerator = ({ onClose, onTitleChange, onContentChange }) => {
             <button
               onClick={generateBlogPost}
               disabled={loading}
-              className="py-2 px-4 bg-slate-500 rounded my-4"
+              className="py-2 px-4 bg-slate-500 rounded my-4 hover:scale-105 duration-100"
             >
               {loading ? "Generating..." : "Create Blog Post"}
             </button>
@@ -98,10 +98,12 @@ const BlogPostGenerator = ({ onClose, onTitleChange, onContentChange }) => {
         </div>
 
         {title && content && (
-          <div className=" flex justify-between px-4 my-3">
-            <p className=" font-semibold">Use this content to your blog</p>
+          <div className=" flex flex-col sm:flex-row justify-between px-4 my-3">
+            <p className=" font-semibold">
+              Would you like to include this content in your blog post?
+            </p>
             <button
-              className="py-1 px-3 bg-slate-400 rounded"
+              className="py-1 px-3 bg-slate-500 rounded w-20 hover:scale-105 duration-100 "
               onClick={handleYesButtonClick}
             >
               Yes
