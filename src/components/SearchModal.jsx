@@ -66,7 +66,7 @@ export default function Search({ onClose }) {
 
   return (
     <section
-      className=" fixed left-0 top-[-0.5rem] sm:top-0 w-full h-full grid place-items-center bg-slate-800/50 backdrop-blur-sm z-50 Modal"
+      className=" fixed left-0 top-[-0.5rem] sm:top-0 w-full h-full grid place-items-center bg-slate-800/50 backdrop-blur-sm z-[100] Modal"
       onClick={handleModalClick}
     >
       <div className="relative w-[95%] sm:w-6/12 mx-auto bg-slate-900 p-4 border border-slate-600/50 rounded-lg shadow-lg shadow-slate-400/10 popup-animation">

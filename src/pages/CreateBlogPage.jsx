@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import { useAuth } from "../hooks/useAuth.js";
 import { useBlogs } from "../hooks/useBlogs.js";
@@ -13,6 +13,8 @@ import { toast } from "react-toastify";
 
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+
+import BlogPostGenerator from "../pages/CreateBlogAi.jsx";
 
 export default function CreateBlog() {
   const { auth } = useAuth();
@@ -28,7 +30,12 @@ export default function CreateBlog() {
     formState: { errors },
     reset,
     setError,
+    setValue,
   } = useForm();
+
+  const [showAiModal, setShowAiModal] = useState(false);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
   const fileInputRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -94,6 +101,19 @@ export default function CreateBlog() {
     }
   };
 
+  const toggleAiModal = () => {
+    setShowAiModal(!showAiModal);
+  };
+
+  useEffect(() => {
+    if (title) {
+      setValue("title", title);
+    }
+    if (content) {
+      setValue("content", content);
+    }
+  }, [title, content, setValue]);
+
   return (
     <motion.section
       className="h-full w-full flex justify-center absolute top-0 left-0 bg-slate-800/50 backdrop-blur-sm z-50 mt-32 sm:mt-24"
@@ -103,6 +123,14 @@ export default function CreateBlog() {
       transition={{ type: "spring", stiffness: 260, damping: 30 }}
     >
       <div className="w-screen bg-black text-white rounded ">
+        {/* Use Ai Button */}
+        <button
+          className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200 absolute right-10 sm:right-20"
+          onClick={toggleAiModal}
+        >
+          Use Ai
+        </button>
+
         <form className="createBlog" onSubmit={handleSubmit(handlePostSubmit)}>
           <div className="grid place-items-center bg-slate-600/20 h-[150px] rounded-md my-4">
             <div className="flex items-center gap-4 hover:scale-110 transition-all cursor-pointer">
@@ -133,14 +161,16 @@ export default function CreateBlog() {
                 type="file"
                 accept="image/*"
                 onChange={handleFileInputChange}
-                className="hidden" // Hide the file input
+                className="hidden"
               />
             </div>
           </div>
           {imageRequired && (
-            <span className="text-red-500">An image is required for the blog</span>
+            <span className="text-red-500">
+              An image is required for the blog
+            </span>
           )}
-          {/* Step 3 */}
+
           <div className="mb-6">
             <input
               type="text"
@@ -150,7 +180,9 @@ export default function CreateBlog() {
               {...register("title", { required: true })}
             />
             {errors.title && (
-              <span className="text-red-500">Title is required for the blog</span>
+              <span className="text-red-500">
+                Title is required for the blog
+              </span>
             )}
           </div>
 
@@ -163,7 +195,9 @@ export default function CreateBlog() {
               {...register("tags", { required: true })}
             />
             {errors.tags && (
-              <span className="text-red-500">Tags are required for the blog</span>
+              <span className="text-red-500">
+                Tags are required for the blog
+              </span>
             )}
           </div>
 
@@ -176,7 +210,9 @@ export default function CreateBlog() {
               rows="8"
             ></textarea>
             {errors.content && (
-              <span className="text-red-500">Content is required for the blog</span>
+              <span className="text-red-500">
+                Content is required for the blog
+              </span>
             )}
           </div>
 
@@ -187,6 +223,17 @@ export default function CreateBlog() {
             Create Blog
           </button>
         </form>
+
+        {/* Ai Modal */}
+        {showAiModal && <BlogPostGenerator />}
+
+        {showAiModal && (
+          <BlogPostGenerator
+            onClose={toggleAiModal}
+            onTitleChange={setTitle}
+            onContentChange={setContent}
+          />
+        )}
       </div>
     </motion.section>
   );
