@@ -3,7 +3,7 @@
 import Comments from "../single blog/Comments.jsx";
 import FloatingActions from "../single blog/FloatingActions.jsx";
 
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import Load from "../../assets/load-loading.gif";
 
@@ -38,33 +38,35 @@ export default function SingleBlogsContent() {
         <div className="w-full flex flex-col justify-center text-center py-8">
           <h1 className="font-bold text-3xl md:text-5xl">{blogData.title}</h1>
           <div className="flex justify-center items-center my-4 gap-4">
-            <div className="flex items-center capitalize space-x-2">
-              {blogData.author.avatar ? (
-                <>
-                  <div className="avater-img bg-indigo-600 text-white">
-                    <img
-                      src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
-                        blogData.author.avatar
-                      }`}
-                      alt=""
-                      className="rounded-full"
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="avater-img bg-indigo-600 text-white">
-                    <span className="">
-                      {blogData.author.firstName[0].toUpperCase()}
-                    </span>
-                  </div>
-                </>
-              )}
+            <Link to={`/profile/${blogData.author.id}`}>
+              <div className="flex items-center capitalize space-x-2">
+                {blogData.author.avatar ? (
+                  <>
+                    <div className="avater-img bg-indigo-600 text-white">
+                      <img
+                        src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
+                          blogData.author.avatar
+                        }`}
+                        alt=""
+                        className="rounded-full"
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="avater-img bg-indigo-600 text-white">
+                      <span className="">
+                        {blogData.author.firstName[0].toUpperCase()}
+                      </span>
+                    </div>
+                  </>
+                )}
 
-              <h5 className="text-slate-500 text-sm">
-                {blogData.author.firstName} {blogData.author.lastName}
-              </h5>
-            </div>
+                <h5 className="text-slate-500 text-sm">
+                  {blogData.author.firstName} {blogData.author.lastName}
+                </h5>
+              </div>
+            </Link>
             <span className="text-sm text-slate-700 dot">
               {new Date(blogData.createdAt).toLocaleDateString()}
             </span>

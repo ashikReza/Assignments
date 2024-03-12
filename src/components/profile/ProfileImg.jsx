@@ -16,8 +16,6 @@ export default function ProfileImg() {
   const { auth } = useAuth();
   const { id } = useParams();
 
-  console.log(id);
-
   const fileUploaderRef = useRef();
 
   const handleImageUpload = (event) => {
