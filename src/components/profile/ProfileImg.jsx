@@ -13,7 +13,7 @@ export default function ProfileImg() {
   const { state, dispatch } = useProfile();
   const { api } = usetoken();
 
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const { id } = useParams();
 
   const fileUploaderRef = useRef();
@@ -46,9 +46,14 @@ export default function ProfileImg() {
       if (response.status === 200) {
         // Update the avatar URL in the local storage
         const updatedAvatarUrl = response.data.user.avatar;
-        const authData = JSON.parse(localStorage.getItem("auth"));
-        authData.user.avatar = updatedAvatarUrl;
-        localStorage.setItem("auth", JSON.stringify(authData));
+
+        setAuth(prevAuth => ({
+          ...prevAuth,
+          user: {
+            ...prevAuth.user,
+            avatar: updatedAvatarUrl
+          }
+        }));
 
         dispatch({
           type: actions.profile.IMAGE_UPDATED,
