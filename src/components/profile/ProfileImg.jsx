@@ -7,12 +7,16 @@ import { actions } from "../../actions/index.js";
 import usetoken from "../../hooks/useToken.js";
 
 import { useAuth } from "../../hooks/useAuth.js";
+import { useParams } from "react-router-dom";
 
 export default function ProfileImg() {
   const { state, dispatch } = useProfile();
   const { api } = usetoken();
 
   const { auth } = useAuth();
+  const { id } = useParams();
+
+  console.log(id);
 
   const fileUploaderRef = useRef();
 
@@ -81,16 +85,18 @@ export default function ProfileImg() {
           </div>
         )}
 
-        <form id="form" encType="multipart/form-data">
-          <button
-            className="grid place-items-center absolute bottom-0 right-0 h-7 w-7 rounded-full bg-slate-700 hover:bg-slate-700/80"
-            onClick={handleImageUpload}
-            type="submit"
-          >
-            <MdOutlineEdit color="white" />
-          </button>
-          <input id="file" type="file" ref={fileUploaderRef} hidden />
-        </form>
+        {auth?.user?.id === id && (
+          <form id="form" encType="multipart/form-data">
+            <button
+              className="grid place-items-center absolute bottom-0 right-0 h-7 w-7 rounded-full bg-slate-700 hover:bg-slate-700/80"
+              onClick={handleImageUpload}
+              type="submit"
+            >
+              <MdOutlineEdit color="white" />
+            </button>
+            <input id="file" type="file" ref={fileUploaderRef} hidden />
+          </form>
+        )}
       </div>
     </div>
   );

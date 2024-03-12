@@ -6,9 +6,14 @@ import { HiDotsVertical } from "react-icons/hi";
 import MenuModal from "./MenuModal.jsx";
 
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth.js";
 
 export default function ProfileBlogs() {
   const { state, dispatch } = useProfile();
+
+  const { auth } = useAuth();
+  const { id } = useParams();
 
   // Function to toggle blog content display
   const toggleContentDisplay = (blogId) => {
@@ -54,14 +59,16 @@ export default function ProfileBlogs() {
                   </h3>
                 </Link>
                 {/* <!-- action dot --> */}
-                <div className=" relative right-0">
-                  <button onClick={() => toggleModal(blog.id)}>
-                    <HiDotsVertical color="white" />
-                  </button>
+                {auth?.user?.id === id && (
+                  <div className=" relative right-0">
+                    <button onClick={() => toggleModal(blog.id)}>
+                      <HiDotsVertical color="white" />
+                    </button>
 
-                  {/* <!-- Action Menus Popup --> */}
-                  {openBlogId === blog.id && <MenuModal blogId={blog.id} />}
-                </div>
+                    {/* <!-- Action Menus Popup --> */}
+                    {openBlogId === blog.id && <MenuModal blogId={blog.id} />}
+                  </div>
+                )}
 
                 {/* <!-- action dot ends --> */}
               </div>

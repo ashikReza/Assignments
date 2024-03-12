@@ -48,10 +48,12 @@ export default function PopularBlogs() {
                     {blog.title}
                   </h3>
                 </Link>
-                <p className="text-slate-600 text-sm">
-                  by {blog.author.firstName} {blog.author.lastName}
-                  <span>·</span> {blog.likes.length} Likes
-                </p>
+                <Link to={`/profile/${blog.author.id}`}>
+                  <p className="text-slate-600 text-sm">
+                    by {blog.author.firstName} {blog.author.lastName}
+                    <span>·</span> {blog.likes.length} Likes
+                  </p>
+                </Link>
               </>
             </li>
           ))}

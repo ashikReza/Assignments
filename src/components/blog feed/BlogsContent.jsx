@@ -127,45 +127,7 @@ export default function BlogsContent() {
               </p>
             </Link>
             <div className="flex justify-between items-center">
-              {auth.user.id === blog.author.id ? (
-                <Link to={`/profile`}>
-                  <div className="flex items-center capitalize space-x-2">
-                    {blog.author.avatar ? (
-                      <img
-                        src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
-                          blog.author.avatar
-                        }`}
-                        alt=""
-                        className="avater-img"
-                      />
-                    ) : (
-                      <div className="avater-img bg-blue-600 text-white">
-                        {blog.author.firstName
-                          ? blog.author.firstName[0].toUpperCase()
-                          : " "}
-                      </div>
-                    )}
-
-                    <div>
-                      <h5 className="text-slate-500 text-sm">
-                        {blog.author.firstName} {blog.author.lastName}
-                      </h5>
-                      <div className="flex items-center text-xs text-slate-700">
-                        <span>
-                          {new Date(blog.createdAt).toLocaleDateString(
-                            "en-US",
-                            {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            }
-                          )}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ) : (
+              <Link to={`/profile/${blog.author.id}`}>
                 <div className="flex items-center capitalize space-x-2">
                   {blog.author.avatar ? (
                     <img
@@ -198,7 +160,7 @@ export default function BlogsContent() {
                     </div>
                   </div>
                 </div>
-              )}
+              </Link>
 
               <div className="text-sm px-2 py-1 text-slate-700">
                 <span>{blog.likes.length} Likes</span>

@@ -13,18 +13,21 @@ import ProfileImg from "../components/profile/ProfileImg.jsx";
 import ProfileBio from "../components/profile/ProfileBio.jsx";
 import ProfileBlogs from "../components/profile/ProfileBlogs.jsx";
 
+import { useParams } from "react-router-dom";
+
 export default function Profile() {
   const { state, dispatch } = useProfile();
 
   const { api } = useToken();
   const { auth } = useAuth();
+  const { id } = useParams();
 
   useEffect(() => {
     dispatch({ type: actions.profile.DATA_FETCHING });
     const fetchProfile = async () => {
       try {
         const profileResponse = await api.get(
-          `${import.meta.env.VITE_SERVER_BASE_URL}/profile/${auth?.user?.id}`
+          `${import.meta.env.VITE_SERVER_BASE_URL}/profile/${id}`
         );
         dispatch({
           type: actions.profile.PROFILE_DATA_FETCHED,
@@ -41,7 +44,7 @@ export default function Profile() {
     };
 
     fetchProfile();
-  }, [api, auth?.user?.id, dispatch]);
+  }, [api, auth?.user?.id, dispatch, id]);
 
   if (state?.loading) {
     return (

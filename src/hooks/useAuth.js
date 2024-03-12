@@ -1,13 +1,3 @@
-// import { useContext } from "react";
-// import { AutoContext } from "../context/index.js";
-
-// export const useAuth = () => {
-//   const { auth, setAuth } = useContext(AutoContext); // Destructure setAuth from context
-
-//   return { auth, setAuth }; // Return setAuth along with auth
-// };
-
-// useAuth.js
 import { useContext, useDebugValue } from "react";
 import { AuthContext } from "../context/index.js";
 

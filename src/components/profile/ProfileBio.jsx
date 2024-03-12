@@ -9,11 +9,14 @@ import usetoken from "../../hooks/useToken.js";
 
 import { useAuth } from "../../hooks/useAuth.js";
 
+import { useParams } from "react-router-dom";
+
 export default function ProfileBio() {
   const { state, dispatch } = useProfile();
   const { api } = usetoken();
 
   const { auth } = useAuth();
+  const { id } = useParams();
 
   const [bio, setBio] = useState(state?.user?.bio);
   const [editMode, setEditMode] = useState(false);
@@ -66,21 +69,22 @@ export default function ProfileBio() {
         )}
       </div>
 
-      {!editMode ? (
-        <button
-          className="flex-center h-7 w-7 rounded-full"
-          onClick={() => setEditMode(true)}
-        >
-          <MdOutlineEdit color="white" />
-        </button>
-      ) : (
-        <button
-          className="flex-center h-7 w-7 rounded-full"
-          onClick={handleBioEdit}
-        >
-          <FaCheck color="white" />
-        </button>
-      )}
+      {auth?.user?.id === id &&
+        (!editMode ? (
+          <button
+            className="flex-center h-7 w-7 rounded-full"
+            onClick={() => setEditMode(true)}
+          >
+            <MdOutlineEdit color="white" />
+          </button>
+        ) : (
+          <button
+            className="flex-center h-7 w-7 rounded-full"
+            onClick={handleBioEdit}
+          >
+            <FaCheck color="white" />
+          </button>
+        ))}
     </div>
   );
 }
