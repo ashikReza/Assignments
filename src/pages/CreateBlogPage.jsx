@@ -1,21 +1,27 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/no-unknown-property */
 import { useState, useRef, useEffect } from "react";
+
 import { useAuth } from "../hooks/useAuth.js";
-import { actions } from "../actions/index.js";
 import { useBlogs } from "../hooks/useBlogs.js";
 import { useProfile } from "../hooks/useProfile.js";
+import useToken from "../hooks/useToken.js";
+import { actions } from "../actions/index.js";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { db, storage } from "../firebase"; // Import Firebase modules
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+
+import BlogPostGenerator from "../pages/CreateBlogAi.jsx";
 
 export default function CreateBlog() {
   const { auth } = useAuth();
   const { dispatch } = useBlogs();
+  const { api } = useToken();
   const { state: profile } = useProfile();
+
   const navigate = useNavigate();
 
   const {
@@ -27,12 +33,12 @@ export default function CreateBlog() {
     setValue,
   } = useForm();
 
-  const [loading, setLoading] = useState(false);
+  const [showAiModal, setShowAiModal] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [selectedImage, setSelectedImage] = useState(null);
 
   const fileInputRef = useRef(null);
+  const [selectedImage, setSelectedImage] = useState(null);
   const [imageUploaded, setImageUploaded] = useState(false);
   const [imageRequired, setImageRequired] = useState(false);
 
@@ -47,71 +53,56 @@ export default function CreateBlog() {
   };
 
   const handlePostSubmit = async (formData) => {
+    dispatch({ type: actions.blogs.FETCH_BLOGS_REQUEST });
+
+    if (!selectedImage) {
+      setImageRequired(true);
+      return;
+    }
+
     try {
-      setLoading(true); // Set loading to true when form is submitted
+      const formDataToSend = new FormData();
+      formDataToSend.append("thumbnail", selectedImage);
+      formDataToSend.append("title", formData.title);
+      formDataToSend.append("content", formData.content);
+      formDataToSend.append("tags", formData.tags);
 
-      dispatch({ type: actions.blogs.FETCH_BLOGS_REQUEST });
-
-      if (!selectedImage) {
-        setImageRequired(true);
-        setLoading(false); // Reset loading when validation fails
-        return;
-      }
-
-      // Upload image to Firebase Storage
-      const imageRef = ref(storage, `blogThumbnails/${selectedImage.name}`);
-      const uploadTask = uploadBytesResumable(imageRef, selectedImage);
-
-      // Listen for state changes, errors, and completion of the upload.
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          // Handle progress updates
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
-        },
-        (error) => {
-          // Handle unsuccessful uploads
-          console.error("Error uploading image:", error);
-          setLoading(false); // Reset loading after error occurs
-          toast.error(`Error uploading image: ${error.message}`);
-        },
-        async () => {
-          // Handle successful uploads on complete
-          const imageUrl = await getDownloadURL(imageRef);
-
-          // Add blog data to Firestore
-          const docRef = await addDoc(collection(db, "blogs"), {
-            title: formData.title,
-            content: formData.content,
-            tags: formData.tags.split(",").map((tag) => tag.trim()),
-            thumbnailUrl: imageUrl,
-            createdAt: serverTimestamp(),
-            uid: auth.user.uid,
-          });
-
-          // Dispatch action after successful blog creation
-          dispatch({
-            type: actions.blogs.DATA_CREATED,
-            data: { ...formData, thumbnailUrl: imageUrl, id: docRef.id },
-          });
-
-          toast.success("Blog created successfully");
-          navigate(`/singleBlog/${docRef.id}`);
-          setLoading(false); // Reset loading after successful submission
+      const response = await api.post(
+        `${import.meta.env.VITE_SERVER_BASE_URL}/blogs`,
+        formDataToSend,
+        {
+          headers: {
+            Authorization: `Bearer ${auth.accessToken}`,
+          },
         }
       );
+
+      if (response.status === 201) {
+        dispatch({
+          type: actions.blogs.DATA_CREATED,
+          data: response.data.blog,
+        });
+
+        toast.success("Blog created successfully");
+
+        navigate(`/singleBlog/${response.data.blog.id}`);
+      } else {
+        dispatch({
+          type: actions.blogs.FETCH_BLOGS_FAILURE,
+          error: "Unexpected response status",
+        });
+      }
     } catch (error) {
-      console.error("Error adding document:", error);
+      console.error("Error:", error);
       dispatch({
         type: actions.blogs.FETCH_BLOGS_FAILURE,
         error: error.message,
       });
-      toast.error(`Error creating blog: ${error.message}`);
-
-      setLoading(false); // Reset loading after error occurs
     }
+  };
+
+  const toggleAiModal = () => {
+    setShowAiModal(!showAiModal);
   };
 
   useEffect(() => {
@@ -132,6 +123,14 @@ export default function CreateBlog() {
       transition={{ type: "spring", stiffness: 260, damping: 30 }}
     >
       <div className="w-screen bg-black text-white rounded ">
+        {/* Use Ai Button */}
+        <button
+          className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200 absolute right-10 sm:right-20"
+          onClick={toggleAiModal}
+        >
+          Use Ai
+        </button>
+
         <form className="createBlog" onSubmit={handleSubmit(handlePostSubmit)}>
           <div className="grid place-items-center bg-slate-600/20 h-[150px] rounded-md my-4">
             <div className="flex items-center gap-4 hover:scale-110 transition-all cursor-pointer">
@@ -219,14 +218,22 @@ export default function CreateBlog() {
 
           <button
             type="submit"
-            className={` bg-indigo-600 text-white p-3 rounded-md hover:bg-indigo-700 transition-all duration-200 ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
-            disabled={loading} // Disable button while loading
+            className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
           >
-            {loading ? "Uploading..." : "Create Blog"}
+            Create Blog
           </button>
         </form>
+
+        {/* Ai Modal */}
+        {showAiModal && <BlogPostGenerator />}
+
+        {showAiModal && (
+          <BlogPostGenerator
+            onClose={toggleAiModal}
+            onTitleChange={setTitle}
+            onContentChange={setContent}
+          />
+        )}
       </div>
     </motion.section>
   );

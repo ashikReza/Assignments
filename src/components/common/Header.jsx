@@ -11,17 +11,7 @@ export default function Header() {
   const { auth } = useAuth();
   const { showPortal, togglePortal } = usePortal();
 
-  console.log(auth.user.uid);
-  // console.log(auth.user.proactiveRefresh.user.uid);
-
-  /// Extract username and profile URL if auth.user exists
-  let displayName = "";
-  let photoURL = "";
-  if (auth.user) {
-    const user = auth.user.providerData[0];
-    displayName = user.displayName || "";
-    photoURL = user.photoURL || "";
-  }
+  const user = auth?.user;
 
   return (
     <header className="w-full bg-black">
@@ -54,21 +44,25 @@ export default function Header() {
             </li>
             <li className="flex items-center">
               <div className=" ">
-                {photoURL ? (
+                {user.avatar ? (
                   <img
                     className="avater-img"
-                    src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/`}
+                    src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
+                      user.avatar
+                    }`}
                     alt=""
                   />
                 ) : (
                   <span className="avater-img bg-orange-600 text-white">
-                    {displayName ? displayName[0].toUpperCase() : ""}
+                    {user?.firstName ? user?.firstName[0].toUpperCase() : ""}
                   </span>
                 )}
               </div>
               <Link to={`/profile/${auth?.user?.id}`}>
                 <span className="text-white ml-2">
-                  {displayName ? `${displayName}` : ""}
+                  {user?.firstName && user?.lastName
+                    ? `${user?.firstName} ${user?.lastName}`
+                    : ""}
                 </span>
               </Link>
             </li>

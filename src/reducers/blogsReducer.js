@@ -40,24 +40,24 @@ const blogsReducer = (state = initialState, action) => {
     }
 
     case actions.blogs.POST_DELETED: {
-      // Filter out the deleted post by ID
-      const filteredBlogs = state.blogs.filter((item) => item.id !== action.data);
       return {
         ...state,
         loading: false,
-        blogs: filteredBlogs,
+        blogs: state.blogs.filter((item) => item.id !== action.data),
       };
     }
 
     case actions.blogs.DATA_EDITED: {
-      // Map through blogs and update the edited blog
-      const updatedBlogs = state.blogs.map((blog) =>
-        blog.id === action.data.id ? action.data : blog
-      );
+      if (!action.data || !action.data.id) {
+        return state;
+      }
+
       return {
         ...state,
         loading: false,
-        blogs: updatedBlogs,
+        blogs: state.blogs.map((blog) =>
+          blog.id === action.data.id ? action.data : blog
+        ),
       };
     }
 
