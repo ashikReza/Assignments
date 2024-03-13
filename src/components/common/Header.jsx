@@ -11,7 +11,11 @@ export default function Header() {
   const { auth } = useAuth();
   const { showPortal, togglePortal } = usePortal();
 
-  const user = auth?.user;
+  console.log(auth);
+
+  // Extract username and profile URL
+  const user = auth.user.providerData[0];
+  const { displayName, photoURL } = user;
 
   return (
     <header className="w-full bg-black">
@@ -44,7 +48,7 @@ export default function Header() {
             </li>
             <li className="flex items-center">
               <div className=" ">
-                {user.avatar ? (
+                {photoURL ? (
                   <img
                     className="avater-img"
                     src={`${import.meta.env.VITE_SERVER_AVATAR_URL}/${
@@ -54,15 +58,13 @@ export default function Header() {
                   />
                 ) : (
                   <span className="avater-img bg-orange-600 text-white">
-                    {user?.firstName ? user?.firstName[0].toUpperCase() : ""}
+                    {displayName ? displayName[0].toUpperCase() : ""}
                   </span>
                 )}
               </div>
               <Link to={`/profile/${auth?.user?.id}`}>
                 <span className="text-white ml-2">
-                  {user?.firstName && user?.lastName
-                    ? `${user?.firstName} ${user?.lastName}`
-                    : ""}
+                  {displayName ? `${displayName}` : ""}
                 </span>
               </Link>
             </li>
