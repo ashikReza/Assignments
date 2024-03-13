@@ -1,8 +1,6 @@
-import { useState } from "react";
 import logo from "../../assets/logo.svg";
 import { FcSearch } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import CreateBlogModal from "../../pages/CreateBlogPage.jsx";
 import SearchModal from "../SearchModal.jsx";
 import Logout from "../Logout.jsx";
 
@@ -10,16 +8,10 @@ import { useAuth } from "../../hooks/useAuth.js";
 import usePortal from "../../hooks/usePortal.js";
 
 export default function Header() {
-  const [showCreateBlogModal, setShowCreateBlogModal] = useState(false);
-
   const { auth } = useAuth();
   const { showPortal, togglePortal } = usePortal();
 
   const user = auth?.user;
-
-  const toggleCreateBlogModal = () => {
-    setShowCreateBlogModal(!showCreateBlogModal);
-  };
 
   return (
     <header className="w-full bg-black">
@@ -78,9 +70,6 @@ export default function Header() {
         </div>
       </nav>
 
-      {showCreateBlogModal && (
-        <CreateBlogModal onClose={toggleCreateBlogModal} />
-      )}
       {showPortal && <SearchModal onClose={togglePortal} />}
     </header>
   );
