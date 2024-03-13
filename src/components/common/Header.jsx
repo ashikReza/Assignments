@@ -7,23 +7,18 @@ import SearchModal from "../SearchModal.jsx";
 import Logout from "../Logout.jsx";
 
 import { useAuth } from "../../hooks/useAuth.js";
-
+import usePortal from "../../hooks/usePortal.js";
 
 export default function Header() {
   const [showCreateBlogModal, setShowCreateBlogModal] = useState(false);
-  const [showSearchModal, setShowSearchModal] = useState(false);
 
   const { auth } = useAuth();
-  
+  const { showPortal, togglePortal } = usePortal();
 
-  const user =  auth?.user;
+  const user = auth?.user;
 
   const toggleCreateBlogModal = () => {
     setShowCreateBlogModal(!showCreateBlogModal);
-  };
-
-  const toggleSearchModal = () => {
-    setShowSearchModal(!showSearchModal);
   };
 
   return (
@@ -46,7 +41,7 @@ export default function Header() {
             <li>
               <button
                 className="flex items-center gap-2 cursor-pointer"
-                onClick={toggleSearchModal}
+                onClick={togglePortal}
               >
                 <FcSearch size={30} />
                 <span className=" text-white">Search</span>
@@ -86,7 +81,7 @@ export default function Header() {
       {showCreateBlogModal && (
         <CreateBlogModal onClose={toggleCreateBlogModal} />
       )}
-      {showSearchModal && <SearchModal onClose={toggleSearchModal} />}
+      {showPortal && <SearchModal onClose={togglePortal} />}
     </header>
   );
 }
