@@ -44,7 +44,6 @@ export default function PrivateRoutes() {
 
   // Check if user is authenticated and extract user's name
   const isAuthenticated = !!auth;
-  const userName = isAuthenticated ? auth.displayName : "";
 
   // Redirect to login page if user is not authenticated
   if (!isAuthenticated) {
@@ -54,7 +53,7 @@ export default function PrivateRoutes() {
   return (
     <BlogsProvider>
       <ProfileProvider>
-        <Header userName={userName} /> {/* Pass userName to Header component */}
+        <Header />
         <SingleBlogProvider>
           <Outlet />
         </SingleBlogProvider>
