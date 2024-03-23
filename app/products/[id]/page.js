@@ -5,6 +5,8 @@ import Image from "next/image";
 
 import useProducts from "@/lib/useProducts";
 
+import Link from "next/link";
+
 import { FaCircleArrowRight } from "react-icons/fa6";
 import { FaCircleArrowLeft } from "react-icons/fa6";
 
@@ -75,7 +77,9 @@ export default function productPage({ params: { id } }) {
           <h1 className="italic text-xl lg:text-3xl font-serif font-semibold">
             {product.title}
           </h1>
-          <span className="text-[#919090] my-3">{product.category}</span>
+          <Link href={`/category/${product.category}`}>
+            <span className="text-[#919090] my-3">{product.category}</span>
+          </Link>
           <div className="mt-3 flex items-center justify-start gap-1">
             {[...Array(5)].map((_, index) => (
               <Image
