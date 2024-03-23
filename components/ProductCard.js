@@ -1,13 +1,6 @@
 import Link from "next/link";
 
 export default function ProductCard({ product }) {
-  const originalPrice = product.price;
-  const discountPercentage = product.discountPercentage;
-
-  // Calculate the discounted price
-  const discountedPrice =
-    originalPrice - (originalPrice * discountPercentage) / 100;
-
   return (
     <div>
       <div
@@ -19,17 +12,25 @@ export default function ProductCard({ product }) {
           {product.title}
         </Link>
         <span className="text-[#919090]">
-          <a href="./category.html">({product.category})</a>
+          <Link href={`/category/${product.category}`}>
+            ({product.category})
+          </Link>
         </span>
       </h2>
       <p className="text-[#919090] text-sm ">{product.description}</p>
 
-      <p className="text-rose-600 text-sm mt-4">
-        <span className="text-rose-600 opacity-60 line-through">
-          ${product.price}
-        </span>{" "}
-        ${discountedPrice.toFixed(2)}
-      </p>
+      {/* Calculate discounted price */}
+      {product.discountPercentage && (
+        <p className="text-rose-600 text-sm mt-4">
+          <span className="text-rose-600 opacity-60 line-through">
+            ${product.price}
+          </span>{" "}
+          $
+          {((product.price * (100 - product.discountPercentage)) / 100).toFixed(
+            2
+          )}
+        </p>
+      )}
     </div>
   );
 }
