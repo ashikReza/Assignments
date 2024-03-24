@@ -7,8 +7,6 @@ import Link from "next/link";
 export default function CategoryPage({ params: { categoryName } }) {
   const { products } = useProducts();
 
-  console.log(products);
-
   const [selectedCategory, setSelectedCategory] = useState(
     categoryName || "All"
   );
