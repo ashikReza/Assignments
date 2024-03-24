@@ -13,6 +13,16 @@ export default function CategoryPage({ params: { categoryName } }) {
     categoryName || "All"
   );
 
+  // Define categories and their handlers
+  const categories = [
+    { name: "All", handler: () => setSelectedCategory("All") },
+    { name: "smartphones", handler: () => setSelectedCategory("smartphones") },
+    { name: "laptops", handler: () => setSelectedCategory("laptops") },
+    { name: "fragrances", handler: () => setSelectedCategory("fragrances") },
+    { name: "skincare", handler: () => setSelectedCategory("skincare") },
+    { name: "groceries", handler: () => setSelectedCategory("groceries") },
+  ];
+
   // Filter products based on the selected category
   const filteredProducts = products.filter(
     (product) =>
@@ -22,54 +32,17 @@ export default function CategoryPage({ params: { categoryName } }) {
   return (
     <section className="w-11/12 lg:w-10/12 max-w-7xl mx-auto py-0 lg:py-10 lg:flex justify-between items-start">
       <div className="w-full flex items-center justify-between lg:block lg:w-2/12 my-10 lg:my-0 lg:mt-4">
-        <button
-          className={`hover:border-b border-black block h-6 box-border mt-4 ${
-            selectedCategory === "All" ? "font-bold" : ""
-          }`}
-          onClick={() => setSelectedCategory("All")}
-        >
-          All
-        </button>
-        <button
-          className={`hover:border-b border-black block h-6 box-border mt-5 ${
-            selectedCategory === "smartphones" ? "font-bold" : ""
-          }`}
-          onClick={() => setSelectedCategory("smartphones")}
-        >
-          Smartphones
-        </button>
-        <button
-          className={`hover:border-b border-black block h-6 box-border mt-5 ${
-            selectedCategory === "laptops" ? "font-bold" : ""
-          }`}
-          onClick={() => setSelectedCategory("laptops")}
-        >
-          Laptops
-        </button>
-        <button
-          className={`hover:border-b border-black block h-6 box-border mt-5 ${
-            selectedCategory === "fragrances" ? "font-bold" : ""
-          }`}
-          onClick={() => setSelectedCategory("fragrances")}
-        >
-          Fragrances
-        </button>
-        <button
-          className={`hover:border-b border-black block h-6 box-border mt-5 ${
-            selectedCategory === "skincare" ? "font-bold" : ""
-          }`}
-          onClick={() => setSelectedCategory("skincare")}
-        >
-          Skincare
-        </button>
-        <button
-          className={`hover:border-b border-black block h-6 box-border mt-5 ${
-            selectedCategory === "groceries" ? "font-bold" : ""
-          }`}
-          onClick={() => setSelectedCategory("groceries")}
-        >
-          Groceries
-        </button>
+        {categories.map((category, index) => (
+          <button
+            key={index}
+            className={`hover:border-b border-black block h-6 box-border mt-${
+              index === 0 ? "4" : "5"
+            } ${selectedCategory === category.name ? "font-bold" : ""}`}
+            onClick={category.handler}
+          >
+            {category.name}
+          </button>
+        ))}
       </div>
       <div className="sticky top-0 right-0 w-full lg:w-10/12 grid grid-cols-2 gap-4 lg:grid-cols-3 my-4 lg:my-10">
         {filteredProducts.map((product, index) => (

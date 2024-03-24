@@ -5,8 +5,6 @@ import ProductCard from "./ProductCard";
 export default function ProductSection() {
   const { products } = useProducts(12);
 
-  console.log(products);
-
   return (
     <main>
       {/* <!-- Product section start --> */}
