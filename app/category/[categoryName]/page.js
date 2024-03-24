@@ -14,11 +14,11 @@ export default function CategoryPage({ params: { categoryName } }) {
   // Define categories and their handlers
   const categories = [
     { name: "All", handler: () => setSelectedCategory("All") },
-    { name: "smartphones", handler: () => setSelectedCategory("smartphones") },
-    { name: "laptops", handler: () => setSelectedCategory("laptops") },
-    { name: "fragrances", handler: () => setSelectedCategory("fragrances") },
-    { name: "skincare", handler: () => setSelectedCategory("skincare") },
-    { name: "groceries", handler: () => setSelectedCategory("groceries") },
+    { name: "Smartphones", handler: () => setSelectedCategory("smartphones") },
+    { name: "Laptops", handler: () => setSelectedCategory("laptops") },
+    { name: "Fragrances", handler: () => setSelectedCategory("fragrances") },
+    { name: "Skincare", handler: () => setSelectedCategory("skincare") },
+    { name: "Groceries", handler: () => setSelectedCategory("groceries") },
   ];
 
   // Filter products based on the selected category
@@ -35,7 +35,11 @@ export default function CategoryPage({ params: { categoryName } }) {
             key={index}
             className={`hover:border-b border-black block h-6 box-border mt-${
               index === 0 ? "4" : "5"
-            } ${selectedCategory === category.name ? "font-bold" : ""}`}
+            } ${
+              selectedCategory.toLowerCase() === category.name.toLowerCase()
+                ? "font-bold"
+                : ""
+            }`}
             onClick={category.handler}
           >
             {category.name}
