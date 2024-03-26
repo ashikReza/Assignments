@@ -57,7 +57,7 @@ export default function productPage({ params: { id } }) {
                 alt=""
                 width={100}
                 height={100}
-                onClick={() => setCurrentImageIndex(index)}
+                onClick={() => navigateImage(index)}
               />
             ))}
           </div>
@@ -74,7 +74,7 @@ export default function productPage({ params: { id } }) {
               <Image
                 key={index}
                 src="/star.svg"
-                width={20} // Changed from "20px" to 20
+                width={20} 
                 height={20}
                 alt=""
               />
