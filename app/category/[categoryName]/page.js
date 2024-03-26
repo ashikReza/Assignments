@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 
-import useProducts from "@/lib/useProducts";
+import { getProducts } from "@/lib/getProducts";
 import Link from "next/link";
 export default function CategoryPage({ params: { categoryName } }) {
-  const { products } = useProducts();
+  const products = getProducts();
 
   const [selectedCategory, setSelectedCategory] = useState(
     categoryName || "All"

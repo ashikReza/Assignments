@@ -1,9 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
-import useProducts from "@/lib/useProducts";
+
+import { getProducts } from "@/lib/getProducts";
 import ProductCard from "./ProductCard";
 
 export default function ProductSection() {
-  const { products } = useProducts(12);
+  const products = getProducts(12);
 
   return (
     <main>

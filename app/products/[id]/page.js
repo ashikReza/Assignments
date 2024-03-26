@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
-import { useState } from "react";
+
 import Image from "next/image";
 
-import useProducts from "@/lib/useProducts";
+import { getProducts } from "@/lib/getProducts";
+import useImageNavigation from "@/lib/useImageNavigation";
 
 import Link from "next/link";
 
@@ -11,10 +12,7 @@ import { FaCircleArrowRight } from "react-icons/fa6";
 import { FaCircleArrowLeft } from "react-icons/fa6";
 
 export default function productPage({ params: { id } }) {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { products } = useProducts();
-
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const products = getProducts();
 
   // Find the product that matches the provided id
   const product = products.find((product) => product.id === parseInt(id));
@@ -24,18 +22,9 @@ export default function productPage({ params: { id } }) {
     return <h1>Product not found</h1>;
   }
 
-  const navigateImage = (direction) => {
-    if (direction === "next") {
-      setCurrentImageIndex(
-        (prevIndex) => (prevIndex + 1) % product.images.length
-      );
-    } else if (direction === "prev") {
-      setCurrentImageIndex(
-        (prevIndex) =>
-          (prevIndex - 1 + product.images.length) % product.images.length
-      );
-    }
-  };
+  const { currentImageIndex, navigateImage } = useImageNavigation(
+    product.images.length
+  );
 
   return (
     <section className="bg-[#fafaf2] h-full py-20">
