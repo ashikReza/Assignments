@@ -57,7 +57,7 @@ export default function productPage({ params: { id } }) {
                 alt=""
                 width={100}
                 height={100}
-                onClick={() => navigateImage(index)}
+                onClick={() => navigateImage("set", index)}
               />
             ))}
           </div>
