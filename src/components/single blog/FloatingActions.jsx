@@ -22,7 +22,7 @@ export default function FloatingActions({ blogData }) {
   const handleLike = async () => {
     try {
       const response = await api.post(
-        `http://localhost:3000/blogs/${blogData.id}/like`
+        `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/${blogData.id}/like`
       );
 
       if (response.status === 200) {
@@ -42,7 +42,10 @@ export default function FloatingActions({ blogData }) {
   const handleFavorite = async () => {
     try {
       const response = await api.patch(
-        `http://localhost:3000/blogs/${blogData.id}/favourite`,
+        `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/${
+          blogData.id
+        }/favourite`,
+
         null,
         {
           headers: {

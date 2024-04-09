@@ -18,7 +18,7 @@ export default function FavoriteBlogs() {
     async function fetchFavoriteBlogs() {
       try {
         const response = await api.get(
-          "http://localhost:3000/blogs/favourites",
+          `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/favourites`,
           {
             headers: {
               Authorization: `Bearer ${auth.accessToken}`,
