@@ -98,7 +98,7 @@
 
   /* Tags */
   .tags {
-    @apply flex gap-2 mx-auto my-6 justify-center;
+    @apply flex flex-wrap gap-2 mx-auto my-6 justify-center;
   }
 
   .tags li {
