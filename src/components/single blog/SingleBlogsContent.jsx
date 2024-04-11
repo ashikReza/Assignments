@@ -9,10 +9,14 @@ import Load from "../../assets/load-loading.gif";
 
 import useBlogData from "../../hooks/useBlogData";
 
+import { useAuth } from "../../hooks/useAuth.js";
+
 export default function SingleBlogsContent() {
   const { id } = useParams();
 
   const { blogData, loading, error } = useBlogData(id);
+
+  const { auth } = useAuth();
 
   if (loading) {
     return (
@@ -101,7 +105,7 @@ export default function SingleBlogsContent() {
 
       <FloatingActions blogData={blogData} />
 
-      <Comments blogData={blogData} />
+      {auth && <Comments blogData={blogData} />}
     </>
   );
 }

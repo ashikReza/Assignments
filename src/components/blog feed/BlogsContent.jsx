@@ -167,7 +167,7 @@ export default function BlogsContent() {
               </div>
             </div>
 
-            {auth.user.id === blog.author.id ? (
+            {auth && auth.user && auth.user.id === blog.author.id ? (
               <>
                 {/* <!-- action dot --> */}
                 <div className="absolute right-0 top-0">

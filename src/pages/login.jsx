@@ -13,7 +13,6 @@ import { useAuth } from "../hooks/useAuth";
 
 import axios from "axios";
 import { toast } from "react-toastify";
-import LogoutTimeHeader from "../components/LogoutTimeHeader";
 
 /* eslint-disable react/no-unknown-property */
 export default function Login() {
@@ -75,8 +74,6 @@ export default function Login() {
 
   return (
     <>
-      <LogoutTimeHeader/>
-
       <div className="w-full h-screen bg-[#030317] flex flex-col justify-center ">
         <section className="container mx-auto bg-[#030317] flex justify-center ">
           {/* <!-- Login Form into a box center of the page --> */}

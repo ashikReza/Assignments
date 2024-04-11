@@ -18,20 +18,19 @@ import UpdateBlog from "./pages/UpdateBlogPage.jsx";
 
 import { Routes, Route } from "react-router-dom";
 
-import PrivateRoutes from "./routes/PrivateRoutes.jsx";
+import Header from "./components/common/Header.jsx";
 
 function App() {
   return (
     <>
-      <Routes>
-        <Route element={<PrivateRoutes />}>
-          <Route element={<Home />} path="/" exact />
-          <Route element={<Profile />} path="/profile/:id" />
-          <Route element={<SingleBlog />} path="/singleBlog/:id" />
-          <Route element={<CreateBlog />} path="/createBlog/" />
-          <Route element={<UpdateBlog />} path="/updateBlog/:id" />
-        </Route>
+      <Header />
 
+      <Routes>
+        <Route element={<Home />} path="/" exact />
+        <Route element={<Profile />} path="/profile/:id" />
+        <Route element={<SingleBlog />} path="/singleBlog/:id" />
+        <Route element={<CreateBlog />} path="/createBlog/" />
+        <Route element={<UpdateBlog />} path="/updateBlog/:id" />
         <Route element={<Login />} path="/login" />
         <Route element={<Register />} path="/register" />
         <Route element={<PageNotFound />} path="*" />
